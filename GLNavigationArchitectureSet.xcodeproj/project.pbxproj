@@ -12,7 +12,6 @@
 		5859B0F61D1A9053008ED422 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0E51D1A9053008ED422 /* Assets.xcassets */; };
 		5859B0F71D1A9053008ED422 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0E61D1A9053008ED422 /* LaunchScreen.storyboard */; };
 		5859B0F81D1A9053008ED422 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0E81D1A9053008ED422 /* Main.storyboard */; };
-		5859B0F91D1A9053008ED422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0EA1D1A9053008ED422 /* Info.plist */; };
 		5859B0FA1D1A9053008ED422 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0EB1D1A9053008ED422 /* main.m */; };
 		5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0FF1D1A90E4008ED422 /* GLTabBarController.m */; };
 /* End PBXBuildFile section */
@@ -20,8 +19,6 @@
 /* Begin PBXFileReference section */
 		5847093C1D1A97540084B2DC /* AppDelegate+GLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+GLTabBarController.h"; sourceTree = "<group>"; };
 		5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+GLTabBarController.m"; sourceTree = "<group>"; };
-		5847093F1D1A9B250084B2DC /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
-		584709401D1A9B520084B2DC /* Headerff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Headerff.h; sourceTree = "<group>"; };
 		5859B0BC1D1A8F33008ED422 /* GLNavigationArchitectureSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLNavigationArchitectureSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5859B0E31D1A9053008ED422 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5859B0E41D1A9053008ED422 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -99,8 +96,6 @@
 			children = (
 				5859B0FE1D1A90E4008ED422 /* GLTabBarController.h */,
 				5859B0FF1D1A90E4008ED422 /* GLTabBarController.m */,
-				584709401D1A9B520084B2DC /* Headerff.h */,
-				5847093F1D1A9B250084B2DC /* Header.h */,
 			);
 			path = GLTabBarController;
 			sourceTree = "<group>";
@@ -162,7 +157,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5859B0F91D1A9053008ED422 /* Info.plist in Resources */,
 				5859B0F81D1A9053008ED422 /* Main.storyboard in Resources */,
 				5859B0F71D1A9053008ED422 /* LaunchScreen.storyboard in Resources */,
 				5859B0F61D1A9053008ED422 /* Assets.xcassets in Resources */,
@@ -291,7 +285,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = GLNavigationArchitectureSet/Info.plist;
+				INFOPLIST_FILE = GLNavigationArchitectureSetDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "https---github.com-GarfieldLover.GLNavigationArchitectureSet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -302,7 +296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = GLNavigationArchitectureSet/Info.plist;
+				INFOPLIST_FILE = GLNavigationArchitectureSetDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "https---github.com-GarfieldLover.GLNavigationArchitectureSet";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Header.h"
+#import "GLTabBarController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

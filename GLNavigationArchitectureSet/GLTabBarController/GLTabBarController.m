@@ -8,9 +8,13 @@
 
 #import "GLTabBarController.h"
 
+
 NSString *const GLTabBarItemTitle = @"GLTabBarItemTitle";
 NSString *const GLTabBarItemImage = @"GLTabBarItemImage";
 NSString *const GLTabBarItemSelectedImage = @"GLTabBarItemSelectedImage";
+NSString *const GLTabBarItemTitleTextAttributes = @"GLTabBarItemTitleTextAttributes";
+NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelectedTitleTextAttributes";
+
 
 
 @interface GLTabBarController ()
@@ -57,10 +61,17 @@ NSString *const GLTabBarItemSelectedImage = @"GLTabBarItemSelectedImage";
         NSString *title = nil;
         NSString *normalImageName = nil;
         NSString *selectedImageName = nil;
+        NSDictionary *selectedImageNamexx = nil;
+
+        NSDictionary *selectedImageNameff = nil;
+
 //        if (viewController != CYLPlusChildViewController) {
             title = self.tabBarItemsAttributes[idx][GLTabBarItemTitle];
             normalImageName = self.tabBarItemsAttributes[idx][GLTabBarItemImage];
             selectedImageName = self.tabBarItemsAttributes[idx][GLTabBarItemSelectedImage];
+        selectedImageNamexx=self.tabBarItemsAttributes[idx][GLTabBarItemTitleTextAttributes];
+        selectedImageNameff=self.tabBarItemsAttributes[idx][GLTabBarItemSelectedTitleTextAttributes];
+
 //        } else {
 //            idx--;
 //        }
@@ -68,7 +79,9 @@ NSString *const GLTabBarItemSelectedImage = @"GLTabBarItemSelectedImage";
         [self addOneChildViewController:obj
                               WithTitle:title
                         normalImageName:normalImageName
-                      selectedImageName:selectedImageName];
+                      selectedImageName:selectedImageName
+         selectedImageName:selectedImageNamexx selectedImageName:selectedImageNameff];
+        
 //        [viewController cyl_setTabBarController:self];
 //        idx++;
     }];
@@ -77,7 +90,11 @@ NSString *const GLTabBarItemSelectedImage = @"GLTabBarItemSelectedImage";
 - (void)addOneChildViewController:(UIViewController *)viewController
                         WithTitle:(NSString *)title
                   normalImageName:(NSString *)normalImageName
-                selectedImageName:(NSString *)selectedImageName {
+                selectedImageName:(NSString *)selectedImageName
+                selectedImageName:(NSDictionary *)selectedImageNamexx
+                selectedImageName:(NSDictionary *)selectedImageNameff
+
+{
     viewController.tabBarItem.title = title;
     if (normalImageName) {
         UIImage *normalImage = [UIImage imageNamed:normalImageName];
@@ -88,6 +105,9 @@ NSString *const GLTabBarItemSelectedImage = @"GLTabBarItemSelectedImage";
         UIImage *selectedImage = [UIImage imageNamed:selectedImageName];
         selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         viewController.tabBarItem.selectedImage = selectedImage;
+        [viewController.tabBarItem setTitleTextAttributes:selectedImageNamexx forState:UIControlStateNormal];
+        [viewController.tabBarItem setTitleTextAttributes:selectedImageNameff forState:UIControlStateSelected];
+
     }
 //    if (self.shouldCustomizeImageInsets) {
 //        viewController.tabBarItem.imageInsets = self.imageInsets;

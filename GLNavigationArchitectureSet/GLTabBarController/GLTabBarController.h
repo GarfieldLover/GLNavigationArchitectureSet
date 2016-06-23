@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * _Nonnull const GLTabBarItemTitle;
+extern NSString * _Nonnull const GLTabBarItemImage;
+extern NSString * _Nonnull const GLTabBarItemSelectedImage;
+extern NSString * _Nonnull const GLTabBarItemTitleTextAttributes;
+extern NSString * _Nonnull const GLTabBarItemSelectedTitleTextAttributes;
 
 
 @interface GLTabBarController : UITabBarController
