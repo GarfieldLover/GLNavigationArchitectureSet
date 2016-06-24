@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GLTabBar.h"
+#import "GLSpecialButton.h"
+
 
 extern NSString * _Nonnull const GLTabBarItemTitle;
 extern NSString * _Nonnull const GLTabBarItemImage;
@@ -21,6 +24,8 @@ extern NSString * _Nonnull const GLTabBarItemSelectedTitleTextAttributes;
 + (nullable instancetype)tabBarControllerWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes;
 
 - (nullable instancetype)initWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes;
+
+- (void)setTabBarSpecialButtonWith:(nonnull GLSpecialButton *)specialButton;
 
 
 @end

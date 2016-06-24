@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */; };
+		581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 581864361D1CD744001E1CE3 /* GLSpecialButton.m */; };
+		5818643B1D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5818643A1D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.m */; };
 		5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */; };
 		5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0E41D1A9053008ED422 /* AppDelegate.m */; };
 		5859B0F61D1A9053008ED422 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0E51D1A9053008ED422 /* Assets.xcassets */; };
@@ -17,6 +20,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5818642E1D1CD1AD001E1CE3 /* GLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTabBar.h; sourceTree = "<group>"; };
+		5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTabBar.m; sourceTree = "<group>"; };
+		581864351D1CD744001E1CE3 /* GLSpecialButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButton.h; sourceTree = "<group>"; };
+		581864361D1CD744001E1CE3 /* GLSpecialButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpecialButton.m; sourceTree = "<group>"; };
+		581864381D1CD9F7001E1CE3 /* GLSpecialButtonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButtonProtocol.h; sourceTree = "<group>"; };
+		581864391D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButtonSubclass.h; sourceTree = "<group>"; };
+		5818643A1D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpecialButtonSubclass.m; sourceTree = "<group>"; };
 		5847093C1D1A97540084B2DC /* AppDelegate+GLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+GLTabBarController.h"; sourceTree = "<group>"; };
 		5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+GLTabBarController.m"; sourceTree = "<group>"; };
 		5859B0BC1D1A8F33008ED422 /* GLNavigationArchitectureSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLNavigationArchitectureSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +85,8 @@
 				5859B0E41D1A9053008ED422 /* AppDelegate.m */,
 				5847093C1D1A97540084B2DC /* AppDelegate+GLTabBarController.h */,
 				5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */,
+				581864391D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.h */,
+				5818643A1D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.m */,
 				5859B0E51D1A9053008ED422 /* Assets.xcassets */,
 				5859B0E61D1A9053008ED422 /* LaunchScreen.storyboard */,
 				5859B0E81D1A9053008ED422 /* Main.storyboard */,
@@ -96,6 +108,11 @@
 			children = (
 				5859B0FE1D1A90E4008ED422 /* GLTabBarController.h */,
 				5859B0FF1D1A90E4008ED422 /* GLTabBarController.m */,
+				5818642E1D1CD1AD001E1CE3 /* GLTabBar.h */,
+				5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */,
+				581864351D1CD744001E1CE3 /* GLSpecialButton.h */,
+				581864361D1CD744001E1CE3 /* GLSpecialButton.m */,
+				581864381D1CD9F7001E1CE3 /* GLSpecialButtonProtocol.h */,
 			);
 			path = GLTabBarController;
 			sourceTree = "<group>";
@@ -171,8 +188,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5859B0FA1D1A9053008ED422 /* main.m in Sources */,
+				5818643B1D1CDE1E001E1CE3 /* GLSpecialButtonSubclass.m in Sources */,
+				581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */,
 				5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */,
 				5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */,
+				581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */,
 				5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

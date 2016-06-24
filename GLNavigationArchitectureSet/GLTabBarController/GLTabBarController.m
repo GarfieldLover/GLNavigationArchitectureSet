@@ -7,7 +7,7 @@
 //
 
 #import "GLTabBarController.h"
-
+#import "GLTabBar.h"
 
 NSString *const GLTabBarItemTitle = @"GLTabBarItemTitle";
 NSString *const GLTabBarItemImage = @"GLTabBarItemImage";
@@ -42,6 +42,9 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     if (self = [super init]) {
         self.tabBarItemsAttributes = tabBarItemsAttributes;
         self.viewControllers = viewControllers;
+        
+        GLTabBar* tabBar = [[GLTabBar alloc] init];
+        [self setValue:tabBar forKey:@"tabBar"];
     }
     return self;
 }
@@ -118,6 +121,11 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     [self addChildViewController:viewController];
 }
 
+- (void)setTabBarSpecialButtonWith:(nonnull GLSpecialButton *)specialButton
+{
+    [(GLTabBar*)self.tabBar setTabBarSpecialButtonWith:specialButton];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -128,14 +136,5 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

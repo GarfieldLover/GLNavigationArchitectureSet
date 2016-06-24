@@ -7,12 +7,16 @@
 //
 
 #import "AppDelegate+GLTabBarController.h"
+#import "GLSpecialButtonSubclass.h"
 
 @implementation AppDelegate (GLTabBarController)
 
-- (GLTabBarController*)tabBarController{
-    GLTabBarController* ta=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll]];
-    return ta;
+- (GLTabBarController*)tabBarController
+{
+    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll]];
+    GLSpecialButtonSubclass* specialButton = [[GLSpecialButtonSubclass alloc] init];
+    [tabBarController setTabBarSpecialButtonWith:specialButton];
+    return tabBarController;
 }
 
 - (NSArray*)setupViewControllers {
@@ -40,11 +44,11 @@
 - (NSArray*)customizeTabBarForControll {
     // 普通状态下的文字属性
     NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
-    normalAttrs[NSForegroundColorAttributeName] = [UIColor blackColor];
+    normalAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:144.0/255.0 green:144.0/255.0 blue:144.0/255.0 alpha:1];
     
     // 选中状态下的文字属性
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
-    selectedAttrs[NSForegroundColorAttributeName] = [UIColor brownColor];
+    selectedAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:241.0/255.0 green:124.0/255.0 blue:0/255.0 alpha:1];
     
     NSDictionary *dict1 = @{
                             GLTabBarItemTitle : @"首页",
@@ -64,14 +68,19 @@
                             GLTabBarItemTitle : @"发现",
                             GLTabBarItemImage : @"tabbar_discover_os7",
                             GLTabBarItemSelectedImage : @"tabbar_discover_selected_os7",
+                            GLTabBarItemTitleTextAttributes : normalAttrs,
+                            GLTabBarItemSelectedTitleTextAttributes : selectedAttrs
                             };
     NSDictionary *dict4 = @{
                             GLTabBarItemTitle : @"我的",
                             GLTabBarItemImage : @"tabbar_profile_os7",
-                            GLTabBarItemSelectedImage : @"tabbar_profile_selected_os7"
+                            GLTabBarItemSelectedImage : @"tabbar_profile_selected_os7",
+                            GLTabBarItemTitleTextAttributes : normalAttrs,
+                            GLTabBarItemSelectedTitleTextAttributes : selectedAttrs
                             };
     NSArray *tabBarItemsAttributes = @[ dict1, dict2, dict3, dict4 ];
     return tabBarItemsAttributes;
 }
+
 
 @end
