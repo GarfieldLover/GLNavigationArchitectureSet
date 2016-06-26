@@ -19,7 +19,11 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
 @interface GLTabBarController ()
 
+
 @property (nonatomic, strong) NSArray *tabBarItemsAttributes;
+
+@property (nonatomic, strong) GLSpecialButton* specialButton;
+
 
 @end
 
@@ -27,13 +31,13 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 @implementation GLTabBarController
 
 
-+ (nullable instancetype)tabBarControllerWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes
++ (nullable instancetype)tabBarControllerWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes SpecialButtonWith:(nullable GLSpecialButton *)specialButton
 {
-    GLTabBarController *tabBarController = [[GLTabBarController alloc] initWithViewControllers:viewControllers tabBarItemsAttributes:tabBarItemsAttributes];
+    GLTabBarController *tabBarController = [[GLTabBarController alloc] initWithViewControllers:viewControllers tabBarItemsAttributes:tabBarItemsAttributes SpecialButtonWith:specialButton];
     return tabBarController;
 }
 
-- (nullable instancetype)initWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes
+- (nullable instancetype)initWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes SpecialButtonWith:(nullable GLSpecialButton *)specialButton
 {
     if(![GLTabBarController checkWithViewControllers:viewControllers tabBarItemsAttributes:tabBarItemsAttributes]){
         return nil;
@@ -41,10 +45,13 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     
     if (self = [super init]) {
         self.tabBarItemsAttributes = tabBarItemsAttributes;
-        self.viewControllers = viewControllers;
         
         GLTabBar* tabBar = [[GLTabBar alloc] init];
         [self setValue:tabBar forKey:@"tabBar"];
+        [tabBar setTabBarSpecialButtonWith:specialButton];
+        
+        self.viewControllers = viewControllers;
+
     }
     return self;
 }
@@ -58,36 +65,51 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     return YES;
 }
 
+-(GLSpecialButton*)specialButton
+{
+    if([self.tabBar isKindOfClass:[GLTabBar class]]){
+        GLTabBar* tab=(GLTabBar*)self.tabBar;
+        return tab.specialButton;
+    }
+    return nil;
+}
+
 -(void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers
 {
-    [viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([[self specialButton] plusChildViewController]) {
+        NSMutableArray *viewControllersWithPlusButton = [NSMutableArray arrayWithArray:viewControllers];
+        [viewControllersWithPlusButton insertObject:[[self specialButton] plusChildViewController] atIndex:[[self specialButton] indexOfPlusButtonInTabBar]];
+        viewControllers = [viewControllersWithPlusButton copy];
+    }
+    
+    NSInteger index = 0;
+    for (UIViewController *viewController in viewControllers) {
         NSString *title = nil;
         NSString *normalImageName = nil;
         NSString *selectedImageName = nil;
         NSDictionary *selectedImageNamexx = nil;
-
-        NSDictionary *selectedImageNameff = nil;
-
-//        if (viewController != CYLPlusChildViewController) {
-            title = self.tabBarItemsAttributes[idx][GLTabBarItemTitle];
-            normalImageName = self.tabBarItemsAttributes[idx][GLTabBarItemImage];
-            selectedImageName = self.tabBarItemsAttributes[idx][GLTabBarItemSelectedImage];
-        selectedImageNamexx=self.tabBarItemsAttributes[idx][GLTabBarItemTitleTextAttributes];
-        selectedImageNameff=self.tabBarItemsAttributes[idx][GLTabBarItemSelectedTitleTextAttributes];
-
-//        } else {
-//            idx--;
-//        }
         
-        [self addOneChildViewController:obj
+        NSDictionary *selectedImageNameff = nil;
+        
+        if (viewController != [[self specialButton] plusChildViewController]) {
+            title = self.tabBarItemsAttributes[index][GLTabBarItemTitle];
+            normalImageName = self.tabBarItemsAttributes[index][GLTabBarItemImage];
+            selectedImageName = self.tabBarItemsAttributes[index][GLTabBarItemSelectedImage];
+            selectedImageNamexx=self.tabBarItemsAttributes[index][GLTabBarItemTitleTextAttributes];
+            selectedImageNameff=self.tabBarItemsAttributes[index][GLTabBarItemSelectedTitleTextAttributes];
+        } else {
+            index--;
+        }
+        
+        [self addOneChildViewController:viewController
                               WithTitle:title
                         normalImageName:normalImageName
                       selectedImageName:selectedImageName
-         selectedImageName:selectedImageNamexx selectedImageName:selectedImageNameff];
+                      selectedImageName:selectedImageNamexx selectedImageName:selectedImageNameff];
         
-//        [viewController cyl_setTabBarController:self];
-//        idx++;
-    }];
+        //        [viewController cyl_setTabBarController:self];
+                index++;
+    }
 }
 
 - (void)addOneChildViewController:(UIViewController *)viewController
@@ -113,7 +135,7 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
     }
 //    if (self.shouldCustomizeImageInsets) {
-//        viewController.tabBarItem.imageInsets = self.imageInsets;
+        viewController.tabBarItem.imageInsets = UIEdgeInsetsZero;
 //    }
 //    if (self.shouldCustomizeTitlePositionAdjustment) {
 //        viewController.tabBarItem.titlePositionAdjustment = self.titlePositionAdjustment;
@@ -121,9 +143,25 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     [self addChildViewController:viewController];
 }
 
-- (void)setTabBarSpecialButtonWith:(nonnull GLSpecialButton *)specialButton
+-(void)setSelectedViewController:(__kindof UIViewController *)selectedViewController
 {
-    [(GLTabBar*)self.tabBar setTabBarSpecialButtonWith:specialButton];
+    [super setSelectedViewController:selectedViewController];
+    
+    //    if(selectedIndex!=[[self specialButton] indexOfPlusButtonInTabBar]){
+    [[self specialButton] setSelected:NO];
+        }else{
+            [[self specialButton] setSelected:YES];
+    
+        }
+
+
+}
+
+-(void)setSelectedIndex:(NSUInteger)selectedIndex
+{
+    [super setSelectedIndex:selectedIndex];
+    
+
 }
 
 - (void)viewDidLoad {

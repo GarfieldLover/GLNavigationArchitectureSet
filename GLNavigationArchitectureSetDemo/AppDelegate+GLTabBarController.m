@@ -13,9 +13,9 @@
 
 - (GLTabBarController*)tabBarController
 {
-    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll]];
     GLSpecialButtonSubclass* specialButton = [[GLSpecialButtonSubclass alloc] init];
-    [tabBarController setTabBarSpecialButtonWith:specialButton];
+
+    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:specialButton];
     return tabBarController;
 }
 

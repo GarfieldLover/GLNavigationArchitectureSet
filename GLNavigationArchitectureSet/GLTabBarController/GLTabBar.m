@@ -11,8 +11,6 @@
 @interface GLTabBar ()
 
 
-@property (nonatomic, strong) GLSpecialButton* specialButton;
-
 @property (nonatomic, assign) CGFloat tabBarItemWidth;
 
 @property (nonatomic, copy) NSArray *tabBarButtonArray;
@@ -34,9 +32,14 @@
 
 - (void)setTabBarSpecialButtonWith:(nonnull GLSpecialButton *)specialButton
 {
-    self.specialButton = specialButton;
+    _specialButton = specialButton;
     [self addSubview:self.specialButton];
+
+    [_specialButton resetaddTarget];
+    
+
 }
+
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -48,17 +51,19 @@
     CGFloat barWidth = self.bounds.size.width;
     CGFloat barHeight = self.bounds.size.height;
     
+    //    NSArray *sortedSubviews = [self sortedSubviews];
+    self.tabBarButtonArray = [self tabBarButtonFromTabBarSubviews:self.subviews];
+    //    [self setupSwappableImageViewDefaultOffset:self.tabBarButtonArray[0]];
     
-    CGFloat itemWidth = (barWidth - CGRectGetWidth(self.specialButton.bounds)) / self.items.count;
+    
+    CGFloat itemWidth = (barWidth - CGRectGetWidth(self.specialButton.bounds)) / self.tabBarButtonArray.count;
     CGFloat specialButtonWidth = self.specialButton.bounds.size.width;
 
     NSUInteger specialButtonIndex = [self.specialButton indexOfPlusButtonInTabBar];
     self.specialButton.center = CGPointMake(itemWidth*specialButtonIndex + specialButtonWidth/2.0,
                                             [self specialButtonCenterY]);
 
-//    NSArray *sortedSubviews = [self sortedSubviews];
-    self.tabBarButtonArray = [self tabBarButtonFromTabBarSubviews:self.subviews];
-//    [self setupSwappableImageViewDefaultOffset:self.tabBarButtonArray[0]];
+
     
     [self.tabBarButtonArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if([obj isKindOfClass:[UIView class]]){
@@ -106,9 +111,9 @@
             [tabBarButtonMutableArray addObject:obj];
         }
     }];
-//    if (CYLPlusChildViewController) {
-//        [tabBarButtonMutableArray removeObjectAtIndex:CYLPlusButtonIndex];
-//    }
+    if ([self.specialButton plusChildViewController]) {
+        [tabBarButtonMutableArray removeObjectAtIndex:[self.specialButton indexOfPlusButtonInTabBar]];
+    }
     return tabBarButtonMutableArray;
 }
 

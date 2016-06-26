@@ -21,6 +21,8 @@
  */
 - (NSUInteger)indexOfPlusButtonInTabBar;
 
+@optional
+
 /*!
  实现该方法后，能让 PlusButton 的点击效果与跟点击其他 UITabBarButton 效果一样，跳转到该方法指定的 UIViewController 。
  @attention 必须同时实现 `+indexOfPlusButtonInTabBqr` 来指定 PlusButton 的位置。

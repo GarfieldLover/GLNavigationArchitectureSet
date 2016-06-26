@@ -11,6 +11,8 @@
 
 @interface GLTabBar : UITabBar
 
+@property (nullable, nonatomic) GLSpecialButton* specialButton;
+
 - (void)setTabBarSpecialButtonWith:(nonnull GLSpecialButton *)specialButton;
 
 @end
