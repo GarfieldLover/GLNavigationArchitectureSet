@@ -17,12 +17,7 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
 
 
-@interface GLTabBarController ()
-
-
-@property (nonatomic, strong) NSArray *tabBarItemsAttributes;
-
-@property (nonatomic, strong) GLSpecialButton* specialButton;
+@interface GLTabBarController ()<UITabBarControllerDelegate>
 
 
 @end
@@ -30,6 +25,7 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
 @implementation GLTabBarController
 
+@dynamic viewControllers;
 
 + (nullable instancetype)tabBarControllerWithViewControllers:(nonnull NSArray<__kindof UIViewController *> *)viewControllers tabBarItemsAttributes:(nonnull NSArray<NSDictionary *> *)tabBarItemsAttributes SpecialButtonWith:(nullable GLSpecialButton *)specialButton
 {
@@ -44,12 +40,12 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     }
     
     if (self = [super init]) {
-        self.tabBarItemsAttributes = tabBarItemsAttributes;
         
         GLTabBar* tabBar = [[GLTabBar alloc] init];
         [self setValue:tabBar forKey:@"tabBar"];
         [tabBar setTabBarSpecialButtonWith:specialButton];
         
+        self.tabBarItemsAttributes = tabBarItemsAttributes;
         self.viewControllers = viewControllers;
 
     }
@@ -147,27 +143,72 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 {
     [super setSelectedViewController:selectedViewController];
     
-    //    if(selectedIndex!=[[self specialButton] indexOfPlusButtonInTabBar]){
-    [[self specialButton] setSelected:NO];
-        }else{
-            [[self specialButton] setSelected:YES];
+    if(selectedViewController!=[[self specialButton] plusChildViewController]){
+        [[self specialButton] setSelected:NO];
+    }else{
+        [[self specialButton] setSelected:YES];
+    }
     
-        }
-
-
 }
 
--(void)setSelectedIndex:(NSUInteger)selectedIndex
-{
-    [super setSelectedIndex:selectedIndex];
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController*)viewController {
     
-
+    
+//    NSUInteger selectedIndex = tabBarController.selectedIndex;
+//    UIButton *plusButton = CYLExternPlusButton;
+//    if (CYLPlusChildViewController) {
+//        if ((selectedIndex == CYLPlusButtonIndex) && (viewController != CYLPlusChildViewController)) {
+//            plusButton.selected = NO;
+//        }
+//    }
+    return YES;
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+
 }
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    if (!self.tabBarHeight) {
+        return;
+    }
+    self.tabBar.frame = ({
+        CGRect frame = self.tabBar.frame;
+        CGFloat tabBarHeight = self.tabBarHeight;
+        frame.size.height = tabBarHeight;
+        frame.origin.y = self.view.frame.size.height - tabBarHeight;
+        frame;
+    });
+}
+
+/**
+ *  设置高亮背景图片
+ *
+ *  @param backgroundImage 高亮背景图片
+ */
+- (void)xzm_setShadeItemBackgroundImage:(UIImage * _Nonnull)backgroundImage
+{
+    [(GLTabBar*)self.tabBar xzm_setShadeItemBackgroundImage:backgroundImage];
+}
+
+/**
+ *  设置高亮背景颜色
+ *
+ *  @param coloer 高亮背景颜色
+ */
+- (void)xzm_setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer
+{
+    [(GLTabBar*)self.tabBar xzm_setShadeItemBackgroundColor:coloer];
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

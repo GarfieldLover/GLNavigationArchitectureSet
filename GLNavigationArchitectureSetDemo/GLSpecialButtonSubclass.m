@@ -21,21 +21,21 @@
 	self = [super init];
 	if (self) {
         UIImage *buttonImage = [UIImage imageNamed:@"tabbar_compose_button"];
-        UIImage *highlightImage = [UIImage imageNamed:@"tabbar_discover_selected_os7"];
+        UIImage *highlightImage = [UIImage imageNamed:@"tabbar_compose_button_highlighted"];
         UIImage *iconImage = [UIImage imageNamed:@"tabbar_compose_icon_add"];
-        UIImage *highlightIconImage = [UIImage imageNamed:@"tabbar_discover_selected_os7"];
+        UIImage *highlightIconImage = [UIImage imageNamed:@"tabbar_compose_icon_add_highlighted"];
         
         self.frame = CGRectMake(0.0, 0.0, buttonImage.size.width, buttonImage.size.height);
 //        self.frame = CGRectMake(0.0, 0.0, 200, 200);
 
         [self setImage:iconImage forState:UIControlStateNormal];
         [self setImage:highlightIconImage forState:UIControlStateSelected];
-//        [self setBackgroundImage:buttonImage forState:UIControlStateNormal];
-//        [self setBackgroundImage:highlightImage forState:UIControlStateSelected];
+        [self setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [self setBackgroundImage:highlightImage forState:UIControlStateSelected];
         [self addTarget:self action:@selector(specialButtonclick) forControlEvents:UIControlEventTouchUpInside];
         
         UIViewController* vc=[[UIViewController alloc] init];
-        vc.view.backgroundColor=[UIColor greenColor];
+        vc.view.backgroundColor=[UIColor whiteColor];
         
         self.vc=vc;
 	}

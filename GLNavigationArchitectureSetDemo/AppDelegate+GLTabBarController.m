@@ -15,7 +15,11 @@
 {
     GLSpecialButtonSubclass* specialButton = [[GLSpecialButtonSubclass alloc] init];
 
-    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:specialButton];
+    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:nil ];
+    
+    [tabBarController setTabBarHeight:40];
+    [tabBarController xzm_setShadeItemBackgroundColor:[UIColor redColor]];
+
     return tabBarController;
 }
 
@@ -51,28 +55,28 @@
     selectedAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:241.0/255.0 green:124.0/255.0 blue:0/255.0 alpha:1];
     
     NSDictionary *dict1 = @{
-                            GLTabBarItemTitle : @"首页",
+//                            GLTabBarItemTitle : @"首页",
                             GLTabBarItemImage : @"tabbar_home_os7",
                             GLTabBarItemSelectedImage : @"tabbar_home_selected_os7",
                             GLTabBarItemTitleTextAttributes : normalAttrs,
                             GLTabBarItemSelectedTitleTextAttributes : selectedAttrs
                             };
     NSDictionary *dict2 = @{
-                            GLTabBarItemTitle : @"消息",
+//                            GLTabBarItemTitle : @"消息",
                             GLTabBarItemImage : @"tabbar_message_center_os7",
                             GLTabBarItemSelectedImage : @"tabbar_message_center_selected_os7",
                             GLTabBarItemTitleTextAttributes : normalAttrs,
                             GLTabBarItemSelectedTitleTextAttributes : selectedAttrs
                             };
     NSDictionary *dict3 = @{
-                            GLTabBarItemTitle : @"发现",
+//                            GLTabBarItemTitle : @"发现",
                             GLTabBarItemImage : @"tabbar_discover_os7",
                             GLTabBarItemSelectedImage : @"tabbar_discover_selected_os7",
                             GLTabBarItemTitleTextAttributes : normalAttrs,
                             GLTabBarItemSelectedTitleTextAttributes : selectedAttrs
                             };
     NSDictionary *dict4 = @{
-                            GLTabBarItemTitle : @"我的",
+//                            GLTabBarItemTitle : @"我的",
                             GLTabBarItemImage : @"tabbar_profile_os7",
                             GLTabBarItemSelectedImage : @"tabbar_profile_selected_os7",
                             GLTabBarItemTitleTextAttributes : normalAttrs,

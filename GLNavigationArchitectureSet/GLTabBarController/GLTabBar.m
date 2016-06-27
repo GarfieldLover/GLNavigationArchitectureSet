@@ -8,12 +8,14 @@
 
 #import "GLTabBar.h"
 
-@interface GLTabBar ()
+@interface GLTabBar ()<UITabBarDelegate>
 
 
 @property (nonatomic, assign) CGFloat tabBarItemWidth;
 
 @property (nonatomic, copy) NSArray *tabBarButtonArray;
+
+@property (nonatomic, strong) UIImageView * shadeItemImage;;
 
 @end
 
@@ -24,37 +26,44 @@
 {
     self = [super init];
     if (self) {
-        
+        self.delegate=self;
     }
     return self;
 }
 
 
-- (void)setTabBarSpecialButtonWith:(nonnull GLSpecialButton *)specialButton
+- (void)setTabBarSpecialButtonWith:(nullable GLSpecialButton *)specialButton
 {
+    if(!specialButton || _specialButton){
+        return;
+    }
+    
     _specialButton = specialButton;
     [self addSubview:self.specialButton];
 
-    [_specialButton resetaddTarget];
-    
+    if([_specialButton respondsToSelector:@selector(plusChildViewController)]){
+        UIViewController* vc=[_specialButton plusChildViewController];
+        if(vc){
+            [_specialButton resetaddTarget];
 
+        }
+    }
 }
 
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    if(!self.specialButton){
-        return;
-    }
     
     CGFloat barWidth = self.bounds.size.width;
     CGFloat barHeight = self.bounds.size.height;
     
+
+    
     //    NSArray *sortedSubviews = [self sortedSubviews];
     self.tabBarButtonArray = [self tabBarButtonFromTabBarSubviews:self.subviews];
-    //    [self setupSwappableImageViewDefaultOffset:self.tabBarButtonArray[0]];
-    
+
+
     
     CGFloat itemWidth = (barWidth - CGRectGetWidth(self.specialButton.bounds)) / self.tabBarButtonArray.count;
     CGFloat specialButtonWidth = self.specialButton.bounds.size.width;
@@ -86,8 +95,53 @@
     
     //bring the plus button to top
     [self bringSubviewToFront:self.specialButton];
+    
+    //    [self setupSwappableImageViewDefaultOffset:self.tabBarButtonArray[0]];
+    [self setupSwappableImageViewDefaultOffset];
+    
+    if(self.shadeItemImage){
+        [self insertSubview:self.shadeItemImage belowSubview:self.tabBarButtonArray[0]];
+
+        CGRect rect=self.shadeItemImage.frame;
+        rect.size=CGSizeMake(itemWidth, barHeight);
+        self.shadeItemImage.frame=rect;
+        
+    }
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item // called when a new view is selected by the user (but not programatically
+{
+
+}
+
+-(void)setupSwappableImageViewDefaultOffset
+{
+    UIButton* tabBarButton = self.tabBarButtonArray[0];
+    __block BOOL shouldCustomizeImageView = YES;
+    __block CGFloat swappableImageViewDefaultOffset = 0.f;
+    CGFloat tabBarHeight = self.frame.size.height;
+    [tabBarButton.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:NSClassFromString(@"UITabBarButtonLabel")]) {
+            shouldCustomizeImageView = NO;
+        }
+        CGFloat swappableImageViewHeight = obj.frame.size.height;
+        BOOL ishaveSwappableImageView = [obj isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")];
+        if (ishaveSwappableImageView) {
+            swappableImageViewDefaultOffset = (tabBarHeight - swappableImageViewHeight) * 0.5 * 0.5 + (49-tabBarHeight)*0.5*0.5;
+        }else{
+            shouldCustomizeImageView = NO;
+        }
+    }];
+    if(shouldCustomizeImageView){
+        NSArray<UITabBarItem *> *tabBarItems = self.items;
+        [tabBarItems enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIEdgeInsets imageInset = UIEdgeInsetsMake(swappableImageViewDefaultOffset, 0, -swappableImageViewDefaultOffset, 0);
+            obj.imageInsets = imageInset;
+        }];
+        
+        self.specialButton.center=CGPointMake(self.specialButton.center.x, CGRectGetHeight(self.bounds)/2);
+    }
+}
 
 - (CGFloat)specialButtonCenterY
 {
@@ -133,6 +187,25 @@
     
     return [super hitTest:point withEvent:event];
 }
+
+- (void)xzm_setShadeItemBackgroundImage:(UIImage *)backgroundImage
+{
+    if(!self.shadeItemImage){
+        self.shadeItemImage=[[UIImageView alloc] init];
+    }
+    [self.shadeItemImage setImage:backgroundImage];
+}
+
+- (void)xzm_setShadeItemBackgroundColor:(UIColor *)coloer
+{
+    if(!self.shadeItemImage){
+        self.shadeItemImage=[[UIImageView alloc] init];
+
+    }
+    [self.shadeItemImage setBackgroundColor:nil];
+    [self.shadeItemImage setBackgroundColor:coloer];
+}
+
 
 
 
