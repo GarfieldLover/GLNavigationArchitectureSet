@@ -29,4 +29,7 @@
  */
 - (void)xzm_setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer;
 
+- (void)setShadeIndex:(NSUInteger)index;
+
+
 @end

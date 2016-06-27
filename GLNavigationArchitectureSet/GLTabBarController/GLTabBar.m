@@ -8,8 +8,7 @@
 
 #import "GLTabBar.h"
 
-@interface GLTabBar ()<UITabBarDelegate>
-
+@interface GLTabBar ()
 
 @property (nonatomic, assign) CGFloat tabBarItemWidth;
 
@@ -26,7 +25,7 @@
 {
     self = [super init];
     if (self) {
-        self.delegate=self;
+
     }
     return self;
 }
@@ -109,11 +108,6 @@
     }
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item // called when a new view is selected by the user (but not programatically
-{
-
-}
-
 -(void)setupSwappableImageViewDefaultOffset
 {
     UIButton* tabBarButton = self.tabBarButtonArray[0];
@@ -194,19 +188,63 @@
         self.shadeItemImage=[[UIImageView alloc] init];
     }
     [self.shadeItemImage setImage:backgroundImage];
+    [self.shadeItemImage setBackgroundColor:nil];
 }
 
 - (void)xzm_setShadeItemBackgroundColor:(UIColor *)coloer
 {
     if(!self.shadeItemImage){
         self.shadeItemImage=[[UIImageView alloc] init];
-
     }
-    [self.shadeItemImage setBackgroundColor:nil];
+    [self.shadeItemImage setImage:nil];
     [self.shadeItemImage setBackgroundColor:coloer];
 }
 
+- (void)setShadeIndex:(NSUInteger)index
+{
+    if(self.specialButton){
+        if(index>[self.specialButton indexOfPlusButtonInTabBar]){
+            index--;
+        }
+    }
+    
+    UIView* tabBarButton=(UIView*)[self.tabBarButtonArray objectAtIndex:index];
+    
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        CGRect frame = self.shadeItemImage.frame;
+        frame.origin.x = tabBarButton.frame.origin.x;
+        self.shadeItemImage.frame = frame;
+    } completion:nil];
+    
+    [self imgAnimate:tabBarButton];
+    
+}
 
-
+- (void)imgAnimate:(UIView*)view{
+    
+    [UIView animateWithDuration:0.1 animations:
+     ^(void){
+         
+         view.transform = CGAffineTransformScale(CGAffineTransformIdentity,0.7, 0.7);
+         
+     } completion:^(BOOL finished){//do other thing
+         [UIView animateWithDuration:0.2 animations:
+          ^(void){
+              
+              view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.2, 1.2);
+              
+          } completion:^(BOOL finished){//do other thing
+              [UIView animateWithDuration:0.1 animations:
+               ^(void){
+                   
+                   view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1,1);
+                   
+               } completion:^(BOOL finished){//do other thing
+               }];
+          }];
+     }];
+    
+    
+}
 
 @end

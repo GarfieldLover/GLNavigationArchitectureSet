@@ -17,7 +17,7 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
 
 
-@interface GLTabBarController ()<UITabBarControllerDelegate>
+@interface GLTabBarController ()
 
 
 @end
@@ -149,27 +149,14 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
         [[self specialButton] setSelected:YES];
     }
     
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController*)viewController {
+    NSUInteger index= [self.viewControllers indexOfObject:selectedViewController];
     
-    
-//    NSUInteger selectedIndex = tabBarController.selectedIndex;
-//    UIButton *plusButton = CYLExternPlusButton;
-//    if (CYLPlusChildViewController) {
-//        if ((selectedIndex == CYLPlusButtonIndex) && (viewController != CYLPlusChildViewController)) {
-//            plusButton.selected = NO;
-//        }
-//    }
-    return YES;
+    [(GLTabBar*)self.tabBar setShadeIndex:index];
 }
-
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
 }
 
 -(void)viewWillLayoutSubviews
