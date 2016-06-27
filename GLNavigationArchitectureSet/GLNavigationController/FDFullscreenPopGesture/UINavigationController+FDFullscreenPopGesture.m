@@ -124,6 +124,7 @@ typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewCon
 
 + (void)load
 {
+    return;
     // Inject "-pushViewController:animated:"
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

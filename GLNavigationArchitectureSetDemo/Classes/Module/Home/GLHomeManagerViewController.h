@@ -1,5 +1,5 @@
 //
-//  GLHomeViewController.h
+//  GLHomeManagerViewController.h
 //  GLNavigationArchitectureSet
 //
 //  Created by zhangke on 16/6/27.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GLHomeViewController : BaseViewController
+@interface GLHomeManagerViewController : BaseViewController
 
 @end

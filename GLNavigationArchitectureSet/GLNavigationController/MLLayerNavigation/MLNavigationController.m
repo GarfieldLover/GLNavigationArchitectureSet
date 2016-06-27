@@ -96,6 +96,7 @@ static CGFloat animateDuration = 0.25f;
 // override the push method
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    
     UIImage *capturedImage = [self.screenShotsDic objectForKey:self.topViewController.description];
     if(!capturedImage){
         capturedImage = [self capture];
@@ -111,7 +112,7 @@ static CGFloat animateDuration = 0.25f;
 // override the pop method
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
-    UIViewController* screenShotViewController=[self.viewControllers objectOrNilAtIndex:self.viewControllers.count-2];
+    UIViewController* screenShotViewController=[self.viewControllers objectAtIndex:self.viewControllers.count-2];
     if(screenShotViewController && [self.screenShotsDic objectForKey:screenShotViewController.description]){
         [self.screenShotsDic removeObjectForKey:screenShotViewController.description];
     }
@@ -130,7 +131,7 @@ static CGFloat animateDuration = 0.25f;
 {
     UIGraphicsBeginImageContextWithOptions(TOP_VIEW.bounds.size, TOP_VIEW.opaque, 0.0);
     [TOP_VIEW.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
+    UIViewController*xx =[UIApplication sharedApplication].delegate.window.rootViewController;
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
@@ -240,7 +241,7 @@ static CGFloat animateDuration = 0.25f;
         if (lastScreenShotView) [lastScreenShotView removeFromSuperview];
         
         UIImage *lastScreenShot = nil;
-        UIViewController* screenShotViewController=[self.viewControllers objectOrNilAtIndex:self.viewControllers.count-2];
+        UIViewController* screenShotViewController=[self.viewControllers objectAtIndex:self.viewControllers.count-2];
         if(screenShotViewController){
             lastScreenShot =  [self.screenShotsDic objectForKey:screenShotViewController.description];
         }

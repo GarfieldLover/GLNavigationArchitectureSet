@@ -12,7 +12,8 @@
 #import "GLMessageViewController.h"
 #import "GLDiscoveryViewController.h"
 #import "GLPersonViewController.h"
-
+//#import "UINavigationController+FDFullscreenPopGesture.h"
+#import "MLNavigationController.h"
 
 @implementation AppDelegate (GLTabBarController)
 
@@ -20,29 +21,29 @@
 {
     GLSpecialButtonSubclass* specialButton = [[GLSpecialButtonSubclass alloc] init];
 
-    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:nil ];
+    GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:specialButton ];
     
-    [tabBarController setTabBarHeight:40];
-    [tabBarController xzm_setShadeItemBackgroundColor:[UIColor grayColor]];
+//    [tabBarController setTabBarHeight:40];
+//    [tabBarController xzm_setShadeItemBackgroundColor:[UIColor grayColor]];
 
     return tabBarController;
 }
 
 - (NSArray*)setupViewControllers {
     GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
-    UIViewController *firstNavigationController = [[UINavigationController alloc]
+    UINavigationController *firstNavigationController = [[MLNavigationController alloc]
                                                    initWithRootViewController:firstViewController];
     
     GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
-    UIViewController *secondNavigationController = [[UINavigationController alloc]
+    UINavigationController *secondNavigationController = [[MLNavigationController alloc]
                                                     initWithRootViewController:secondViewController];
     
     GLDiscoveryViewController *thirdViewController = [[GLDiscoveryViewController alloc] init];
-    UIViewController *thirdNavigationController = [[UINavigationController alloc]
+    UINavigationController *thirdNavigationController = [[MLNavigationController alloc]
                                                    initWithRootViewController:thirdViewController];
     
     GLPersonViewController *fourthViewController = [[GLPersonViewController alloc] init];
-    UIViewController *fourthNavigationController = [[UINavigationController alloc]
+    UINavigationController *fourthNavigationController = [[MLNavigationController alloc]
                                                     initWithRootViewController:fourthViewController];
     
     NSArray* array=@[firstNavigationController,secondNavigationController,thirdNavigationController, fourthNavigationController];

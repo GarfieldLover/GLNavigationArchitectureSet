@@ -12,6 +12,11 @@
 		0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296671D217651001C1024 /* GLMessageViewController.m */; };
 		0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296751D2176CE001C1024 /* GLDiscoveryViewController.m */; };
 		0A5296791D2176FB001C1024 /* GLPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296781D2176FB001C1024 /* GLPersonViewController.m */; };
+		0A52968C1D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296871D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m */; };
+		0A52968D1D2178DD001C1024 /* leftside_shadow_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A5296891D2178DD001C1024 /* leftside_shadow_bg@2x.png */; };
+		0A52968E1D2178DD001C1024 /* MLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A52968B1D2178DD001C1024 /* MLNavigationController.m */; };
+		0A5296911D2179AB001C1024 /* GLHomeManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296901D2179AB001C1024 /* GLHomeManagerViewController.m */; };
+		0A5296951D217A1A001C1024 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296941D217A1A001C1024 /* BaseViewController.m */; };
 		581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */; };
 		581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 581864361D1CD744001E1CE3 /* GLSpecialButton.m */; };
 		5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */; };
@@ -34,6 +39,16 @@
 		0A5296751D2176CE001C1024 /* GLDiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLDiscoveryViewController.m; sourceTree = "<group>"; };
 		0A5296771D2176FB001C1024 /* GLPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLPersonViewController.h; sourceTree = "<group>"; };
 		0A5296781D2176FB001C1024 /* GLPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLPersonViewController.m; sourceTree = "<group>"; };
+		0A5296861D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		0A5296871D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
+		0A5296891D2178DD001C1024 /* leftside_shadow_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftside_shadow_bg@2x.png"; sourceTree = "<group>"; };
+		0A52968A1D2178DD001C1024 /* MLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLNavigationController.h; sourceTree = "<group>"; };
+		0A52968B1D2178DD001C1024 /* MLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLNavigationController.m; sourceTree = "<group>"; };
+		0A52968F1D2179AB001C1024 /* GLHomeManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHomeManagerViewController.h; sourceTree = "<group>"; };
+		0A5296901D2179AB001C1024 /* GLHomeManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLHomeManagerViewController.m; sourceTree = "<group>"; };
+		0A5296931D217A1A001C1024 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		0A5296941D217A1A001C1024 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		0A5296961D217A78001C1024 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5818642E1D1CD1AD001E1CE3 /* GLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTabBar.h; sourceTree = "<group>"; };
 		5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTabBar.m; sourceTree = "<group>"; };
 		581864351D1CD744001E1CE3 /* GLSpecialButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButton.h; sourceTree = "<group>"; };
@@ -76,6 +91,7 @@
 		0A52964B1D21755E001C1024 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				0A5296921D217A0D001C1024 /* Base */,
 				0A52964C1D21755E001C1024 /* Home */,
 				0A52964F1D21755E001C1024 /* Message */,
 				0A5296691D2176A7001C1024 /* Discovery */,
@@ -89,6 +105,8 @@
 			children = (
 				0A5296631D2175DA001C1024 /* GLHomeViewController.h */,
 				0A5296641D2175DA001C1024 /* GLHomeViewController.m */,
+				0A52968F1D2179AB001C1024 /* GLHomeManagerViewController.h */,
+				0A5296901D2179AB001C1024 /* GLHomeManagerViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -129,6 +147,34 @@
 			path = My;
 			sourceTree = "<group>";
 		};
+		0A5296851D2178DD001C1024 /* FDFullscreenPopGesture */ = {
+			isa = PBXGroup;
+			children = (
+				0A5296861D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.h */,
+				0A5296871D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m */,
+			);
+			path = FDFullscreenPopGesture;
+			sourceTree = "<group>";
+		};
+		0A5296881D2178DD001C1024 /* MLLayerNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				0A5296891D2178DD001C1024 /* leftside_shadow_bg@2x.png */,
+				0A52968A1D2178DD001C1024 /* MLNavigationController.h */,
+				0A52968B1D2178DD001C1024 /* MLNavigationController.m */,
+			);
+			path = MLLayerNavigation;
+			sourceTree = "<group>";
+		};
+		0A5296921D217A0D001C1024 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0A5296931D217A1A001C1024 /* BaseViewController.h */,
+				0A5296941D217A1A001C1024 /* BaseViewController.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
 		5859B0B31D1A8F33008ED422 = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +213,7 @@
 				5859B0E61D1A9053008ED422 /* LaunchScreen.storyboard */,
 				5859B0E81D1A9053008ED422 /* Main.storyboard */,
 				5859B0EA1D1A9053008ED422 /* Info.plist */,
+				0A5296961D217A78001C1024 /* PrefixHeader.pch */,
 				5859B0EB1D1A9053008ED422 /* main.m */,
 			);
 			path = GLNavigationArchitectureSetDemo;
@@ -175,6 +222,8 @@
 		5859B0FC1D1A90C5008ED422 /* GLNavigationController */ = {
 			isa = PBXGroup;
 			children = (
+				0A5296851D2178DD001C1024 /* FDFullscreenPopGesture */,
+				0A5296881D2178DD001C1024 /* MLLayerNavigation */,
 			);
 			path = GLNavigationController;
 			sourceTree = "<group>";
@@ -253,6 +302,7 @@
 				5859B0F81D1A9053008ED422 /* Main.storyboard in Resources */,
 				5859B0F71D1A9053008ED422 /* LaunchScreen.storyboard in Resources */,
 				5859B0F61D1A9053008ED422 /* Assets.xcassets in Resources */,
+				0A52968D1D2178DD001C1024 /* leftside_shadow_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,13 +314,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */,
+				0A5296951D217A1A001C1024 /* BaseViewController.m in Sources */,
 				0A5296621D21755E001C1024 /* GLSpecialButtonSubclass.m in Sources */,
 				0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */,
 				0A5296791D2176FB001C1024 /* GLPersonViewController.m in Sources */,
 				5859B0FA1D1A9053008ED422 /* main.m in Sources */,
 				581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */,
+				0A52968C1D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				0A5296651D2175DA001C1024 /* GLHomeViewController.m in Sources */,
 				5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */,
+				0A52968E1D2178DD001C1024 /* MLNavigationController.m in Sources */,
+				0A5296911D2179AB001C1024 /* GLHomeManagerViewController.m in Sources */,
 				5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */,
 				581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */,
 				5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */,
@@ -385,6 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = GLNavigationArchitectureSetDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = GLNavigationArchitectureSetDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "https---github.com-GarfieldLover.GLNavigationArchitectureSet";
@@ -396,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = GLNavigationArchitectureSetDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = GLNavigationArchitectureSetDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "https---github.com-GarfieldLover.GLNavigationArchitectureSet";
