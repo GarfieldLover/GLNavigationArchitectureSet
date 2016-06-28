@@ -19,6 +19,15 @@
 		0A5296951D217A1A001C1024 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296941D217A1A001C1024 /* BaseViewController.m */; };
 		581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */; };
 		581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 581864361D1CD744001E1CE3 /* GLSpecialButton.m */; };
+		5843AACB1D22568B004E987A /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */; };
+		5843AACE1D226383004E987A /* GLMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AACD1D226383004E987A /* GLMoreViewController.m */; };
+		5843AADA1D2278FA004E987A /* FloodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAD21D2278FA004E987A /* FloodView.m */; };
+		5843AADB1D2278FA004E987A /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAD41D2278FA004E987A /* MenuView.m */; };
+		5843AADC1D2278FA004E987A /* MenuViewBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAD61D2278FA004E987A /* MenuViewBtn.m */; };
+		5843AADD1D2278FA004E987A /* ZTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAD91D2278FA004E987A /* ZTViewController.m */; };
+		5843AAE51D227A75004E987A /* NSString+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAE01D227A75004E987A /* NSString+Extention.m */; };
+		5843AAE61D227A75004E987A /* UIBarButtonItem+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAE21D227A75004E987A /* UIBarButtonItem+Extention.m */; };
+		5843AAE71D227A75004E987A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AAE41D227A75004E987A /* UIView+Extension.m */; };
 		5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */; };
 		5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0E41D1A9053008ED422 /* AppDelegate.m */; };
 		5859B0F61D1A9053008ED422 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0E51D1A9053008ED422 /* Assets.xcassets */; };
@@ -54,6 +63,25 @@
 		581864351D1CD744001E1CE3 /* GLSpecialButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButton.h; sourceTree = "<group>"; };
 		581864361D1CD744001E1CE3 /* GLSpecialButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpecialButton.m; sourceTree = "<group>"; };
 		581864381D1CD9F7001E1CE3 /* GLSpecialButtonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButtonProtocol.h; sourceTree = "<group>"; };
+		5843AAC91D22568B004E987A /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
+		5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
+		5843AACC1D226383004E987A /* GLMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMoreViewController.h; sourceTree = "<group>"; };
+		5843AACD1D226383004E987A /* GLMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMoreViewController.m; sourceTree = "<group>"; };
+		5843AAD11D2278FA004E987A /* FloodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloodView.h; sourceTree = "<group>"; };
+		5843AAD21D2278FA004E987A /* FloodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloodView.m; sourceTree = "<group>"; };
+		5843AAD31D2278FA004E987A /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
+		5843AAD41D2278FA004E987A /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
+		5843AAD51D2278FA004E987A /* MenuViewBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewBtn.h; sourceTree = "<group>"; };
+		5843AAD61D2278FA004E987A /* MenuViewBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewBtn.m; sourceTree = "<group>"; };
+		5843AAD71D2278FA004E987A /* ZTPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTPage.h; sourceTree = "<group>"; };
+		5843AAD81D2278FA004E987A /* ZTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTViewController.h; sourceTree = "<group>"; };
+		5843AAD91D2278FA004E987A /* ZTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTViewController.m; sourceTree = "<group>"; };
+		5843AADF1D227A75004E987A /* NSString+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extention.h"; sourceTree = "<group>"; };
+		5843AAE01D227A75004E987A /* NSString+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extention.m"; sourceTree = "<group>"; };
+		5843AAE11D227A75004E987A /* UIBarButtonItem+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extention.h"; sourceTree = "<group>"; };
+		5843AAE21D227A75004E987A /* UIBarButtonItem+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extention.m"; sourceTree = "<group>"; };
+		5843AAE31D227A75004E987A /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		5843AAE41D227A75004E987A /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		5847093C1D1A97540084B2DC /* AppDelegate+GLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+GLTabBarController.h"; sourceTree = "<group>"; };
 		5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+GLTabBarController.m"; sourceTree = "<group>"; };
 		5859B0BC1D1A8F33008ED422 /* GLNavigationArchitectureSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLNavigationArchitectureSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +171,8 @@
 			children = (
 				0A5296771D2176FB001C1024 /* GLPersonViewController.h */,
 				0A5296781D2176FB001C1024 /* GLPersonViewController.m */,
+				5843AACC1D226383004E987A /* GLMoreViewController.h */,
+				5843AACD1D226383004E987A /* GLMoreViewController.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -175,6 +205,44 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		5843AACF1D2278FA004E987A /* GLPage */ = {
+			isa = PBXGroup;
+			children = (
+				5843AAD01D2278FA004E987A /* Page */,
+			);
+			path = GLPage;
+			sourceTree = "<group>";
+		};
+		5843AAD01D2278FA004E987A /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				5843AADE1D227A75004E987A /* Category */,
+				5843AAD11D2278FA004E987A /* FloodView.h */,
+				5843AAD21D2278FA004E987A /* FloodView.m */,
+				5843AAD31D2278FA004E987A /* MenuView.h */,
+				5843AAD41D2278FA004E987A /* MenuView.m */,
+				5843AAD51D2278FA004E987A /* MenuViewBtn.h */,
+				5843AAD61D2278FA004E987A /* MenuViewBtn.m */,
+				5843AAD71D2278FA004E987A /* ZTPage.h */,
+				5843AAD81D2278FA004E987A /* ZTViewController.h */,
+				5843AAD91D2278FA004E987A /* ZTViewController.m */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		5843AADE1D227A75004E987A /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				5843AADF1D227A75004E987A /* NSString+Extention.h */,
+				5843AAE01D227A75004E987A /* NSString+Extention.m */,
+				5843AAE11D227A75004E987A /* UIBarButtonItem+Extention.h */,
+				5843AAE21D227A75004E987A /* UIBarButtonItem+Extention.m */,
+				5843AAE31D227A75004E987A /* UIView+Extension.h */,
+				5843AAE41D227A75004E987A /* UIView+Extension.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		5859B0B31D1A8F33008ED422 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +265,7 @@
 			children = (
 				5859B0FD1D1A90C5008ED422 /* GLTabBarController */,
 				5859B0FC1D1A90C5008ED422 /* GLNavigationController */,
+				5843AACF1D2278FA004E987A /* GLPage */,
 			);
 			path = GLNavigationArchitectureSet;
 			sourceTree = "<group>";
@@ -222,6 +291,8 @@
 		5859B0FC1D1A90C5008ED422 /* GLNavigationController */ = {
 			isa = PBXGroup;
 			children = (
+				5843AAC91D22568B004E987A /* UINavigationBar+Awesome.h */,
+				5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */,
 				0A5296851D2178DD001C1024 /* FDFullscreenPopGesture */,
 				0A5296881D2178DD001C1024 /* MLLayerNavigation */,
 			);
@@ -314,20 +385,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */,
+				5843AACE1D226383004E987A /* GLMoreViewController.m in Sources */,
 				0A5296951D217A1A001C1024 /* BaseViewController.m in Sources */,
+				5843AADA1D2278FA004E987A /* FloodView.m in Sources */,
 				0A5296621D21755E001C1024 /* GLSpecialButtonSubclass.m in Sources */,
+				5843AACB1D22568B004E987A /* UINavigationBar+Awesome.m in Sources */,
+				5843AAE71D227A75004E987A /* UIView+Extension.m in Sources */,
 				0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */,
 				0A5296791D2176FB001C1024 /* GLPersonViewController.m in Sources */,
+				5843AAE51D227A75004E987A /* NSString+Extention.m in Sources */,
+				5843AADC1D2278FA004E987A /* MenuViewBtn.m in Sources */,
 				5859B0FA1D1A9053008ED422 /* main.m in Sources */,
 				581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */,
 				0A52968C1D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				0A5296651D2175DA001C1024 /* GLHomeViewController.m in Sources */,
 				5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */,
 				0A52968E1D2178DD001C1024 /* MLNavigationController.m in Sources */,
+				5843AAE61D227A75004E987A /* UIBarButtonItem+Extention.m in Sources */,
 				0A5296911D2179AB001C1024 /* GLHomeManagerViewController.m in Sources */,
 				5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */,
 				581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */,
 				5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */,
+				5843AADB1D2278FA004E987A /* MenuView.m in Sources */,
+				5843AADD1D2278FA004E987A /* ZTViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

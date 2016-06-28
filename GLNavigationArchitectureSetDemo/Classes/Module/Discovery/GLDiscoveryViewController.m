@@ -10,4 +10,16 @@
 
 @implementation GLDiscoveryViewController
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.view.backgroundColor=[UIColor whiteColor];
+    
+    self.navigationItem.title=@"发现";
+    
+    //    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"管理" style:UIBarButtonItemStyleDone target:self action:@selector(gotoGuanliVC)];
+    
+}
+
 @end

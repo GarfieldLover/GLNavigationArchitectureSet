@@ -14,6 +14,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.title=@"管理页面";
+
     
 }
 

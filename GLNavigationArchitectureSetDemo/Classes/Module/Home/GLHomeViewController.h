@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GLHomeViewController : BaseViewController
+@interface GLHomeViewController : UIViewController
 
 @end

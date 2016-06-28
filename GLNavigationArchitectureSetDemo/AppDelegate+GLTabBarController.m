@@ -14,6 +14,7 @@
 #import "GLPersonViewController.h"
 //#import "UINavigationController+FDFullscreenPopGesture.h"
 #import "MLNavigationController.h"
+#import "ZTViewController.h"
 
 @implementation AppDelegate (GLTabBarController)
 
@@ -30,9 +31,16 @@
 }
 
 - (NSArray*)setupViewControllers {
+    Class vc1 = [UIViewController class];
+    NSArray *vcclass = @[vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1];
+    NSArray *titles = @[@"太原理工大学",@"热点",@"视频",@"体育",@"事实",@"NBA",@"美女",@"美女",@"体育",@"体育",@"优衣库",@"沈阳地铁"];
+    
+    
+    ZTViewController *vca = [[ZTViewController alloc]initWithMneuViewStyle:MenuViewStyleDefault];
+    [vca loadVC:vcclass AndTitle:titles];
     GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
     UINavigationController *firstNavigationController = [[MLNavigationController alloc]
-                                                   initWithRootViewController:firstViewController];
+                                                   initWithRootViewController:vca];
     
     GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
     UINavigationController *secondNavigationController = [[MLNavigationController alloc]

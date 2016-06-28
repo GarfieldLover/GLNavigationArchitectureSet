@@ -222,27 +222,46 @@
 
 - (void)imgAnimate:(UIView*)view{
     
-    [UIView animateWithDuration:0.1 animations:
-     ^(void){
-         
-         view.transform = CGAffineTransformScale(CGAffineTransformIdentity,0.7, 0.7);
-         
-     } completion:^(BOOL finished){//do other thing
-         [UIView animateWithDuration:0.2 animations:
-          ^(void){
-              
-              view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.2, 1.2);
-              
-          } completion:^(BOOL finished){//do other thing
-              [UIView animateWithDuration:0.1 animations:
-               ^(void){
-                   
-                   view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1,1);
-                   
-               } completion:^(BOOL finished){//do other thing
-               }];
-          }];
-     }];
+    CAKeyframeAnimation* key=[CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    [key setValues:@[@1.0 ,@1.3, @0.9, @1.15, @0.95, @1.05, @1.0]];
+    key.duration=0.4;
+    
+    [view.layer addAnimation:key forKey:@"bounceAnimation"];
+    
+//    key
+//    let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+//    bounceAnimation.values = [1.0 ,1.4, 0.9, 1.15, 0.95, 1.02, 1.0]
+//    bounceAnimation.duration = NSTimeInterval(duration)
+//    bounceAnimation.calculationMode = kCAAnimationCubic
+//    
+//    icon.layer.addAnimation(bounceAnimation, forKey: "bounceAnimation")
+//    
+//    let renderImage = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
+//    icon.image = renderImage
+//    icon.tintColor = iconSelectedColor
+    
+    
+//    [UIView animateWithDuration:0.1 animations:
+//     ^(void){
+//         
+//         view.transform = CGAffineTransformScale(CGAffineTransformIdentity,0.7, 0.7);
+//         
+//     } completion:^(BOOL finished){//do other thing
+//         [UIView animateWithDuration:0.2 animations:
+//          ^(void){
+//              
+//              view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.2, 1.2);
+//              
+//          } completion:^(BOOL finished){//do other thing
+//              [UIView animateWithDuration:0.1 animations:
+//               ^(void){
+//                   
+//                   view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1,1);
+//                   
+//               } completion:^(BOOL finished){//do other thing
+//               }];
+//          }];
+//     }];
     
     
 }
