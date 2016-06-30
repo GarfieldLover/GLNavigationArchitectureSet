@@ -10,5 +10,7 @@
 #define PrefixHeader_pch
 
 #import "BaseViewController.h"
+#import "GLTabBarController.h"
+#import "RESideMenu.h"
 
 #endif /* PrefixHeader_pch */

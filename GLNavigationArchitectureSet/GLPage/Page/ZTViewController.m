@@ -83,7 +83,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.navigationItem.title = @"新闻";
+//    self.navigationItem.title = @"新闻";
+    
+    self.edgesForExtendedLayout=UIRectEdgeNone;
 }
 
 - (instancetype)initWithMneuViewStyle:(MenuViewStyle)style {

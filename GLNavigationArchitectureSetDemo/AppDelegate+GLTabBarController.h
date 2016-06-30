@@ -12,4 +12,7 @@
 
 - (GLTabBarController*)tabBarController;
 
+- (RESideMenu*)sideMenuViewController;
+
+
 @end

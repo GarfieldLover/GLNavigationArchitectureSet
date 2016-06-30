@@ -81,12 +81,12 @@ typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewCon
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class class = [self class];
+//        Class class = [self class];
         
         SEL originalSelector = @selector(viewWillAppear:);
         SEL swizzledSelector = @selector(fd_viewWillAppear:);
         
-        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method originalMethod = class_getInstanceMethod([self class], originalSelector);
         Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
         
         BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));

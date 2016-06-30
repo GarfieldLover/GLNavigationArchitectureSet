@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A5296621D21755E001C1024 /* GLSpecialButtonSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A52965C1D21755E001C1024 /* GLSpecialButtonSubclass.m */; };
 		0A5296651D2175DA001C1024 /* GLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296641D2175DA001C1024 /* GLHomeViewController.m */; };
 		0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296671D217651001C1024 /* GLMessageViewController.m */; };
 		0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296751D2176CE001C1024 /* GLDiscoveryViewController.m */; };
 		0A5296791D2176FB001C1024 /* GLPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296781D2176FB001C1024 /* GLPersonViewController.m */; };
-		0A52968C1D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296871D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		0A52968D1D2178DD001C1024 /* leftside_shadow_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A5296891D2178DD001C1024 /* leftside_shadow_bg@2x.png */; };
 		0A52968E1D2178DD001C1024 /* MLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A52968B1D2178DD001C1024 /* MLNavigationController.m */; };
 		0A5296911D2179AB001C1024 /* GLHomeManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296901D2179AB001C1024 /* GLHomeManagerViewController.m */; };
@@ -35,11 +33,21 @@
 		5859B0F81D1A9053008ED422 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5859B0E81D1A9053008ED422 /* Main.storyboard */; };
 		5859B0FA1D1A9053008ED422 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0EB1D1A9053008ED422 /* main.m */; };
 		5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0FF1D1A90E4008ED422 /* GLTabBarController.m */; };
+		586DF5981D24BE1900F2CFFB /* ZTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF5971D24BE1900F2CFFB /* ZTTableViewController.m */; };
+		586DF59D1D24BEAD00F2CFFB /* NoLimitScorllview.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF59C1D24BEAD00F2CFFB /* NoLimitScorllview.m */; };
+		586DF5A61D24C63900F2CFFB /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF5A11D24C63900F2CFFB /* RECommonFunctions.m */; };
+		586DF5A71D24C63900F2CFFB /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF5A31D24C63900F2CFFB /* RESideMenu.m */; };
+		586DF5A81D24C63900F2CFFB /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF5A51D24C63900F2CFFB /* UIViewController+RESideMenu.m */; };
+		586DF5AE1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF5AB1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.m */; };
+		586DF5AF1D24C6FF00F2CFFB /* DEMORightMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF5AD1D24C6FF00F2CFFB /* DEMORightMenuViewController.m */; };
+		586DF6141D24D4B000F2CFFB /* GLSpecialButtonSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF60D1D24D4B000F2CFFB /* GLSpecialButtonSubclass.m */; };
+		586DF66D1D24EA5600F2CFFB /* UIView+XZMFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF6681D24EA5600F2CFFB /* UIView+XZMFrame.m */; };
+		586DF66E1D24EA5600F2CFFB /* XZMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF66A1D24EA5600F2CFFB /* XZMButton.m */; };
+		586DF66F1D24EA5600F2CFFB /* XZMPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586DF66C1D24EA5600F2CFFB /* XZMPublishViewController.m */; };
+		6677A596EFBAC2A04AD28098 /* libPods-GLNavigationArchitectureSet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9602EFE2F9E87FC897A1A71 /* libPods-GLNavigationArchitectureSet.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A52965B1D21755E001C1024 /* GLSpecialButtonSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButtonSubclass.h; sourceTree = "<group>"; };
-		0A52965C1D21755E001C1024 /* GLSpecialButtonSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpecialButtonSubclass.m; sourceTree = "<group>"; };
 		0A5296631D2175DA001C1024 /* GLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHomeViewController.h; sourceTree = "<group>"; };
 		0A5296641D2175DA001C1024 /* GLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLHomeViewController.m; sourceTree = "<group>"; };
 		0A5296661D217651001C1024 /* GLMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMessageViewController.h; sourceTree = "<group>"; };
@@ -48,8 +56,6 @@
 		0A5296751D2176CE001C1024 /* GLDiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLDiscoveryViewController.m; sourceTree = "<group>"; };
 		0A5296771D2176FB001C1024 /* GLPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLPersonViewController.h; sourceTree = "<group>"; };
 		0A5296781D2176FB001C1024 /* GLPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLPersonViewController.m; sourceTree = "<group>"; };
-		0A5296861D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
-		0A5296871D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		0A5296891D2178DD001C1024 /* leftside_shadow_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftside_shadow_bg@2x.png"; sourceTree = "<group>"; };
 		0A52968A1D2178DD001C1024 /* MLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLNavigationController.h; sourceTree = "<group>"; };
 		0A52968B1D2178DD001C1024 /* MLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLNavigationController.m; sourceTree = "<group>"; };
@@ -58,6 +64,8 @@
 		0A5296931D217A1A001C1024 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0A5296941D217A1A001C1024 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0A5296961D217A78001C1024 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		39BA7DC878E309471D133381 /* Pods-GLNavigationArchitectureSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLNavigationArchitectureSet.release.xcconfig"; path = "Pods/Target Support Files/Pods-GLNavigationArchitectureSet/Pods-GLNavigationArchitectureSet.release.xcconfig"; sourceTree = "<group>"; };
+		460398635FB73A6F03235319 /* Pods-GLNavigationArchitectureSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLNavigationArchitectureSet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GLNavigationArchitectureSet/Pods-GLNavigationArchitectureSet.debug.xcconfig"; sourceTree = "<group>"; };
 		5818642E1D1CD1AD001E1CE3 /* GLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTabBar.h; sourceTree = "<group>"; };
 		5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTabBar.m; sourceTree = "<group>"; };
 		581864351D1CD744001E1CE3 /* GLSpecialButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButton.h; sourceTree = "<group>"; };
@@ -94,6 +102,29 @@
 		5859B0EB1D1A9053008ED422 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5859B0FE1D1A90E4008ED422 /* GLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTabBarController.h; sourceTree = "<group>"; };
 		5859B0FF1D1A90E4008ED422 /* GLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTabBarController.m; sourceTree = "<group>"; };
+		586DF5961D24BE1900F2CFFB /* ZTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTTableViewController.h; sourceTree = "<group>"; };
+		586DF5971D24BE1900F2CFFB /* ZTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTTableViewController.m; sourceTree = "<group>"; };
+		586DF59B1D24BEAD00F2CFFB /* NoLimitScorllview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoLimitScorllview.h; sourceTree = "<group>"; };
+		586DF59C1D24BEAD00F2CFFB /* NoLimitScorllview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoLimitScorllview.m; sourceTree = "<group>"; };
+		586DF5A01D24C63900F2CFFB /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		586DF5A11D24C63900F2CFFB /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		586DF5A21D24C63900F2CFFB /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
+		586DF5A31D24C63900F2CFFB /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
+		586DF5A41D24C63900F2CFFB /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		586DF5A51D24C63900F2CFFB /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		586DF5AA1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOLeftMenuViewController.h; sourceTree = "<group>"; };
+		586DF5AB1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOLeftMenuViewController.m; sourceTree = "<group>"; };
+		586DF5AC1D24C6FF00F2CFFB /* DEMORightMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMORightMenuViewController.h; sourceTree = "<group>"; };
+		586DF5AD1D24C6FF00F2CFFB /* DEMORightMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMORightMenuViewController.m; sourceTree = "<group>"; };
+		586DF60C1D24D4B000F2CFFB /* GLSpecialButtonSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLSpecialButtonSubclass.h; path = GLNavigationArchitectureSetDemo/Classes/Module/GLSpecialButtonSubclass.h; sourceTree = SOURCE_ROOT; };
+		586DF60D1D24D4B000F2CFFB /* GLSpecialButtonSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLSpecialButtonSubclass.m; path = GLNavigationArchitectureSetDemo/Classes/Module/GLSpecialButtonSubclass.m; sourceTree = SOURCE_ROOT; };
+		586DF6671D24EA5600F2CFFB /* UIView+XZMFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+XZMFrame.h"; path = "GLNavigationArchitectureSetDemo/Classes/Module/UIView+XZMFrame.h"; sourceTree = SOURCE_ROOT; };
+		586DF6681D24EA5600F2CFFB /* UIView+XZMFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+XZMFrame.m"; path = "GLNavigationArchitectureSetDemo/Classes/Module/UIView+XZMFrame.m"; sourceTree = SOURCE_ROOT; };
+		586DF6691D24EA5600F2CFFB /* XZMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XZMButton.h; path = GLNavigationArchitectureSetDemo/Classes/Module/XZMButton.h; sourceTree = SOURCE_ROOT; };
+		586DF66A1D24EA5600F2CFFB /* XZMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XZMButton.m; path = GLNavigationArchitectureSetDemo/Classes/Module/XZMButton.m; sourceTree = SOURCE_ROOT; };
+		586DF66B1D24EA5600F2CFFB /* XZMPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XZMPublishViewController.h; path = GLNavigationArchitectureSetDemo/Classes/Module/XZMPublishViewController.h; sourceTree = SOURCE_ROOT; };
+		586DF66C1D24EA5600F2CFFB /* XZMPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XZMPublishViewController.m; path = GLNavigationArchitectureSetDemo/Classes/Module/XZMPublishViewController.m; sourceTree = SOURCE_ROOT; };
+		B9602EFE2F9E87FC897A1A71 /* libPods-GLNavigationArchitectureSet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GLNavigationArchitectureSet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6677A596EFBAC2A04AD28098 /* libPods-GLNavigationArchitectureSet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				0A52964B1D21755E001C1024 /* Module */,
-				0A52965A1D21755E001C1024 /* View */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -122,8 +153,10 @@
 				0A5296921D217A0D001C1024 /* Base */,
 				0A52964C1D21755E001C1024 /* Home */,
 				0A52964F1D21755E001C1024 /* Message */,
+				586DF5B01D24D27600F2CFFB /* Special */,
 				0A5296691D2176A7001C1024 /* Discovery */,
-				0A52966C1D2176A7001C1024 /* My */,
+				0A52966C1D2176A7001C1024 /* Mine */,
+				586DF5A91D24C6BC00F2CFFB /* Side */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -131,10 +164,9 @@
 		0A52964C1D21755E001C1024 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0A5296631D2175DA001C1024 /* GLHomeViewController.h */,
-				0A5296641D2175DA001C1024 /* GLHomeViewController.m */,
-				0A52968F1D2179AB001C1024 /* GLHomeManagerViewController.h */,
-				0A5296901D2179AB001C1024 /* GLHomeManagerViewController.m */,
+				586DF5951D24BE0900F2CFFB /* ViewControllers */,
+				586DF5991D24BE2100F2CFFB /* Views */,
+				586DF59A1D24BE2B00F2CFFB /* Models */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -148,15 +180,6 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
-		0A52965A1D21755E001C1024 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0A52965B1D21755E001C1024 /* GLSpecialButtonSubclass.h */,
-				0A52965C1D21755E001C1024 /* GLSpecialButtonSubclass.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		0A5296691D2176A7001C1024 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +189,7 @@
 			path = Discovery;
 			sourceTree = "<group>";
 		};
-		0A52966C1D2176A7001C1024 /* My */ = {
+		0A52966C1D2176A7001C1024 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
 				0A5296771D2176FB001C1024 /* GLPersonViewController.h */,
@@ -174,16 +197,8 @@
 				5843AACC1D226383004E987A /* GLMoreViewController.h */,
 				5843AACD1D226383004E987A /* GLMoreViewController.m */,
 			);
+			name = Mine;
 			path = My;
-			sourceTree = "<group>";
-		};
-		0A5296851D2178DD001C1024 /* FDFullscreenPopGesture */ = {
-			isa = PBXGroup;
-			children = (
-				0A5296861D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.h */,
-				0A5296871D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m */,
-			);
-			path = FDFullscreenPopGesture;
 			sourceTree = "<group>";
 		};
 		0A5296881D2178DD001C1024 /* MLLayerNavigation */ = {
@@ -203,6 +218,15 @@
 				0A5296941D217A1A001C1024 /* BaseViewController.m */,
 			);
 			name = Base;
+			sourceTree = "<group>";
+		};
+		1983CB5A679CF8F18237C528 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				460398635FB73A6F03235319 /* Pods-GLNavigationArchitectureSet.debug.xcconfig */,
+				39BA7DC878E309471D133381 /* Pods-GLNavigationArchitectureSet.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5843AACF1D2278FA004E987A /* GLPage */ = {
@@ -249,6 +273,8 @@
 				5859B0D61D1A9053008ED422 /* GLNavigationArchitectureSet */,
 				5859B0E21D1A9053008ED422 /* GLNavigationArchitectureSetDemo */,
 				5859B0BD1D1A8F33008ED422 /* Products */,
+				1983CB5A679CF8F18237C528 /* Pods */,
+				B04554B559D9AF951BC28382 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -266,6 +292,7 @@
 				5859B0FD1D1A90C5008ED422 /* GLTabBarController */,
 				5859B0FC1D1A90C5008ED422 /* GLNavigationController */,
 				5843AACF1D2278FA004E987A /* GLPage */,
+				586DF59E1D24C63900F2CFFB /* GLSideViewController */,
 			);
 			path = GLNavigationArchitectureSet;
 			sourceTree = "<group>";
@@ -293,7 +320,6 @@
 			children = (
 				5843AAC91D22568B004E987A /* UINavigationBar+Awesome.h */,
 				5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */,
-				0A5296851D2178DD001C1024 /* FDFullscreenPopGesture */,
 				0A5296881D2178DD001C1024 /* MLLayerNavigation */,
 			);
 			path = GLNavigationController;
@@ -313,6 +339,91 @@
 			path = GLTabBarController;
 			sourceTree = "<group>";
 		};
+		586DF5951D24BE0900F2CFFB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A5296631D2175DA001C1024 /* GLHomeViewController.h */,
+				0A5296641D2175DA001C1024 /* GLHomeViewController.m */,
+				0A52968F1D2179AB001C1024 /* GLHomeManagerViewController.h */,
+				0A5296901D2179AB001C1024 /* GLHomeManagerViewController.m */,
+				586DF5961D24BE1900F2CFFB /* ZTTableViewController.h */,
+				586DF5971D24BE1900F2CFFB /* ZTTableViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		586DF5991D24BE2100F2CFFB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				586DF59B1D24BEAD00F2CFFB /* NoLimitScorllview.h */,
+				586DF59C1D24BEAD00F2CFFB /* NoLimitScorllview.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		586DF59A1D24BE2B00F2CFFB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		586DF59E1D24C63900F2CFFB /* GLSideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				586DF59F1D24C63900F2CFFB /* RESideMenu */,
+			);
+			path = GLSideViewController;
+			sourceTree = "<group>";
+		};
+		586DF59F1D24C63900F2CFFB /* RESideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				586DF5A01D24C63900F2CFFB /* RECommonFunctions.h */,
+				586DF5A11D24C63900F2CFFB /* RECommonFunctions.m */,
+				586DF5A21D24C63900F2CFFB /* RESideMenu.h */,
+				586DF5A31D24C63900F2CFFB /* RESideMenu.m */,
+				586DF5A41D24C63900F2CFFB /* UIViewController+RESideMenu.h */,
+				586DF5A51D24C63900F2CFFB /* UIViewController+RESideMenu.m */,
+			);
+			path = RESideMenu;
+			sourceTree = "<group>";
+		};
+		586DF5A91D24C6BC00F2CFFB /* Side */ = {
+			isa = PBXGroup;
+			children = (
+				586DF5AA1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.h */,
+				586DF5AB1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.m */,
+				586DF5AC1D24C6FF00F2CFFB /* DEMORightMenuViewController.h */,
+				586DF5AD1D24C6FF00F2CFFB /* DEMORightMenuViewController.m */,
+			);
+			name = Side;
+			sourceTree = "<group>";
+		};
+		586DF5B01D24D27600F2CFFB /* Special */ = {
+			isa = PBXGroup;
+			children = (
+				586DF60C1D24D4B000F2CFFB /* GLSpecialButtonSubclass.h */,
+				586DF60D1D24D4B000F2CFFB /* GLSpecialButtonSubclass.m */,
+				586DF6671D24EA5600F2CFFB /* UIView+XZMFrame.h */,
+				586DF6681D24EA5600F2CFFB /* UIView+XZMFrame.m */,
+				586DF6691D24EA5600F2CFFB /* XZMButton.h */,
+				586DF66A1D24EA5600F2CFFB /* XZMButton.m */,
+				586DF66B1D24EA5600F2CFFB /* XZMPublishViewController.h */,
+				586DF66C1D24EA5600F2CFFB /* XZMPublishViewController.m */,
+			);
+			name = Special;
+			path = Message;
+			sourceTree = "<group>";
+		};
+		B04554B559D9AF951BC28382 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9602EFE2F9E87FC897A1A71 /* libPods-GLNavigationArchitectureSet.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -320,9 +431,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5859B0D31D1A8F33008ED422 /* Build configuration list for PBXNativeTarget "GLNavigationArchitectureSet" */;
 			buildPhases = (
+				9D98AA256557FDA7B455A72C /* [CP] Check Pods Manifest.lock */,
 				5859B0B81D1A8F33008ED422 /* Sources */,
 				5859B0B91D1A8F33008ED422 /* Frameworks */,
 				5859B0BA1D1A8F33008ED422 /* Resources */,
+				8E334DFF02F1BE42F47664CC /* [CP] Embed Pods Frameworks */,
+				EC994F0C982620A714060A03 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -379,34 +493,91 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8E334DFF02F1BE42F47664CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GLNavigationArchitectureSet/Pods-GLNavigationArchitectureSet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D98AA256557FDA7B455A72C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EC994F0C982620A714060A03 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GLNavigationArchitectureSet/Pods-GLNavigationArchitectureSet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5859B0B81D1A8F33008ED422 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */,
+				586DF66E1D24EA5600F2CFFB /* XZMButton.m in Sources */,
 				5843AACE1D226383004E987A /* GLMoreViewController.m in Sources */,
 				0A5296951D217A1A001C1024 /* BaseViewController.m in Sources */,
 				5843AADA1D2278FA004E987A /* FloodView.m in Sources */,
-				0A5296621D21755E001C1024 /* GLSpecialButtonSubclass.m in Sources */,
 				5843AACB1D22568B004E987A /* UINavigationBar+Awesome.m in Sources */,
+				586DF6141D24D4B000F2CFFB /* GLSpecialButtonSubclass.m in Sources */,
 				5843AAE71D227A75004E987A /* UIView+Extension.m in Sources */,
 				0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */,
 				0A5296791D2176FB001C1024 /* GLPersonViewController.m in Sources */,
 				5843AAE51D227A75004E987A /* NSString+Extention.m in Sources */,
+				586DF66D1D24EA5600F2CFFB /* UIView+XZMFrame.m in Sources */,
+				586DF5AF1D24C6FF00F2CFFB /* DEMORightMenuViewController.m in Sources */,
 				5843AADC1D2278FA004E987A /* MenuViewBtn.m in Sources */,
 				5859B0FA1D1A9053008ED422 /* main.m in Sources */,
+				586DF66F1D24EA5600F2CFFB /* XZMPublishViewController.m in Sources */,
 				581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */,
-				0A52968C1D2178DD001C1024 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
+				586DF59D1D24BEAD00F2CFFB /* NoLimitScorllview.m in Sources */,
+				586DF5AE1D24C6FF00F2CFFB /* DEMOLeftMenuViewController.m in Sources */,
 				0A5296651D2175DA001C1024 /* GLHomeViewController.m in Sources */,
 				5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */,
 				0A52968E1D2178DD001C1024 /* MLNavigationController.m in Sources */,
 				5843AAE61D227A75004E987A /* UIBarButtonItem+Extention.m in Sources */,
+				586DF5A61D24C63900F2CFFB /* RECommonFunctions.m in Sources */,
+				586DF5A71D24C63900F2CFFB /* RESideMenu.m in Sources */,
+				586DF5981D24BE1900F2CFFB /* ZTTableViewController.m in Sources */,
 				0A5296911D2179AB001C1024 /* GLHomeManagerViewController.m in Sources */,
 				5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */,
 				581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */,
 				5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */,
 				5843AADB1D2278FA004E987A /* MenuView.m in Sources */,
+				586DF5A81D24C63900F2CFFB /* UIViewController+RESideMenu.m in Sources */,
 				5843AADD1D2278FA004E987A /* ZTViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,25 +688,37 @@
 		};
 		5859B0D41D1A8F33008ED422 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 460398635FB73A6F03235319 /* Pods-GLNavigationArchitectureSet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = GLNavigationArchitectureSetDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = GLNavigationArchitectureSetDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "https---github.com-GarfieldLover.GLNavigationArchitectureSet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_LDFLAGS = "";
 			};
 			name = Debug;
 		};
 		5859B0D51D1A8F33008ED422 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39BA7DC878E309471D133381 /* Pods-GLNavigationArchitectureSet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = GLNavigationArchitectureSetDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = GLNavigationArchitectureSetDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "https---github.com-GarfieldLover.GLNavigationArchitectureSet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_LDFLAGS = "";
 			};
 			name = Release;
 		};

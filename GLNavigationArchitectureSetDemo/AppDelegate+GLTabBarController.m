@@ -15,8 +15,33 @@
 //#import "UINavigationController+FDFullscreenPopGesture.h"
 #import "MLNavigationController.h"
 #import "ZTViewController.h"
+#import "ZTTableViewController.h"
+#import "DEMOLeftMenuViewController.h"
+#import "DEMORightMenuViewController.h"
 
 @implementation AppDelegate (GLTabBarController)
+
+- (RESideMenu*)sideMenuViewController
+{
+    
+    DEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
+    DEMORightMenuViewController *rightMenuViewController = [[DEMORightMenuViewController alloc] init];
+
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:[self tabBarController]
+                                                                    leftMenuViewController:leftMenuViewController
+                                                                   rightMenuViewController:rightMenuViewController];
+    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
+//    sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
+//    sideMenuViewController.delegate = self;
+    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
+    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
+    sideMenuViewController.contentViewShadowOpacity = 0.6;
+    sideMenuViewController.contentViewShadowRadius = 12;
+    sideMenuViewController.contentViewShadowEnabled = YES;
+    
+    
+    return sideMenuViewController;
+}
 
 - (GLTabBarController*)tabBarController
 {
@@ -30,15 +55,16 @@
     return tabBarController;
 }
 
-- (NSArray*)setupViewControllers {
-    Class vc1 = [UIViewController class];
+- (NSArray*)setupViewControllers
+{
+    
+    Class vc1 = [ZTTableViewController class];
     NSArray *vcclass = @[vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1];
     NSArray *titles = @[@"太原理工大学",@"热点",@"视频",@"体育",@"事实",@"NBA",@"美女",@"美女",@"体育",@"体育",@"优衣库",@"沈阳地铁"];
     
-    
     ZTViewController *vca = [[ZTViewController alloc]initWithMneuViewStyle:MenuViewStyleDefault];
     [vca loadVC:vcclass AndTitle:titles];
-    GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
+//    GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
     UINavigationController *firstNavigationController = [[MLNavigationController alloc]
                                                    initWithRootViewController:vca];
     
