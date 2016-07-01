@@ -60,13 +60,17 @@
     
     Class vc1 = [ZTTableViewController class];
     NSArray *vcclass = @[vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1];
-    NSArray *titles = @[@"太原理工大学",@"热点",@"视频",@"体育",@"事实",@"NBA",@"美女",@"美女",@"体育",@"体育",@"优衣库",@"沈阳地铁"];
+    NSArray *titles = @[@"首页",@"电视剧",@"综艺",@"会员",@"电影",@"测试超长长长长长长长长",@"动漫",@"韩日剧",@"自媒体",@"体育",@"娱乐",@"直播"];
     
-    ZTViewController *vca = [[ZTViewController alloc]initWithMneuViewStyle:MenuViewStyleDefault];
-    [vca loadVC:vcclass AndTitle:titles];
+    ZTViewController *vca = [[ZTViewController alloc]initWithMneuViewStyle:MenuViewStyleLine];
+    [vca loadVC:vcclass AndTitle:titles needaddMenuView:NO];
+    
+    
 //    GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
     UINavigationController *firstNavigationController = [[MLNavigationController alloc]
                                                    initWithRootViewController:vca];
+    [firstNavigationController.navigationBar addSubview:vca.Menview];
+    vca.Menview.frame=firstNavigationController.navigationBar.frame;
     
     GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
     UINavigationController *secondNavigationController = [[MLNavigationController alloc]

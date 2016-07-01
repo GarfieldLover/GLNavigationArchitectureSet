@@ -9,8 +9,6 @@
 #ifndef ZTPageController_ZTPage_h
 #define ZTPageController_ZTPage_h
 #import "UIView+Extension.h"
-#import "NSString+Extention.h"
-#import "UIBarButtonItem+Extention.h"
 // 颜色
 #define rgb(a,b,c) [UIColor colorWithRed:(a)/255.0 green:(b)/255.0 blue:(c)/255.0 alpha:1.0]
 #define ZTColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

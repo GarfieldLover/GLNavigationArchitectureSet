@@ -13,7 +13,6 @@
 
 @interface ZTViewController ()<UIScrollViewDelegate,MenuViewDelegate,NSCacheDelegate>
 
-@property (nonatomic,strong)MenuView *MenuView;
 @property (nonatomic,strong)UIScrollView *detailScrollView;
 @property (nonatomic,strong)NSArray *subviewControllers;
 @property (nonatomic,strong)NSMutableArray *controllerFrames;
@@ -24,9 +23,15 @@
 @property (nonatomic,assign)int  selectedIndex;
 //内存管理机制，设置countlimit可以使内存机制中存储控制器的最大数量
 @property (nonatomic,strong)NSCache *controllerCache;
+
+@property (nonatomic,assign)BOOL  needadd;
+
+
 @end
 
 @implementation ZTViewController
+@synthesize Menview=_Menview;
+
 #pragma mark Lazy load
 - (NSArray *)titles {
     if (!_titles) {
@@ -95,12 +100,6 @@
             case MenuViewStyleLine:
                 self.style = MenuViewStyleLine;
                 break;
-            case MenuViewStyleFoold:
-                self.style = MenuViewStyleFoold;
-                break;
-            case MenuViewStyleFooldHollow:
-                self.style = MenuViewStyleFooldHollow;
-                break;
             default:
                 self.style = MenuViewStyleDefault;
                 break;
@@ -109,18 +108,26 @@
     return self;
 }
 
-- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles {
+- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles needaddMenuView:(BOOL)need{
     self.subviewControllers = viewcontrollerClass;
     self.titles  = titles;
+    
+    self.needadd=need;
     [self loadMenuViewWithTitles:self.titles];
 }
 
 - (void)loadMenuViewWithTitles:(NSArray *)titles {
     MenuView *Menview = [[MenuView alloc]initWithMneuViewStyle:self.style AndTitles:titles];
-    [self.view addSubview:Menview];
+    if(self.needadd){
+        [self.view addSubview:Menview];
+    }else{
+        Menview.backgroundColor=[UIColor clearColor];
+    }
     Menview.delegate = self;
-    self.MenuView = Menview;
+    _Menview = Menview;
 }
+
+
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -135,8 +142,10 @@
     
     //如果不是在tabbar中需要将MenuView的y值设置为Y+20（导航控制器高度+状态栏高度）
 //    GFloat y =  NavigationBarHeight
-    self.MenuView.frame = CGRectMake(0, 0, ScreenWidth, MenuHeight);
-    self.detailScrollView.frame = CGRectMake(0, self.MenuView.y+self.MenuView.height, ScreenWidth,ScreenHeight - self.detailScrollView.y);
+    if(self.needadd){
+        _Menview.frame = CGRectMake(0, 0, ScreenWidth, MenuHeight);
+    }
+    self.detailScrollView.frame = CGRectMake(0, self.needadd?_Menview.y+_Menview.height:0, ScreenWidth,ScreenHeight - self.detailScrollView.y);
     self.detailScrollView.contentSize = CGSizeMake(self.subviewControllers.count * self.detailScrollView.width, 0);
     
     [self addViewControllerViewAtIndex:0];
@@ -219,7 +228,7 @@
     }
     self.selectedViewConTroller = [self.displayVC objectForKey:@(Page)];
     //滚动使MenuView中的item移动
-    [self.MenuView SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
+    [_Menview SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
 
 }
 
@@ -229,7 +238,7 @@
     int Page = (int)(scrollView.contentOffset.x/self.view.width);
    
    //因为我用的UItabbar做的展示，所以切换tabar的时候，会出现控制器不清除的结果，使得通知中心紊乱，其他控制器也可以接收当前控制器发送的通知，所以，我把通知名称设置为唯一的；
-    NSString *name  = [NSString stringWithFormat:@"scrollViewDidFinished%zd",self.MenuView.style];
+    NSString *name  = [NSString stringWithFormat:@"scrollViewDidFinished%zd",_Menview.style];
     NSDictionary *info = @{
                            @"index":@(Page)};
     [[NSNotificationCenter defaultCenter]postNotificationName:name  object:nil userInfo:info];
@@ -244,12 +253,12 @@
     int Page = (int)(scrollView.contentOffset.x/ScreenWidth);
     
     if (Page == 0) {
-        [self.MenuView selectWithIndex:Page AndOtherIndex:Page + 1 ];
+        [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
     }else if (Page == self.subviewControllers.count - 1){
-        [self.MenuView selectWithIndex:Page AndOtherIndex:Page - 1];
+        [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
     }else{
-        [self.MenuView selectWithIndex:Page AndOtherIndex:Page + 1 ];
-        [self.MenuView selectWithIndex:Page AndOtherIndex:Page - 1];
+        [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
+        [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
     }
     }
 }

@@ -21,7 +21,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        [self.titleLabel setFont:[UIFont systemFontOfSize:kNormalSize]];
+        [self setFontSize:17];
+//        [self.titleLabel setFont:[UIFont systemFontOfSize:kNormalSize]];
         [self setTitleColor:self.normalColor forState:UIControlStateNormal];
     }
     return self;

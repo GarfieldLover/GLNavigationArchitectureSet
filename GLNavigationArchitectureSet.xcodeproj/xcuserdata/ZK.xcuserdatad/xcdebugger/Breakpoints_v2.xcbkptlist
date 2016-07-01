@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GLNavigationArchitectureSet/GLPage/Page/MenuView.m"
-            timestampString = "488799500.987595"
+            timestampString = "489060438.67765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "-selectWithIndex:AndOtherIndex:"
             landmarkType = "5">
          </BreakpointContent>

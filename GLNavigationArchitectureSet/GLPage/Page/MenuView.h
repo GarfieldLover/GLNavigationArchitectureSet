@@ -12,10 +12,8 @@
 typedef enum{
     MenuViewStyleDefault,     // 默认
     MenuViewStyleLine,        // 带下划线 (颜色会变化)
-    MenuViewStyleFoold,       // 涌入效果 (填充)
-    MenuViewStyleFooldHollow, // 涌入效果 (空心的)
-    
 } MenuViewStyle;
+
 @class MenuView;
 
 @protocol MenuViewDelegate <NSObject>

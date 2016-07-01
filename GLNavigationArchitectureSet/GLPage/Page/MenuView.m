@@ -28,12 +28,6 @@
             case MenuViewStyleLine:
                 _style = MenuViewStyleLine;
                 break;
-            case MenuViewStyleFoold:
-                _style = MenuViewStyleFoold;
-                break;
-            case MenuViewStyleFooldHollow:
-                _style = MenuViewStyleFooldHollow;
-                break;
             default:
                 _style = MenuViewStyleDefault;
                 break;
@@ -52,7 +46,7 @@
     UIScrollView *MenuScrollView = [[UIScrollView alloc]init];
     MenuScrollView.showsVerticalScrollIndicator = NO;
     MenuScrollView.showsHorizontalScrollIndicator = NO;
-    MenuScrollView.backgroundColor = [UIColor whiteColor];
+//    MenuScrollView.backgroundColor = [UIColor whiteColor];
     MenuScrollView.delegate = self;
     self.MenuScrollView= MenuScrollView;
     [self addSubview:self.MenuScrollView];
@@ -61,23 +55,13 @@
     for (int i = 0; i < titles.count; i++) {
         MenuViewBtn *btn = [[MenuViewBtn alloc ]initWithTitles:titles AndIndex:i];
         btn.tag = i;
-        if (self.style == MenuViewStyleFoold || self.style == MenuViewStyleFooldHollow) {
-            btn.fontName = @"BodoniSvtyTwoOSITCTT-Bold";
-            btn.fontSize = 16;
-            btn.normalColor = kNomalColor;
-            btn.selectedColor = kSelectedColorFontFlood;
-            if (self.style == MenuViewStyleFooldHollow) {
-                btn.selectedColor = kSelectedColorFloodH;
-            }
-        }else{
-            //这里为引入第三方定义字体，只需导入你想要的otf/ttf的字体源文件，修改一下plist中的font设置，再将字体家族和字体名称打印出来。具体详细过程请问谷歌。
-            btn.fontName = @"经典细圆简";
-        }
+        
         
         [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
-        btn.titleLabel.textColor = kNomalColor;
+//        btn.titleLabel.textColor = kNomalColor;
         [self.MenuScrollView addSubview:btn];
-        }
+        
+    }
 }
 
 - (void)layoutSubviews {
@@ -92,7 +76,11 @@
             btn1 = self.MenuScrollView.subviews[i-1];
         }
         UIFont *titleFont = btn.titleLabel.font;
-        CGSize titleS = [btn.titleLabel.text sizeWithfont:titleFont];
+        
+        NSDictionary* dic=@{NSFontAttributeName:titleFont};
+        CGSize titleS = [btn.titleLabel.text sizeWithAttributes:dic];
+        
+        
         btn.width = titleS.width + 2 *BtnGap;
         btn.x = btn1.x + btn1.width + BtnGap;
         btn.y = 0;
@@ -138,21 +126,11 @@
 }
 
 - (void)addProgressView {
-    if (self.style == MenuViewStyleFooldHollow || self.style == MenuViewStyleFoold){
-        self.line.FillColor = kNormalColorFlood.CGColor;
-        self.line.height = self.height/2 + 2;
-        self.line.y = (self.height - self.line.height)/2;
-        
-        if (self.style == MenuViewStyleFooldHollow) {
-            self.line.isStroke = YES;
-            self.line.color = [UIColor redColor];
-        }
-    }else{
+
         self.line.isLine = YES;
         self.line.height = 2;
         self.line.y = self.height - self.line.height;
         self.line.FillColor = [UIColor redColor].CGColor;
-    }
 }
 
 - (void)click:(MenuViewBtn *)btn {

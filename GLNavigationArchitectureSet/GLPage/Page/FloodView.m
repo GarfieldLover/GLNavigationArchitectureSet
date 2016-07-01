@@ -16,7 +16,7 @@
 
     CGFloat radius;
     if (self.isLine) {
-        radius = 2;
+        radius = 0;
     }else if(self.isStroke){
         radius = 13;
     }else{
