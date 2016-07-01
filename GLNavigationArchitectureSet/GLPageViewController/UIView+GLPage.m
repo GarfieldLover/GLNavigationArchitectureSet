@@ -1,14 +1,14 @@
 //
-//  UIView+Extension.m
-//  黑马微博2期
+//  UIView+GLPage.m
+//  GLNavigationArchitectureSet
 //
-//  Created by apple on 14-10-7.
-//  Copyright (c) 2014年 heima. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#import "UIView+Extension.h"
+#import "UIView+GLPage.h"
 
-@implementation UIView (Extension)
+@implementation UIView (GLPage)
 
 - (void)setX:(CGFloat)x
 {
@@ -104,6 +104,5 @@
 {
     return self.center.x;
 }
-
 
 @end

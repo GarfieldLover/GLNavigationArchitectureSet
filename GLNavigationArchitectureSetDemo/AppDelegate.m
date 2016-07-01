@@ -22,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor=[UIColor whiteColor];
     
-    [self.window setRootViewController:[self sideMenuViewController]];
+    [self.window setRootViewController:[self tabBarController]];
     
     [self.window makeKeyAndVisible];
     

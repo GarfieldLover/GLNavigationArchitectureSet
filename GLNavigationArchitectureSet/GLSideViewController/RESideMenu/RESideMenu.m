@@ -25,7 +25,6 @@
 
 #import "RESideMenu.h"
 #import "UIViewController+RESideMenu.h"
-#import "RECommonFunctions.h"
 
 @interface RESideMenu ()
 
@@ -289,11 +288,8 @@
             self.contentViewContainer.transform = CGAffineTransformIdentity;
         }
         
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
             self.contentViewContainer.center = CGPointMake((UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetWidth(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y);
-        } else {
-            self.contentViewContainer.center = CGPointMake((UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetHeight(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y);
-        }
+
 
         self.menuViewContainer.alpha = !self.fadeMenuView ?: 1.0f;
         self.contentViewContainer.alpha = self.contentViewFadeOutAlpha;
@@ -398,11 +394,9 @@
             strongSelf.backgroundImageView.transform = CGAffineTransformMakeScale(1.7f, 1.7f);
         }
         if (strongSelf.parallaxEnabled) {
-            IF_IOS7_OR_GREATER(
                for (UIMotionEffect *effect in strongSelf.contentViewContainer.motionEffects) {
                    [strongSelf.contentViewContainer removeMotionEffect:effect];
                }
-            );
         }
     };
     void (^completionBlock)(void) = ^{
@@ -480,7 +474,6 @@
 - (void)addMenuViewControllerMotionEffects
 {
     if (self.parallaxEnabled) {
-        IF_IOS7_OR_GREATER(
            for (UIMotionEffect *effect in self.menuViewContainer.motionEffects) {
                [self.menuViewContainer removeMotionEffect:effect];
            }
@@ -494,14 +487,12 @@
            
            [self.menuViewContainer addMotionEffect:interpolationHorizontal];
            [self.menuViewContainer addMotionEffect:interpolationVertical];
-        );
     }
 }
 
 - (void)addContentViewControllerMotionEffects
 {
     if (self.parallaxEnabled) {
-        IF_IOS7_OR_GREATER(
             for (UIMotionEffect *effect in self.contentViewContainer.motionEffects) {
                [self.contentViewContainer removeMotionEffect:effect];
             }
@@ -517,7 +508,6 @@
                 [self.contentViewContainer addMotionEffect:interpolationHorizontal];
                 [self.contentViewContainer addMotionEffect:interpolationVertical];
             }];
-        );
     }
 }
 
@@ -526,24 +516,13 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    IF_IOS7_OR_GREATER(
        if (self.interactivePopGestureRecognizerEnabled && [self.contentViewController isKindOfClass:[UINavigationController class]]) {
            UINavigationController *navigationController = (UINavigationController *)self.contentViewController;
            if (navigationController.viewControllers.count > 1 && navigationController.interactivePopGestureRecognizer.enabled) {
                return NO;
            }
        }
-    );
-  
-    if (self.panFromEdge && [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && !self.visible) {
-        CGPoint point = [touch locationInView:gestureRecognizer.view];
-        if (point.x < 80.0 || point.x > self.view.frame.size.width - 80.0) {
-            return YES;
-        } else {
-            return NO;
-        }
-    }
-    
+
     return YES;
 }
 
@@ -797,11 +776,8 @@
         
         CGPoint center;
         if (self.leftMenuVisible) {
-            if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
                 center = CGPointMake((UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetWidth(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y);
-            } else {
-                center = CGPointMake((UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? self.contentViewInLandscapeOffsetCenterX + CGRectGetHeight(self.view.frame) : self.contentViewInPortraitOffsetCenterX + CGRectGetWidth(self.view.frame)), self.contentViewContainer.center.y);
-            }
+
         } else {
             center = CGPointMake((UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? -self.contentViewInLandscapeOffsetCenterX : -self.contentViewInPortraitOffsetCenterX), self.contentViewContainer.center.y);
         }
@@ -818,42 +794,37 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     UIStatusBarStyle statusBarStyle = UIStatusBarStyleDefault;
-    IF_IOS7_OR_GREATER(
+
        statusBarStyle = self.visible ? self.menuPreferredStatusBarStyle : self.contentViewController.preferredStatusBarStyle;
        if (self.contentViewContainer.frame.origin.y > 10) {
            statusBarStyle = self.menuPreferredStatusBarStyle;
        } else {
            statusBarStyle = self.contentViewController.preferredStatusBarStyle;
        }
-    );
     return statusBarStyle;
 }
 
 - (BOOL)prefersStatusBarHidden
 {
     BOOL statusBarHidden = NO;
-    IF_IOS7_OR_GREATER(
         statusBarHidden = self.visible ? self.menuPrefersStatusBarHidden : self.contentViewController.prefersStatusBarHidden;
         if (self.contentViewContainer.frame.origin.y > 10) {
             statusBarHidden = self.menuPrefersStatusBarHidden;
         } else {
             statusBarHidden = self.contentViewController.prefersStatusBarHidden;
         }
-    );
     return statusBarHidden;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
 {
     UIStatusBarAnimation statusBarAnimation = UIStatusBarAnimationNone;
-    IF_IOS7_OR_GREATER(
         statusBarAnimation = self.visible ? self.leftMenuViewController.preferredStatusBarUpdateAnimation : self.contentViewController.preferredStatusBarUpdateAnimation;
         if (self.contentViewContainer.frame.origin.y > 10) {
             statusBarAnimation = self.leftMenuViewController.preferredStatusBarUpdateAnimation;
         } else {
             statusBarAnimation = self.contentViewController.preferredStatusBarUpdateAnimation;
         }
-    );
     return statusBarAnimation;
 }
 

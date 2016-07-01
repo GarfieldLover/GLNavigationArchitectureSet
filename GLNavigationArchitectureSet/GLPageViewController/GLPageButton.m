@@ -1,28 +1,28 @@
 //
-//  MenuViewBtn.m
-//  02-练习
+//  GLPageButton.m
+//  GLNavigationArchitectureSet
 //
-//  Created by 武镇涛 on 15/7/20.
-//  Copyright (c) 2015年 wuzhentao. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#import "MenuViewBtn.h"
-#import "ZTPage.h"
+#import "GLPageButton.h"
+#import "GLPageDefine.h"
 
 #define Defaultrate 1.15
-@interface MenuViewBtn (){
+@interface GLPageButton (){
     CGFloat rgba[4];
     CGFloat rgbaGAP[4];
 }
 @end
 
-@implementation MenuViewBtn
+@implementation GLPageButton
 
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
         [self setFontSize:17];
-//        [self.titleLabel setFont:[UIFont systemFontOfSize:kNormalSize]];
+        //        [self.titleLabel setFont:[UIFont systemFontOfSize:kNormalSize]];
         [self setTitleColor:self.normalColor forState:UIControlStateNormal];
     }
     return self;
@@ -78,7 +78,7 @@
             self.selectedColor = [UIColor colorWithRed:selComponents[0] green:selComponents[0] blue:selComponents[0] alpha:selComponents[1]];
         }
     }
-
+    
 }
 
 - (void)ChangSelectedColorWithRate:(CGFloat)rate {
@@ -160,4 +160,5 @@
     }
     return _rate;
 }
+
 @end

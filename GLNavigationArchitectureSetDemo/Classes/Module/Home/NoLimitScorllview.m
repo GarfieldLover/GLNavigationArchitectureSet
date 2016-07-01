@@ -7,7 +7,7 @@
 //
 
 #import "NoLimitScorllview.h"
-#import "UIView+Extension.h"
+#import "UIView+GLPage.h"
 
 @interface NoLimitScorllview ()<UIScrollViewDelegate>
 

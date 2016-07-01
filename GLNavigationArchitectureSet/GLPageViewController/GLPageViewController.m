@@ -1,17 +1,15 @@
 //
-//  ViewController.m
-//  02-练习
+//  GLPageViewController.m
+//  GLNavigationArchitectureSet
 //
-//  Created by 武镇涛 on 15/7/15.
-//  Copyright (c) 2015年 wuzhentao. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#import "ZTViewController.h"
-#import "UIView+Extension.h"
-#import "ZTPage.h"
+#import "GLPageViewController.h"
+#import "GLPageDefine.h"
 
-
-@interface ZTViewController ()<UIScrollViewDelegate,MenuViewDelegate,NSCacheDelegate>
+@interface GLPageViewController ()<UIScrollViewDelegate,GLPageControlViewDelegate,NSCacheDelegate>
 
 @property (nonatomic,strong)UIScrollView *detailScrollView;
 @property (nonatomic,strong)NSArray *subviewControllers;
@@ -29,7 +27,7 @@
 
 @end
 
-@implementation ZTViewController
+@implementation GLPageViewController
 @synthesize Menview=_Menview;
 
 #pragma mark Lazy load
@@ -88,22 +86,14 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-//    self.navigationItem.title = @"新闻";
     
     self.edgesForExtendedLayout=UIRectEdgeNone;
 }
 
-- (instancetype)initWithMneuViewStyle:(MenuViewStyle)style {
+- (instancetype)initWithMneuViewStyle:(GLPageControlStyle)style {
     
     if (self = [super init]) {
-        switch (style) {
-            case MenuViewStyleLine:
-                self.style = MenuViewStyleLine;
-                break;
-            default:
-                self.style = MenuViewStyleDefault;
-                break;
-        }
+        self.style=style;
     }
     return self;
 }
@@ -117,7 +107,7 @@
 }
 
 - (void)loadMenuViewWithTitles:(NSArray *)titles {
-    MenuView *Menview = [[MenuView alloc]initWithMneuViewStyle:self.style AndTitles:titles];
+    GLPageControlView *Menview = [[GLPageControlView alloc]initWithMneuViewStyle:self.style AndTitles:titles];
     if(self.needadd){
         [self.view addSubview:Menview];
     }else{
@@ -141,7 +131,7 @@
     }
     
     //如果不是在tabbar中需要将MenuView的y值设置为Y+20（导航控制器高度+状态栏高度）
-//    GFloat y =  NavigationBarHeight
+    //    GFloat y =  NavigationBarHeight
     if(self.needadd){
         _Menview.frame = CGRectMake(0, 0, ScreenWidth, MenuHeight);
     }
@@ -172,7 +162,7 @@
     
     if ([self.controllerCache objectForKey:@(index)]) return;
     [self.controllerCache setObject:viewController forKey:@(index)];
-  
+    
 }
 
 - (BOOL)isInScreen:(CGRect)frame {
@@ -217,7 +207,7 @@
                 if (vc) {//把内存中的取出来创建，保证此控制器是之前消除的控制器
                     [self addCachedViewController:vc atIndex:i];
                 }else{//再创建
-                 [self addViewControllerViewAtIndex:i];
+                    [self addViewControllerViewAtIndex:i];
                 }
             }
         }else{
@@ -229,41 +219,41 @@
     self.selectedViewConTroller = [self.displayVC objectForKey:@(Page)];
     //滚动使MenuView中的item移动
     [_Menview SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
-
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width )return;
     int Page = (int)(scrollView.contentOffset.x/self.view.width);
-   
-   //因为我用的UItabbar做的展示，所以切换tabar的时候，会出现控制器不清除的结果，使得通知中心紊乱，其他控制器也可以接收当前控制器发送的通知，所以，我把通知名称设置为唯一的；
+    
+    //因为我用的UItabbar做的展示，所以切换tabar的时候，会出现控制器不清除的结果，使得通知中心紊乱，其他控制器也可以接收当前控制器发送的通知，所以，我把通知名称设置为唯一的；
     NSString *name  = [NSString stringWithFormat:@"scrollViewDidFinished%zd",_Menview.style];
     NSDictionary *info = @{
                            @"index":@(Page)};
     [[NSNotificationCenter defaultCenter]postNotificationName:name  object:nil userInfo:info];
-          
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
     if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width )return;
-   
-    if(!decelerate){
-    int Page = (int)(scrollView.contentOffset.x/ScreenWidth);
     
-    if (Page == 0) {
-        [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
-    }else if (Page == self.subviewControllers.count - 1){
-        [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
-    }else{
-        [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
-        [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
-    }
+    if(!decelerate){
+        int Page = (int)(scrollView.contentOffset.x/ScreenWidth);
+        
+        if (Page == 0) {
+            [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
+        }else if (Page == self.subviewControllers.count - 1){
+            [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
+        }else{
+            [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
+            [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
+        }
     }
 }
 
-- (void)MenuViewDelegate:(MenuView *)menuciew WithIndex:(int)index {
+- (void)MenuViewDelegate:(GLPageControlView *)menuciew WithIndex:(int)index {
     
     [self removeViewController:self.selectedViewConTroller atIndex:_selectedIndex];
     
@@ -287,4 +277,6 @@
 // 
 //    NSLog(@"清除了-------> %@", obj);
 //}
+
+
 @end

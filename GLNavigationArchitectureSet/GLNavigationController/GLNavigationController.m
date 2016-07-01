@@ -1,14 +1,12 @@
 //
-//  MLNavigationController.m
-//  MultiLayerNavigation
+//  GLNavigationController.m
+//  GLNavigationArchitectureSet
 //
-//  Created by Feather Chan on 13-4-12.
-//  Copyright (c) 2013年 Feather Chan. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-
-#import "MLNavigationController.h"
-#import <QuartzCore/QuartzCore.h>
+#import "GLNavigationController.h"
 
 #define KEY_WINDOW  [[UIApplication sharedApplication]keyWindow]
 #define TOP_VIEW  [UIApplication sharedApplication].delegate.window.rootViewController.view
@@ -16,7 +14,7 @@
 
 static CGFloat animateDuration = 0.25f;
 
-@interface MLNavigationController ()
+@interface GLNavigationController ()<UIGestureRecognizerDelegate>
 {
     CGPoint startTouch;
     
@@ -34,7 +32,7 @@ static CGFloat animateDuration = 0.25f;
 
 @end
 
-@implementation MLNavigationController
+@implementation GLNavigationController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,23 +59,23 @@ static CGFloat animateDuration = 0.25f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
     
     // draw a shadow for navigation view to differ the layers obviously.
     // using this way to draw shadow will lead to the low performace
     // the best alternative way is making a shadow image.
     //
-    //self.view.layer.shadowColor = [[UIColor blackColor]CGColor];
-    //self.view.layer.shadowOffset = CGSizeMake(5, 5);
-    //self.view.layer.shadowRadius = 5;
-    //self.view.layer.shadowOpacity = 1;
+    self.view.layer.shadowColor = [[UIColor blackColor]CGColor];
+    self.view.layer.shadowOffset = CGSizeMake(5, 5);
+    self.view.layer.shadowRadius = 5;
+    self.view.layer.shadowOpacity = 1;
     
-    UIImageView *shadowImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"leftside_shadow_bg"]];
-    shadowImageView.frame = CGRectMake(-10, 0, 10, TOP_VIEW.frame.size.height);
-    [TOP_VIEW addSubview:shadowImageView];
+//    UIImageView *shadowImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"leftside_shadow_bg"]];
+//    shadowImageView.frame = CGRectMake(-10, 0, 10, TOP_VIEW.frame.size.height);
+//    [TOP_VIEW addSubview:shadowImageView];
     
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
-                                                                                 action:@selector(paningGestureReceive:)];
+                                                                                action:@selector(paningGestureReceive:)];
     recognizer.delegate = self;
     [recognizer delaysTouchesBegan];
     [self.view addGestureRecognizer:recognizer];
@@ -105,7 +103,7 @@ static CGFloat animateDuration = 0.25f;
             [self.screenShotsDic setObject:capturedImage forKey:self.topViewController.description];
         }
     }
-
+    
     [super pushViewController:viewController animated:animated];
 }
 
@@ -131,7 +129,7 @@ static CGFloat animateDuration = 0.25f;
 {
     UIGraphicsBeginImageContextWithOptions(TOP_VIEW.bounds.size, TOP_VIEW.opaque, 0.0);
     [TOP_VIEW.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIViewController*xx =[UIApplication sharedApplication].delegate.window.rootViewController;
+    
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
@@ -150,7 +148,7 @@ static CGFloat animateDuration = 0.25f;
     TOP_VIEW.frame = frame;
     
     float alpha = 0.4 - (x/(ViewWith/0.4));
-
+    
     blackMask.alpha = alpha;
     
     CGRect rect=lastScreenShotView.frame;
@@ -178,21 +176,21 @@ static CGFloat animateDuration = 0.25f;
 }
 
 /*
--(BOOL)shouldReceiveTouch:(UIView *)touchView
-{
-    if([touchView isKindOfClass:[UIWindow class]]){
-        return YES;
-    }
-    if([touchView isKindOfClass:NSClassFromString(@"HorizontalTableViewCell")]
-       || [touchView isKindOfClass:NSClassFromString(@"PlayerControlPanel")]){
-        return NO;
-    }
-    
-    [self shouldReceiveTouch:touchView.superview];
-    
-    return YES;
-}
-*/
+ -(BOOL)shouldReceiveTouch:(UIView *)touchView
+ {
+ if([touchView isKindOfClass:[UIWindow class]]){
+ return YES;
+ }
+ if([touchView isKindOfClass:NSClassFromString(@"HorizontalTableViewCell")]
+ || [touchView isKindOfClass:NSClassFromString(@"PlayerControlPanel")]){
+ return NO;
+ }
+ 
+ [self shouldReceiveTouch:touchView.superview];
+ 
+ return YES;
+ }
+ */
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
@@ -245,7 +243,7 @@ static CGFloat animateDuration = 0.25f;
         if(screenShotViewController){
             lastScreenShot =  [self.screenShotsDic objectForKey:screenShotViewController.description];
         }
-
+        
         lastScreenShotView = [[UIImageView alloc]initWithImage:lastScreenShot];
         CGRect rect=lastScreenShotView.frame;
         rect.origin.x=-self.backgroundView.frame.size.width/3;
@@ -268,7 +266,7 @@ static CGFloat animateDuration = 0.25f;
                 
                 _isMoving = NO;
                 self.backgroundView.hidden = YES;
-
+                
             }];
         }
         else

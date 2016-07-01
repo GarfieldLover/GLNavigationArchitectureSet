@@ -1,14 +1,15 @@
 //
-//  UIView+Extension.h
-//  黑马微博2期
+//  UIView+GLPage.h
+//  GLNavigationArchitectureSet
 //
-//  Created by apple on 14-10-7.
-//  Copyright (c) 2014年 heima. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (Extension)
+@interface UIView (GLPage)
+
 @property (nonatomic, assign) CGFloat x;
 @property (nonatomic, assign) CGFloat y;
 @property (nonatomic, assign) CGFloat width;
@@ -18,4 +19,5 @@
 
 @property (nonatomic, assign) CGFloat centerX;
 @property (nonatomic, assign) CGFloat centerY;
+
 @end

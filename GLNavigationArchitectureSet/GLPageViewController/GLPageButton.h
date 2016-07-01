@@ -1,15 +1,14 @@
 //
-//  MenuViewBtn.h
-//  02-练习
+//  GLPageButton.h
+//  GLNavigationArchitectureSet
 //
-//  Created by 武镇涛 on 15/7/20.
-//  Copyright (c) 2015年 wuzhentao. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewBtn : UIButton
-
+@interface GLPageButton : UIButton
 @property (nonatomic, copy  ) NSString *fontName;
 @property (nonatomic, assign) CGFloat  fontSize;
 @property (nonatomic, assign) CGFloat  NomrmalSize;

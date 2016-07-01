@@ -1,14 +1,16 @@
 //
-//  ZTPage.h
-//  ZTPageController
+//  GLPageDefine.h
+//  GLNavigationArchitectureSet
 //
-//  Created by 武镇涛 on 15/8/1.
-//  Copyright (c) 2015年 wuzhentao. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#ifndef ZTPageController_ZTPage_h
-#define ZTPageController_ZTPage_h
-#import "UIView+Extension.h"
+#ifndef GLPageDefine_h
+#define GLPageDefine_h
+
+#import "UIView+GLPage.h"
+
 // 颜色
 #define rgb(a,b,c) [UIColor colorWithRed:(a)/255.0 green:(b)/255.0 blue:(c)/255.0 alpha:1.0]
 #define ZTColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
@@ -38,13 +40,5 @@
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define NavigationBarHeight self.navigationController.navigationBar.frame.size.height;
 
-/**
- *  --------------------------------------------
- 如果有什么更好地建议或出现BUG，联系我噢.
- (尤其最后一个style 是画出来的，有点粗糙，有好的建议可以私信我）
- //  Github: https://github.com/IOStao
- //  QQ:530413389
- //  Email:  https://zhentaow@163.com
- */
-#endif
 
+#endif /* GLPageDefine_h */

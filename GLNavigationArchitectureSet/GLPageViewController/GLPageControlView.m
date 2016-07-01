@@ -1,42 +1,37 @@
 //
-//  MenuView.m
-//  02-练习
+//  GLPageControlView.m
+//  GLNavigationArchitectureSet
 //
-//  Created by 武镇涛 on 15/7/19.
-//  Copyright (c) 2015年 wuzhentao. All rights reserved.
+//  Created by zhangke on 16/7/1.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#import "MenuView.h"
-#import "MenuViewBtn.h"
-#import "FloodView.h"
-#import "ZTPage.h"
-@interface MenuView ()<UIScrollViewDelegate>
+#import "GLPageControlView.h"
+#import "GLPageButton.h"
+#import "GLPageDefine.h"
+
+@interface GLPageControlView ()<UIScrollViewDelegate>
 
 @property (nonatomic,strong)UIScrollView *MenuScrollView;
-@property (nonatomic,strong)MenuViewBtn *selectedBtn;
-@property (nonatomic,strong)FloodView  *line;
+@property (nonatomic,strong)GLPageButton *selectedBtn;
+@property (nonatomic,strong)UIView  *line;
 @property (nonatomic,assign)CGFloat sumWidth;
 
 @end
 
-@implementation MenuView
+@implementation GLPageControlView
 
-- (instancetype)initWithMneuViewStyle:(MenuViewStyle)style AndTitles:(NSArray *)titles {
+- (instancetype)initWithMneuViewStyle:(GLPageControlStyle)style AndTitles:(NSArray *)titles
+{
     if (self = [super init]) {
         self.backgroundColor = [UIColor whiteColor];
-        switch (style) {
-            case MenuViewStyleLine:
-                _style = MenuViewStyleLine;
-                break;
-            default:
-                _style = MenuViewStyleDefault;
-                break;
-        }
-    [self loadWithScollviewAndBtnWithTitles:titles];
-        //接收通知
-    NSString *name = [NSString stringWithFormat:@"scrollViewDidFinished%zd",style];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(move:) name:name object:nil];
+        self.style=style;
 
+        [self loadWithScollviewAndBtnWithTitles:titles];
+        //接收通知
+        NSString *name = [NSString stringWithFormat:@"scrollViewDidFinished%zd",style];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(move:) name:name object:nil];
+        
     }
     return self;
 }
@@ -46,19 +41,19 @@
     UIScrollView *MenuScrollView = [[UIScrollView alloc]init];
     MenuScrollView.showsVerticalScrollIndicator = NO;
     MenuScrollView.showsHorizontalScrollIndicator = NO;
-//    MenuScrollView.backgroundColor = [UIColor whiteColor];
+    //    MenuScrollView.backgroundColor = [UIColor whiteColor];
     MenuScrollView.delegate = self;
     self.MenuScrollView= MenuScrollView;
     [self addSubview:self.MenuScrollView];
-//btn创建
+    //btn创建
     
     for (int i = 0; i < titles.count; i++) {
-        MenuViewBtn *btn = [[MenuViewBtn alloc ]initWithTitles:titles AndIndex:i];
+        GLPageButton *btn = [[GLPageButton alloc ]initWithTitles:titles AndIndex:i];
         btn.tag = i;
         
         
         [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
-//        btn.titleLabel.textColor = kNomalColor;
+        //        btn.titleLabel.textColor = kNomalColor;
         [self.MenuScrollView addSubview:btn];
         
     }
@@ -66,8 +61,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    MenuViewBtn *btn = nil;
-    MenuViewBtn *btn1 = nil;
+    GLPageButton *btn = nil;
+    GLPageButton *btn1 = nil;
     self.sumWidth = 0;
     
     for (int i = 0; i < self.MenuScrollView.subviews.count; i++){
@@ -117,8 +112,8 @@
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     
-    if (self.style == MenuViewStyleDefault) {
-        MenuViewBtn *btn = [self.MenuScrollView.subviews firstObject];
+    if (self.style == GLPageControlFontChangeStyle) {
+        GLPageButton *btn = [self.MenuScrollView.subviews firstObject];
         [btn ChangSelectedColorAndScalWithRate:0.1];
     }else{
         [self addProgressView];
@@ -126,25 +121,23 @@
 }
 
 - (void)addProgressView {
-
-        self.line.isLine = YES;
-        self.line.height = 2;
-        self.line.y = self.height - self.line.height;
-        self.line.FillColor = [UIColor redColor].CGColor;
+    
+    self.line.height = 2;
+    self.line.y = self.height - self.line.height;
 }
 
-- (void)click:(MenuViewBtn *)btn {
+- (void)click:(GLPageButton *)btn {
     
     if (self.selectedBtn == btn) return;
-    if ([self.delegate respondsToSelector:@selector(MenuViewDelegate:WithIndex:)]) {
-        [self.delegate MenuViewDelegate:self WithIndex:(int)btn.tag];
+    if ([self.delegate respondsToSelector:@selector(pageControlViewDidSelectWithIndex:)]) {
+        [self.delegate pageControlViewDidSelectWithIndex:btn.tag];
     }
     self.selectedBtn.selected = NO;
     btn.selected = YES;
     [self MoveCodeWithIndex:(int)btn.tag];
     
-    if (self.style == MenuViewStyleDefault) {
-
+    if (self.style == GLPageControlFontChangeStyle) {
+        
         [btn selectedItemWithoutAnimation];
         [self.selectedBtn deselectedItemWithoutAnimation];
     }else{
@@ -166,12 +159,12 @@
     if (Pagerate < 0) return;
     if (index == count-1 || index >= count -1) return;
     if ( rate == 0)    return;
-   
+    
     self.selectedBtn.selected = NO;
-    MenuViewBtn *currentbtn = self.MenuScrollView.subviews[index];
-    MenuViewBtn *nextBtn = self.MenuScrollView.subviews[index + 1];
-
-    if (self.style == MenuViewStyleDefault) {
+    GLPageButton *currentbtn = self.MenuScrollView.subviews[index];
+    GLPageButton *nextBtn = self.MenuScrollView.subviews[index + 1];
+    
+    if (self.style == GLPageControlFontChangeStyle) {
         
         [currentbtn ChangSelectedColorAndScalWithRate:rate];
         [nextBtn ChangSelectedColorAndScalWithRate:1-rate];
@@ -191,9 +184,9 @@
             [nextBtn ChangSelectedColorWithRate:1-rate];
         }
     }
-   self.selectedBtn = self.MenuScrollView.subviews[page];
-   self.selectedBtn.selected = YES;
-
+    self.selectedBtn = self.MenuScrollView.subviews[page];
+    self.selectedBtn.selected = YES;
+    
 }
 
 - (void)move:(NSNotification *)info {
@@ -206,13 +199,13 @@
  *  使选中的按钮位移到scollview的中间
  */
 - (void)MoveCodeWithIndex:(int )index {
-    MenuViewBtn *btn = self.MenuScrollView.subviews[index];
+    GLPageButton *btn = self.MenuScrollView.subviews[index];
     CGRect newframe = [btn convertRect:self.bounds toView:nil];
     CGFloat distance = newframe.origin.x  - self.centerX;
     CGFloat contenoffsetX = self.MenuScrollView.contentOffset.x;
     int count = (int)self.MenuScrollView.subviews.count;
     if (index > count-1) return;
-
+    
     if ( self.MenuScrollView.contentOffset.x + btn.x   > self.centerX ) {
         
         [self.MenuScrollView setContentOffset:CGPointMake(contenoffsetX + distance + btn.width, 0) animated:YES];
@@ -224,7 +217,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.x <= 0) {
-
+        
         [scrollView setContentOffset:CGPointMake(0 , 0)];
     }else if(scrollView.contentOffset.x + self.width >= scrollView.contentSize.width){
         
@@ -234,26 +227,25 @@
 
 - (void)selectWithIndex:(int)index AndOtherIndex:(int)tag {
     self.selectedBtn = self.MenuScrollView.subviews[index];
-    MenuViewBtn *otherbtn = self.MenuScrollView.subviews[tag];
-
+    GLPageButton *otherbtn = self.MenuScrollView.subviews[tag];
+    
     self.selectedBtn.selected = YES;
     otherbtn.selected = NO;
     
     self.line.x = self.selectedBtn.x;
     self.line.width = self.selectedBtn.width;
-
+    
     [self MoveCodeWithIndex:(int)self.selectedBtn.tag];
 }
 
-- (FloodView *)line {
+- (UIView *)line {
     if (!_line) {
-        _line = [[FloodView alloc]init];
-        MenuViewBtn *btn = [self.MenuScrollView.subviews firstObject];
+        _line = [[UIView alloc]init];
+        GLPageButton *btn = [self.MenuScrollView.subviews firstObject];
         _line.x = btn.x ;
         _line.width = btn.width;
-        _line.backgroundColor = [UIColor clearColor];
-        _line.color = kSelectedColor;
-         [self.MenuScrollView addSubview:_line];
+        _line.backgroundColor = kSelectedColor;
+        [self.MenuScrollView addSubview:_line];
     }
     return _line;
 }
@@ -261,4 +253,5 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
 @end

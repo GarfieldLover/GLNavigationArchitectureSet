@@ -13,8 +13,8 @@
 #import "GLDiscoveryViewController.h"
 #import "GLPersonViewController.h"
 //#import "UINavigationController+FDFullscreenPopGesture.h"
-#import "MLNavigationController.h"
-#import "ZTViewController.h"
+#import "GLNavigationController.h"
+#import "GLPageViewController.h"
 #import "ZTTableViewController.h"
 #import "DEMOLeftMenuViewController.h"
 #import "DEMORightMenuViewController.h"
@@ -62,26 +62,26 @@
     NSArray *vcclass = @[vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1];
     NSArray *titles = @[@"首页",@"电视剧",@"综艺",@"会员",@"电影",@"测试超长长长长长长长长",@"动漫",@"韩日剧",@"自媒体",@"体育",@"娱乐",@"直播"];
     
-    ZTViewController *vca = [[ZTViewController alloc]initWithMneuViewStyle:MenuViewStyleLine];
-    [vca loadVC:vcclass AndTitle:titles needaddMenuView:NO];
+    GLPageViewController* pageViewController = [[GLPageViewController alloc] initWithMneuViewStyle:GlPageControlMarkChangeStyle];
+    [pageViewController loadVC:vcclass AndTitle:titles needaddMenuView:YES];
     
     
 //    GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
-    UINavigationController *firstNavigationController = [[MLNavigationController alloc]
-                                                   initWithRootViewController:vca];
-    [firstNavigationController.navigationBar addSubview:vca.Menview];
-    vca.Menview.frame=firstNavigationController.navigationBar.frame;
+    UINavigationController *firstNavigationController = [[GLNavigationController alloc]
+                                                   initWithRootViewController:pageViewController];
+//    [firstNavigationController.navigationBar addSubview:pageViewController.Menview];
+//    pageViewController.Menview.frame=firstNavigationController.navigationBar.frame;
     
     GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
-    UINavigationController *secondNavigationController = [[MLNavigationController alloc]
+    UINavigationController *secondNavigationController = [[GLNavigationController alloc]
                                                     initWithRootViewController:secondViewController];
     
     GLDiscoveryViewController *thirdViewController = [[GLDiscoveryViewController alloc] init];
-    UINavigationController *thirdNavigationController = [[MLNavigationController alloc]
+    UINavigationController *thirdNavigationController = [[GLNavigationController alloc]
                                                    initWithRootViewController:thirdViewController];
     
     GLPersonViewController *fourthViewController = [[GLPersonViewController alloc] init];
-    UINavigationController *fourthNavigationController = [[MLNavigationController alloc]
+    UINavigationController *fourthNavigationController = [[GLNavigationController alloc]
                                                     initWithRootViewController:fourthViewController];
     
     NSArray* array=@[firstNavigationController,secondNavigationController,thirdNavigationController, fourthNavigationController];
