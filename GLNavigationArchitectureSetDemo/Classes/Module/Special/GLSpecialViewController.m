@@ -1,34 +1,30 @@
 //
-//  XZMPublishViewController.m
-//  百思不得姐
+//  GLSpecialViewController.m
+//  GLNavigationArchitectureSet
 //
-//  Created by 谢忠敏 on 15/7/30.
-//  Copyright (c) 2015年 谢忠敏. All rights reserved.
+//  Created by zhangke on 16/7/3.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#import "XZMPublishViewController.h"
-#import "XZMButton.h"
+#import "GLSpecialViewController.h"
 #import "POP.h"
-#import "UIView+XZMFrame.h"
+#import "UIView+GLPage.h"
 
 #define XZMScreenW [UIScreen mainScreen].bounds.size.width
 #define XZMScreenH [UIScreen mainScreen].bounds.size.height
 
-@interface XZMPublishViewController ()
-@property (nonatomic, weak)UIImageView *imageView;
-@end
-
 static NSInteger XZMSpringFactor = 6;
 static CGFloat XZMSpringDelay = 0.05;
-@implementation XZMPublishViewController
-- (IBAction)cancel {
-    
-    [self cancelWithCompletionBlock:^{
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }];
-    
-    
-}
+
+
+@interface GLSpecialViewController ()
+
+@property (nonatomic, weak)UIImageView *imageView;
+
+@end
+
+
+@implementation GLSpecialViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,7 +46,24 @@ static CGFloat XZMSpringDelay = 0.05;
     
     for (int i = 0; i < images.count; i++) {
         
-        XZMButton *btn = [XZMButton buttonWithType:UIButtonTypeCustom];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        
+        btn.imageEdgeInsets=UIEdgeInsetsMake(-30, 30, 0, 0);
+        btn.titleEdgeInsets=UIEdgeInsetsMake(30, -30, 0, 0);
+        
+//        btn.imageView.x = 0;
+//        btn.imageView.y = 0;
+//        btn.imageView.width = btn.width;
+//        btn.imageView.height = btn.imageView.width;
+//        
+//        btn.titleLabel.x = 0;
+//        btn.titleLabel.y = btn.imageView.height;
+//        btn.titleLabel.width = btn.width;
+//        btn.titleLabel.height = btn.height - btn.imageView.height;
+        
         
         NSInteger col = i % cols;
         NSInteger row = i / cols;
@@ -68,7 +81,7 @@ static CGFloat XZMSpringDelay = 0.05;
         
         [btn addTarget:self action:@selector(chickBtnDown:) forControlEvents:UIControlEventTouchDown];
         
-         [btn addTarget:self action:@selector(chickBtnUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(chickBtnUpInside:) forControlEvents:UIControlEventTouchUpInside];
         
         btn.tag = i;
         
@@ -80,7 +93,7 @@ static CGFloat XZMSpringDelay = 0.05;
         anima.fromValue = [NSValue valueWithCGRect:CGRectMake(btnX, benginBtnY, btnW, btnH)];
         
         anima.toValue = [NSValue valueWithCGRect:CGRectMake(btnX, btnY, btnW, btnH)];
-
+        
         anima.springSpeed = XZMSpringFactor;
         
         anima.springBounciness = XZMSpringDelay;
@@ -93,6 +106,8 @@ static CGFloat XZMSpringDelay = 0.05;
             
             
         }];
+        
+
         
     }
     
@@ -121,7 +136,7 @@ static CGFloat XZMSpringDelay = 0.05;
     [sloganView pop_addAnimation:anima forKey:nil];
     
     [anima setCompletionBlock:^(POPAnimation *anima, BOOL finish) {
-
+        
         /** 动画完成后 */
         self.view.userInteractionEnabled = YES;
         
@@ -139,7 +154,7 @@ static CGFloat XZMSpringDelay = 0.05;
         POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
         
         anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-
+        
         anim.toValue = @(1.0);
         
         [cancel pop_addAnimation:anim forKey:@"alpha"];
@@ -155,7 +170,7 @@ static CGFloat XZMSpringDelay = 0.05;
     int index = 0;
     for (int i = index; i < self.view.subviews.count; i++) {
         UIView *view = self.view.subviews[i];
-    
+        
         POPSpringAnimation *anima = [POPSpringAnimation animationWithPropertyNamed:kPOPViewCenter];
         
         anima.springBounciness = XZMSpringDelay;
@@ -214,19 +229,16 @@ static CGFloat XZMSpringDelay = 0.05;
         [anima2 setCompletionBlock:^(POPAnimation *anima, BOOL finish) {
             
             [self cancelWithCompletionBlock:^{
-               // 切换对应控制器
+                // 切换对应控制器
             }];
         }];
         
     }];
     
-   
     
-
+    
+    
 }
 
 
 @end
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com

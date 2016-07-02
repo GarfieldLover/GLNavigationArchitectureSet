@@ -1,26 +1,27 @@
 //
-//  DEMOMenuViewController.m
-//  RESideMenuExample
+//  GLRightViewController.m
+//  GLNavigationArchitectureSet
 //
-//  Created by Roman Efimov on 10/10/13.
-//  Copyright (c) 2013 Roman Efimov. All rights reserved.
+//  Created by zhangke on 16/7/3.
+//  Copyright © 2016年 ZK. All rights reserved.
 //
 
-#import "DEMOLeftMenuViewController.h"
+#import "GLRightViewController.h"
 
-@interface DEMOLeftMenuViewController ()
+
+@interface GLRightViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, readwrite, nonatomic) UITableView *tableView;
 
 @end
 
-@implementation DEMOLeftMenuViewController
+@implementation GLRightViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableView = ({
-        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 54 * 5) / 2.0f, self.view.frame.size.width, 54 * 5) style:UITableViewStylePlain];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 54 * 2) / 2.0f, self.view.frame.size.width, 54 * 2) style:UITableViewStylePlain];
         tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -44,13 +45,13 @@
         case 0:
         {
             BaseViewController* vc=[[BaseViewController alloc] init];
-
-            GLTabBarController* tab=(GLTabBarController*)self.sideMenuViewController.contentViewController;
+            
+            GLTabBarController* tab=(GLTabBarController*)self.sideViewController.contentViewController;
             UINavigationController* nav=(UINavigationController*)tab.selectedViewController;
             [nav pushViewController:vc animated:YES];
             
-            [self.sideMenuViewController hideMenuViewController];
-
+            //            [self.sideViewController hideSideViewController];
+            
             
         }
             break;
@@ -58,11 +59,11 @@
         {
             BaseViewController* vc=[[BaseViewController alloc] init];
             
-            GLTabBarController* tab=(GLTabBarController*)self.sideMenuViewController.contentViewController;
+            GLTabBarController* tab=(GLTabBarController*)self.sideViewController.contentViewController;
             UINavigationController* nav=(UINavigationController*)tab.selectedViewController;
             [nav pushViewController:vc animated:YES];
             
-            [self.sideMenuViewController hideMenuViewController];
+            //            [self.sideViewController hideSideViewController];
             
             
         }
@@ -87,7 +88,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 5;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,10 +106,9 @@
         cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
-    NSArray *titles = @[@"Home", @"Calendar", @"Profile", @"Settings", @"Log Out"];
-    NSArray *images = @[@"IconHome", @"IconCalendar", @"IconProfile", @"IconSettings", @"IconEmpty"];
+    NSArray *titles = @[@"Test 1", @"Test 2"];
     cell.textLabel.text = titles[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
+    cell.textLabel.textAlignment = NSTextAlignmentRight;
     
     return cell;
 }

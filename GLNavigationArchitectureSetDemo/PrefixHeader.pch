@@ -11,6 +11,7 @@
 
 #import "BaseViewController.h"
 #import "GLTabBarController.h"
-#import "RESideMenu.h"
+#import "GLSideViewController.h"
+#import "UIViewController+GLSide.h"
 
 #endif /* PrefixHeader_pch */

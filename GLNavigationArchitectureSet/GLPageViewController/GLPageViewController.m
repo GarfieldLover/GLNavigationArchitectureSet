@@ -98,15 +98,15 @@
     return self;
 }
 
-- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles needaddMenuView:(BOOL)need{
+- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles needaddSideView:(BOOL)need{
     self.subviewControllers = viewcontrollerClass;
     self.titles  = titles;
     
     self.needadd=need;
-    [self loadMenuViewWithTitles:self.titles];
+    [self loadSideViewWithTitles:self.titles];
 }
 
-- (void)loadMenuViewWithTitles:(NSArray *)titles {
+- (void)loadSideViewWithTitles:(NSArray *)titles {
     GLPageControlView *Menview = [[GLPageControlView alloc]initWithMneuViewStyle:self.style AndTitles:titles];
     if(self.needadd){
         [self.view addSubview:Menview];
@@ -130,7 +130,7 @@
         [self.controllerFrames addObject:[NSValue valueWithCGRect:frame]];
     }
     
-    //如果不是在tabbar中需要将MenuView的y值设置为Y+20（导航控制器高度+状态栏高度）
+    //如果不是在tabbar中需要将SideView的y值设置为Y+20（导航控制器高度+状态栏高度）
     //    GFloat y =  NavigationBarHeight
     if(self.needadd){
         _Menview.frame = CGRectMake(0, 0, ScreenWidth, MenuHeight);
@@ -217,7 +217,7 @@
         }
     }
     self.selectedViewConTroller = [self.displayVC objectForKey:@(Page)];
-    //滚动使MenuView中的item移动
+    //滚动使SideView中的item移动
     [_Menview SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
     
 }
@@ -253,7 +253,7 @@
     }
 }
 
-- (void)MenuViewDelegate:(GLPageControlView *)menuciew WithIndex:(int)index {
+- (void)SideViewDelegate:(GLPageControlView *)menuciew WithIndex:(int)index {
     
     [self removeViewController:self.selectedViewConTroller atIndex:_selectedIndex];
     

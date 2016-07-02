@@ -20,7 +20,7 @@
  */
 @property (nonatomic,assign)NSInteger countLimit;
 //加载控制器的类
-- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles needaddMenuView:(BOOL)need;
+- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles needaddSideView:(BOOL)need;
 
 - (instancetype)initWithMneuViewStyle:(GLPageControlStyle)style;
 

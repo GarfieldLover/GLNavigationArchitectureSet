@@ -7,7 +7,7 @@
 //
 
 #import "GLSpecialButtonSubclass.h"
-#import "XZMPublishViewController.h"
+#import "GLSpecialViewController.h"
 
 @interface GLSpecialButtonSubclass ()
 
@@ -46,7 +46,7 @@
 - (void)specialButtonclick
 {
     UIViewController* root= [UIApplication sharedApplication].delegate.window.rootViewController;
-    [root presentViewController:[[XZMPublishViewController alloc] init] animated:NO completion:nil];
+    [root presentViewController:[[GLSpecialViewController alloc] init] animated:NO completion:nil];
 
 }
 

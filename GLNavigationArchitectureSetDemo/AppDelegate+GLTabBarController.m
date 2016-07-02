@@ -12,35 +12,29 @@
 #import "GLMessageViewController.h"
 #import "GLDiscoveryViewController.h"
 #import "GLPersonViewController.h"
-//#import "UINavigationController+FDFullscreenPopGesture.h"
 #import "GLNavigationController.h"
 #import "GLPageViewController.h"
 #import "ZTTableViewController.h"
-#import "DEMOLeftMenuViewController.h"
-#import "DEMORightMenuViewController.h"
+#import "GLLeftViewController.h"
+#import "GLRightViewController.h"
 
 @implementation AppDelegate (GLTabBarController)
 
-- (RESideMenu*)sideMenuViewController
+- (GLSideViewController*)sideViewController
 {
     
-    DEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
-    DEMORightMenuViewController *rightMenuViewController = [[DEMORightMenuViewController alloc] init];
+    GLLeftViewController *leftSideViewController = [[GLLeftViewController alloc] init];
+    GLRightViewController *rightSideViewController = [[GLRightViewController alloc] init];
 
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:[self tabBarController]
-                                                                    leftMenuViewController:leftMenuViewController
-                                                                   rightMenuViewController:rightMenuViewController];
-    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
-//    sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
-//    sideMenuViewController.delegate = self;
-    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
-    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
-    sideMenuViewController.contentViewShadowOpacity = 0.6;
-    sideMenuViewController.contentViewShadowRadius = 12;
-    sideMenuViewController.contentViewShadowEnabled = YES;
+    GLSideViewController *sideViewController = [[GLSideViewController alloc] initWithContentViewController:[self tabBarController]
+                                                                    leftSideViewController:leftSideViewController
+                                                                   rightSideViewController:rightSideViewController];
+    sideViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
+//    sideViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
+//    sideViewController.delegate = self;
     
     
-    return sideMenuViewController;
+    return sideViewController;
 }
 
 - (GLTabBarController*)tabBarController
@@ -63,7 +57,7 @@
     NSArray *titles = @[@"首页",@"电视剧",@"综艺",@"会员",@"电影",@"测试超长长长长长长长长",@"动漫",@"韩日剧",@"自媒体",@"体育",@"娱乐",@"直播"];
     
     GLPageViewController* pageViewController = [[GLPageViewController alloc] initWithMneuViewStyle:GlPageControlMarkChangeStyle];
-    [pageViewController loadVC:vcclass AndTitle:titles needaddMenuView:YES];
+    [pageViewController loadVC:vcclass AndTitle:titles needaddSideView:YES];
     
     
 //    GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
