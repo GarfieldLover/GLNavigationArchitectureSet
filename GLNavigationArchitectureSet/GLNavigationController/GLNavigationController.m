@@ -30,6 +30,8 @@ static CGFloat animateDuration = 0.25f;
 
 @property (nonatomic,strong) NSMutableDictionary *screenShotsDic;
 
+@property (nonatomic,strong) UIPanGestureRecognizer* fullScreenPopGestureRecognizer;
+
 @end
 
 @implementation GLNavigationController
@@ -39,6 +41,8 @@ static CGFloat animateDuration = 0.25f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        self.popStyle=SystemPopStyle;
         
         self.canDragBack = YES;
         
@@ -59,20 +63,12 @@ static CGFloat animateDuration = 0.25f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    // draw a shadow for navigation view to differ the layers obviously.
-    // using this way to draw shadow will lead to the low performace
-    // the best alternative way is making a shadow image.
-    //
     self.view.layer.shadowColor = [[UIColor blackColor]CGColor];
     self.view.layer.shadowOffset = CGSizeMake(5, 5);
     self.view.layer.shadowRadius = 5;
     self.view.layer.shadowOpacity = 1;
     
-//    UIImageView *shadowImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"leftside_shadow_bg"]];
-//    shadowImageView.frame = CGRectMake(-10, 0, 10, TOP_VIEW.frame.size.height);
-//    [TOP_VIEW addSubview:shadowImageView];
     
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
                                                                                 action:@selector(paningGestureReceive:)];
@@ -94,17 +90,40 @@ static CGFloat animateDuration = 0.25f;
 // override the push method
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    
-    UIImage *capturedImage = [self.screenShotsDic objectForKey:self.topViewController.description];
-    if(!capturedImage){
-        capturedImage = [self capture];
-        
-        if (capturedImage && self.topViewController.description) {
-            [self.screenShotsDic setObject:capturedImage forKey:self.topViewController.description];
+    if(self.popStyle==SystemPopStyle){
+        if (![self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.fullScreenPopGestureRecognizer]) {
+            
+            [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.fullScreenPopGestureRecognizer];
+            
+            NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
+            id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
+            NSString* handleNavigation=@"handleNavigation";
+            NSString* Transition=@"Transition:";
+            NSString* handleNavigationTransitionString=[NSString stringWithFormat:@"%@%@",handleNavigation,Transition];
+            SEL internalAction = NSSelectorFromString(handleNavigationTransitionString);
+            self.fullScreenPopGestureRecognizer.delegate = self;
+            [self.fullScreenPopGestureRecognizer addTarget:internalTarget action:internalAction];
+            
+            self.interactivePopGestureRecognizer.enabled = NO;
         }
+        
+        
+        if (![self.viewControllers containsObject:viewController]) {
+            [super pushViewController:viewController animated:animated];
+        }
+    }else{
+        UIImage *capturedImage = [self.screenShotsDic objectForKey:self.topViewController.description];
+        if(!capturedImage){
+            capturedImage = [self capture];
+            
+            if (capturedImage && self.topViewController.description) {
+                [self.screenShotsDic setObject:capturedImage forKey:self.topViewController.description];
+            }
+        }
+        
+        [super pushViewController:viewController animated:animated];
     }
-    
-    [super pushViewController:viewController animated:animated];
+
 }
 
 // override the pop method
@@ -157,8 +176,19 @@ static CGFloat animateDuration = 0.25f;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (self.viewControllers.count <= 1 || !self.canDragBack) return NO;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    
+    if (self.viewControllers.count <= 1)
+        return NO;
+    
+    if (!self.canDragBack) {
+        return NO;
+    }
+    
+    if ([[self valueForKey:@"_isTransitioning"] boolValue]) {
+        return NO;
+    }
     
     if([touch.view isKindOfClass:NSClassFromString(@"HorizontalTableViewCell")]
        || [touch.view.superview isKindOfClass:NSClassFromString(@"HorizontalTableViewCell")]
@@ -175,22 +205,6 @@ static CGFloat animateDuration = 0.25f;
     return YES;
 }
 
-/*
- -(BOOL)shouldReceiveTouch:(UIView *)touchView
- {
- if([touchView isKindOfClass:[UIWindow class]]){
- return YES;
- }
- if([touchView isKindOfClass:NSClassFromString(@"HorizontalTableViewCell")]
- || [touchView isKindOfClass:NSClassFromString(@"PlayerControlPanel")]){
- return NO;
- }
- 
- [self shouldReceiveTouch:touchView.superview];
- 
- return YES;
- }
- */
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
@@ -299,5 +313,16 @@ static CGFloat animateDuration = 0.25f;
         [self moveViewWithX:touchPoint.x - startTouch.x];
     }
 }
+
+
+- (UIPanGestureRecognizer *)fullScreenPopGestureRecognizer
+{
+    if (!_fullScreenPopGestureRecognizer) {
+        _fullScreenPopGestureRecognizer = [[UIPanGestureRecognizer alloc] init];
+    }
+    return _fullScreenPopGestureRecognizer;
+}
+
+
 
 @end

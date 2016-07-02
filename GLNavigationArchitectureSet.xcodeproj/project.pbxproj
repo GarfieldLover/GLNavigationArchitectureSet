@@ -12,7 +12,6 @@
 		0A2F4E2B1D26B2E90020AE30 /* GLPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F4E2A1D26B2E90020AE30 /* GLPageButton.m */; };
 		0A2F4E2E1D26B3EF0020AE30 /* UIView+GLPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F4E2D1D26B3EF0020AE30 /* UIView+GLPage.m */; };
 		0A2F4E321D26BF580020AE30 /* GLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F4E311D26BF580020AE30 /* GLNavigationController.m */; };
-		0A2F4E361D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F4E351D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		0A5296651D2175DA001C1024 /* GLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296641D2175DA001C1024 /* GLHomeViewController.m */; };
 		0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296671D217651001C1024 /* GLMessageViewController.m */; };
 		0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5296751D2176CE001C1024 /* GLDiscoveryViewController.m */; };
@@ -55,8 +54,6 @@
 		0A2F4E2F1D26BAF80020AE30 /* GLPageDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLPageDefine.h; sourceTree = "<group>"; };
 		0A2F4E301D26BF580020AE30 /* GLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNavigationController.h; sourceTree = "<group>"; };
 		0A2F4E311D26BF580020AE30 /* GLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNavigationController.m; sourceTree = "<group>"; };
-		0A2F4E341D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
-		0A2F4E351D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		0A5296631D2175DA001C1024 /* GLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHomeViewController.h; sourceTree = "<group>"; };
 		0A5296641D2175DA001C1024 /* GLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLHomeViewController.m; sourceTree = "<group>"; };
 		0A5296661D217651001C1024 /* GLMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMessageViewController.h; sourceTree = "<group>"; };
@@ -142,15 +139,6 @@
 				0A2F4E2F1D26BAF80020AE30 /* GLPageDefine.h */,
 			);
 			path = GLPageViewController;
-			sourceTree = "<group>";
-		};
-		0A2F4E331D26C0FA0020AE30 /* FDFullscreenPopGesture */ = {
-			isa = PBXGroup;
-			children = (
-				0A2F4E341D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.h */,
-				0A2F4E351D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.m */,
-			);
-			path = FDFullscreenPopGesture;
 			sourceTree = "<group>";
 		};
 		0A52964A1D21755E001C1024 /* Classes */ = {
@@ -284,7 +272,6 @@
 		5859B0FC1D1A90C5008ED422 /* GLNavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				0A2F4E331D26C0FA0020AE30 /* FDFullscreenPopGesture */,
 				5843AAC91D22568B004E987A /* UINavigationBar+Awesome.h */,
 				5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */,
 				0A2F4E301D26BF580020AE30 /* GLNavigationController.h */,
@@ -511,7 +498,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A2F4E361D26C0FA0020AE30 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				0A2F4E251D26B2680020AE30 /* GLPageViewController.m in Sources */,
 				0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */,
 				586DF66E1D24EA5600F2CFFB /* XZMButton.m in Sources */,
