@@ -11,7 +11,6 @@
 
 @interface GLSideViewController ()
 
-
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, assign) BOOL visible;
 @property (nonatomic, assign) BOOL leftMenuVisible;
@@ -36,8 +35,6 @@
 @property (nonatomic, assign)  CGFloat contentViewScaleValue;
 @property (nonatomic, assign)  CGFloat contentViewInPortraitOffsetCenterX;
 @property (nonatomic, assign) CGAffineTransform SideViewControllerTransformation;
-@property (nonatomic, assign)  BOOL bouncesHorizontally;
-
 
 @end
 
@@ -69,8 +66,6 @@
     _scaleBackgroundImageView = YES;
     _scaleSideView = YES;
     _fadeSideView = YES;
-    
-    _bouncesHorizontally = NO;
     
     _panMinimumOpenThreshold = 60.0;
     
@@ -258,6 +253,7 @@
             self.contentViewContainer.transform = CGAffineTransformIdentity;
         }
         self.contentViewContainer.center = CGPointMake(-self.contentViewInPortraitOffsetCenterX, self.contentViewContainer.center.y);
+        NSLog(@"-----%f",self.contentViewContainer.center.x);
         
         self.SideViewContainer.alpha = !self.fadeSideView ?: 1.0f;
         self.SideViewContainer.transform = CGAffineTransformIdentity;
@@ -368,9 +364,17 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if (self.interactivePopGestureRecognizerEnabled && [self.contentViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navigationController = (UINavigationController *)self.contentViewController;
-        if (navigationController.viewControllers.count > 1 && navigationController.interactivePopGestureRecognizer.enabled) {
+    if([self.contentViewController isKindOfClass:[UITabBarController class]]){
+        UITabBarController* tabBarController= (UITabBarController*)self.contentViewController;
+        if([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]){
+            UINavigationController* nav = tabBarController.selectedViewController;
+            if(nav.viewControllers.count>1){
+                return NO;
+            }
+        }
+    }else if ([self.contentViewController isKindOfClass:[UINavigationController class]]){
+        UINavigationController* nav = (UINavigationController*)self.contentViewController;
+        if(nav.viewControllers.count>1){
             return NO;
         }
     }
@@ -387,18 +391,22 @@
         
         self.originalPoint = CGPointMake(self.contentViewContainer.center.x - CGRectGetWidth(self.contentViewContainer.bounds) / 2.0,
                                          self.contentViewContainer.center.y - CGRectGetHeight(self.contentViewContainer.bounds) / 2.0);
+        
         self.SideViewContainer.transform = CGAffineTransformIdentity;
+        self.SideViewContainer.frame = self.view.bounds;
+
         if (self.scaleBackgroundImageView) {
             self.backgroundImageView.transform = CGAffineTransformIdentity;
             self.backgroundImageView.frame = self.view.bounds;
         }
-        self.SideViewContainer.frame = self.view.bounds;
+        
         [self addContentButton];
+        
         [self.view.window endEditing:YES];
         self.didNotifyDelegate = NO;
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        
+    }else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        
         CGFloat delta = 0;
         if (self.visible) {
             delta = self.originalPoint.x != 0 ? (point.x + self.originalPoint.x) / self.originalPoint.x : 0;
@@ -407,34 +415,39 @@
         }
         delta = MIN(fabs(delta), 1.6);
         
-        CGFloat contentViewScale = self.scaleContentView ? 1 - ((1 - self.contentViewScaleValue) * delta) : 1;
         
+        CGFloat contentViewScale = self.scaleContentView ? 1 - ((1 - self.contentViewScaleValue) * delta) : 1;
         CGFloat backgroundViewScale = 1.7f - (0.7f * delta);
         CGFloat SideViewScale = 1.5f - (0.5f * delta);
         
-        if (!self.bouncesHorizontally) {
-            contentViewScale = MAX(contentViewScale, self.contentViewScaleValue);
-            backgroundViewScale = MAX(backgroundViewScale, 1.0);
-            SideViewScale = MAX(SideViewScale, 1.0);
-        }
+        contentViewScale = MAX(contentViewScale, self.contentViewScaleValue);
+        backgroundViewScale = MAX(backgroundViewScale, 1.0);
+        SideViewScale = MAX(SideViewScale, 1.0);
         
         self.SideViewContainer.alpha = !self.fadeSideView ?: delta;
         
         if (self.scaleBackgroundImageView) {
-            self.backgroundImageView.transform = CGAffineTransformMakeScale(backgroundViewScale, backgroundViewScale);
+            if (backgroundViewScale < 1) {
+                self.backgroundImageView.transform = CGAffineTransformIdentity;
+            }else{
+                self.backgroundImageView.transform = CGAffineTransformMakeScale(backgroundViewScale, backgroundViewScale);
+            }
         }
         
         if (self.scaleSideView) {
             self.SideViewContainer.transform = CGAffineTransformMakeScale(SideViewScale, SideViewScale);
         }
         
-        if (self.scaleBackgroundImageView) {
-            if (backgroundViewScale < 1) {
-                self.backgroundImageView.transform = CGAffineTransformIdentity;
-            }
+        if (contentViewScale > 1) {
+            CGFloat oppositeScale = (1 - (contentViewScale - 1));
+            self.contentViewContainer.transform = CGAffineTransformMakeScale(oppositeScale, oppositeScale);
+            self.contentViewContainer.transform = CGAffineTransformTranslate(self.contentViewContainer.transform, point.x, 0);
+        } else if(contentViewScale > self.contentViewScaleValue){
+            self.contentViewContainer.transform = CGAffineTransformMakeScale(contentViewScale, contentViewScale);
+            self.contentViewContainer.transform = CGAffineTransformTranslate(self.contentViewContainer.transform, point.x, 0);
         }
         
-        if (!self.bouncesHorizontally && self.visible) {
+        if (self.visible) {
             if (self.contentViewContainer.frame.origin.x > self.contentViewContainer.frame.size.width / 2.0)
                 point.x = MIN(0.0, point.x);
             
@@ -465,15 +478,6 @@
             self.didNotifyDelegate = YES;
         }
         
-        if (contentViewScale > 1) {
-            CGFloat oppositeScale = (1 - (contentViewScale - 1));
-            self.contentViewContainer.transform = CGAffineTransformMakeScale(oppositeScale, oppositeScale);
-            self.contentViewContainer.transform = CGAffineTransformTranslate(self.contentViewContainer.transform, point.x, 0);
-        } else {
-            self.contentViewContainer.transform = CGAffineTransformMakeScale(contentViewScale, contentViewScale);
-            self.contentViewContainer.transform = CGAffineTransformTranslate(self.contentViewContainer.transform, point.x, 0);
-        }
-        
         self.leftSideViewController.view.hidden = self.contentViewContainer.frame.origin.x < 0;
         self.rightSideViewController.view.hidden = self.contentViewContainer.frame.origin.x > 0;
         
@@ -488,20 +492,19 @@
             self.visible = NO;
             self.rightMenuVisible = NO;
         }
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+    }else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
         self.didNotifyDelegate = NO;
-        if (self.panMinimumOpenThreshold > 0 && (
-                                                 (self.contentViewContainer.frame.origin.x < 0 && self.contentViewContainer.frame.origin.x > -((NSInteger)self.panMinimumOpenThreshold)) ||
-                                                 (self.contentViewContainer.frame.origin.x > 0 && self.contentViewContainer.frame.origin.x < self.panMinimumOpenThreshold))
-            ) {
+        if (self.panMinimumOpenThreshold > 0 && ((self.contentViewContainer.frame.origin.x < 0 && self.contentViewContainer.frame.origin.x > -((NSInteger)self.panMinimumOpenThreshold)) ||
+            (self.contentViewContainer.frame.origin.x > 0 && self.contentViewContainer.frame.origin.x < self.panMinimumOpenThreshold))
+            ){
             [self hideSideViewController];
-        }
-        else if (self.contentViewContainer.frame.origin.x == 0) {
+            
+        } else if (self.contentViewContainer.frame.origin.x == 0) {
             [self hideSideViewControllerAnimated:NO];
-        }
-        else {
+            
+        }else {
             if ([recognizer velocityInView:self.view].x > 0) {
                 if (self.contentViewContainer.frame.origin.x < 0) {
                     [self hideSideViewController];

@@ -14,8 +14,8 @@
 
 @property (nonatomic , readonly, strong) GLSideViewController* sideViewController;
 
+- (void)presentLeftSideViewController;
 
-- (void)presentLeftSideViewController:(id)sender;
-- (void)presentRightSideViewController:(id)sender;
+- (void)presentRightSideViewController;
 
 @end

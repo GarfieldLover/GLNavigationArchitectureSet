@@ -26,13 +26,13 @@
     
     GLLeftViewController *leftSideViewController = [[GLLeftViewController alloc] init];
     GLRightViewController *rightSideViewController = [[GLRightViewController alloc] init];
-
-    GLSideViewController *sideViewController = [[GLSideViewController alloc] initWithContentViewController:[self tabBarController]
-                                                                    leftSideViewController:leftSideViewController
-                                                                   rightSideViewController:rightSideViewController];
+    
+    GLSideViewController *sideViewController = [[GLSideViewController alloc]
+                                                initWithContentViewController:[self tabBarController]
+                                                leftSideViewController:leftSideViewController
+                                                rightSideViewController:rightSideViewController];
     sideViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
-//    sideViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
-//    sideViewController.delegate = self;
+    //    sideViewController.delegate = self;
     
     
     return sideViewController;

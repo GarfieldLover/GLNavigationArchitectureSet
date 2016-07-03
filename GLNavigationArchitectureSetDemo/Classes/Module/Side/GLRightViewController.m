@@ -50,7 +50,7 @@
             UINavigationController* nav=(UINavigationController*)tab.selectedViewController;
             [nav pushViewController:vc animated:YES];
             
-            //            [self.sideViewController hideSideViewController];
+            [self.sideViewController hideSideViewController];
             
             
         }
@@ -63,7 +63,7 @@
             UINavigationController* nav=(UINavigationController*)tab.selectedViewController;
             [nav pushViewController:vc animated:YES];
             
-            //            [self.sideViewController hideSideViewController];
+            [self.sideViewController hideSideViewController];
             
             
         }
@@ -100,13 +100,13 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:30];
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.textLabel.highlightedTextColor = [UIColor lightGrayColor];
         cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
-    NSArray *titles = @[@"Test 1", @"Test 2"];
+    NSArray *titles = @[@"测试试试试试试试", @"测测测测测测试试"];
     cell.textLabel.text = titles[indexPath.row];
     cell.textLabel.textAlignment = NSTextAlignmentRight;
     

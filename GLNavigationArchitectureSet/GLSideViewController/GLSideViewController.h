@@ -37,6 +37,7 @@
 @protocol GLSideViewControllerDelegate <NSObject>
 
 @optional
+
 - (void)sideMenu:(GLSideViewController *)sideMenu willShowSideViewController:(UIViewController *)SideViewController;
 - (void)sideMenu:(GLSideViewController *)sideMenu didShowSideViewController:(UIViewController *)SideViewController;
 

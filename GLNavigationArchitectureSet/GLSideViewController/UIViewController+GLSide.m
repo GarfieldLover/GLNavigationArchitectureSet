@@ -26,12 +26,12 @@
     return nil;
 }
 
-- (void)presentLeftSideViewController:(id)sender
+- (void)presentLeftSideViewController
 {
     [self.sideViewController presentLeftSideViewController];
 }
 
-- (void)presentRightSideViewController:(id)sender
+- (void)presentRightSideViewController
 {
     [self.sideViewController presentRightSideViewController];
 }
