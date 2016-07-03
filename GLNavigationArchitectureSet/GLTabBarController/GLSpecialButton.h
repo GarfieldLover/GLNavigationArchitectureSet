@@ -11,6 +11,6 @@
 
 @interface GLSpecialButton : UIButton<GLSpecialButtonProtocol>
 
--(void)resetaddTarget;
+-(void)resetTargetAction;
 
 @end

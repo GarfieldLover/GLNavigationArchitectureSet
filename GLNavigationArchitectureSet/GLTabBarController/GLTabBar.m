@@ -40,11 +40,10 @@
     _specialButton = specialButton;
     [self addSubview:self.specialButton];
 
-    if([_specialButton respondsToSelector:@selector(plusChildViewController)]){
-        UIViewController* vc=[_specialButton plusChildViewController];
+    if([_specialButton respondsToSelector:@selector(specialViewController)]){
+        UIViewController* vc=[_specialButton specialViewController];
         if(vc){
-            [_specialButton resetaddTarget];
-
+            [_specialButton resetTargetAction];
         }
     }
 }
@@ -57,20 +56,15 @@
     CGFloat barWidth = self.bounds.size.width;
     CGFloat barHeight = self.bounds.size.height;
     
-
-    
-    //    NSArray *sortedSubviews = [self sortedSubviews];
     self.tabBarButtonArray = [self tabBarButtonFromTabBarSubviews:self.subviews];
-
 
     
     CGFloat itemWidth = (barWidth - CGRectGetWidth(self.specialButton.bounds)) / self.tabBarButtonArray.count;
     CGFloat specialButtonWidth = self.specialButton.bounds.size.width;
 
-    NSUInteger specialButtonIndex = [self.specialButton indexOfPlusButtonInTabBar];
+    NSUInteger specialButtonIndex = [self.specialButton indexOfSpecialButton];
     self.specialButton.center = CGPointMake(itemWidth*specialButtonIndex + specialButtonWidth/2.0,
                                             [self specialButtonCenterY]);
-
 
     
     [self.tabBarButtonArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -92,10 +86,8 @@
         }
     }];
     
-    //bring the plus button to top
     [self bringSubviewToFront:self.specialButton];
     
-    //    [self setupSwappableImageViewDefaultOffset:self.tabBarButtonArray[0]];
     [self setupSwappableImageViewDefaultOffset];
     
     if(self.shadeItemImage){
@@ -154,13 +146,13 @@
 - (NSArray *)tabBarButtonFromTabBarSubviews:(NSArray *)tabBarSubviews
 {
     NSMutableArray* tabBarButtonMutableArray = [NSMutableArray array];
-    [tabBarSubviews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [tabBarSubviews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
         if ([obj isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
             [tabBarButtonMutableArray addObject:obj];
         }
     }];
-    if ([self.specialButton plusChildViewController]) {
-        [tabBarButtonMutableArray removeObjectAtIndex:[self.specialButton indexOfPlusButtonInTabBar]];
+    if ([self.specialButton specialViewController]) {
+        [tabBarButtonMutableArray removeObjectAtIndex:[self.specialButton indexOfSpecialButton]];
     }
     return tabBarButtonMutableArray;
 }
@@ -202,8 +194,12 @@
 
 - (void)setShadeIndex:(NSUInteger)index
 {
-    if(self.specialButton){
-        if(index>[self.specialButton indexOfPlusButtonInTabBar]){
+    if(!self.shadeItemImage){
+        return;
+    }
+    
+    if(self.specialButton && [self.specialButton specialViewController]){
+        if(index>[self.specialButton indexOfSpecialButton]){
             index--;
         }
     }
@@ -227,43 +223,6 @@
     key.duration=0.4;
     
     [view.layer addAnimation:key forKey:@"bounceAnimation"];
-    
-//    key
-//    let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
-//    bounceAnimation.values = [1.0 ,1.4, 0.9, 1.15, 0.95, 1.02, 1.0]
-//    bounceAnimation.duration = NSTimeInterval(duration)
-//    bounceAnimation.calculationMode = kCAAnimationCubic
-//    
-//    icon.layer.addAnimation(bounceAnimation, forKey: "bounceAnimation")
-//    
-//    let renderImage = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
-//    icon.image = renderImage
-//    icon.tintColor = iconSelectedColor
-    
-    
-//    [UIView animateWithDuration:0.1 animations:
-//     ^(void){
-//         
-//         view.transform = CGAffineTransformScale(CGAffineTransformIdentity,0.7, 0.7);
-//         
-//     } completion:^(BOOL finished){//do other thing
-//         [UIView animateWithDuration:0.2 animations:
-//          ^(void){
-//              
-//              view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.2, 1.2);
-//              
-//          } completion:^(BOOL finished){//do other thing
-//              [UIView animateWithDuration:0.1 animations:
-//               ^(void){
-//                   
-//                   view.transform = CGAffineTransformScale(CGAffineTransformIdentity,1,1);
-//                   
-//               } completion:^(BOOL finished){//do other thing
-//               }];
-//          }];
-//     }];
-    
-    
 }
 
 @end

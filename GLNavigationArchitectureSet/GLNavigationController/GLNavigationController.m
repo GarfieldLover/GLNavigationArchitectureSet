@@ -97,6 +97,7 @@ static CGFloat animateDuration = 0.25f;
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if(self.popStyle == SystemPopStyle){
+        
         if (![self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemPopStyleGestureRecognizer]) {
             
             [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.systemPopStyleGestureRecognizer];
@@ -204,9 +205,6 @@ static CGFloat animateDuration = 0.25f;
        || [touch.view.superview isKindOfClass:NSClassFromString(@"PlayerControlPanel")]
        || [touch.view.superview.superview isKindOfClass:NSClassFromString(@"PlayerControlPanel")]
        ){
-        return NO;
-    }
-    if([touch.view isKindOfClass:NSClassFromString(@"UIImageView")] && touch.view.frame.origin.y==20.0 &&  touch.view.frame.size.height==41.0){
         return NO;
     }
     */

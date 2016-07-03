@@ -10,10 +10,12 @@
 #import "GLPageDefine.h"
 
 #define Defaultrate 1.15
+
 @interface GLPageButton (){
     CGFloat rgba[4];
     CGFloat rgbaGAP[4];
 }
+
 @end
 
 @implementation GLPageButton
@@ -22,7 +24,6 @@
     
     if (self = [super initWithFrame:frame]) {
         [self setFontSize:17];
-        //        [self.titleLabel setFont:[UIFont systemFontOfSize:kNormalSize]];
         [self setTitleColor:self.normalColor forState:UIControlStateNormal];
     }
     return self;
@@ -52,11 +53,12 @@
     }];
 }
 
-- (void)setRGB {
+- (void)setRGB
+{
     
     int numNormal = (int)CGColorGetNumberOfComponents(self.normalColor.CGColor);
     int numSelected = (int)CGColorGetNumberOfComponents(self.selectedColor.CGColor);
-    if (numNormal == 4&&numSelected == 4) {
+    if (numNormal == 4 && numSelected == 4) {
         // UIDeviceRGBColorSpace
         const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
         const CGFloat *selComponents = CGColorGetComponents(self.selectedColor.CGColor);
@@ -68,6 +70,7 @@
         rgbaGAP[2] = selComponents[2]-rgba[2];
         rgba[3] = norComponents[3];
         rgbaGAP[3] =  selComponents[3]-rgba[3];
+        
     }else{
         if (numNormal == 2) {
             const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
@@ -83,11 +86,13 @@
 
 - (void)ChangSelectedColorWithRate:(CGFloat)rate {
     [self setRGB];
+
     CGFloat r = rgba[0] + rgbaGAP[0]*(1-rate);
     CGFloat g = rgba[1] + rgbaGAP[1]*(1-rate);
     CGFloat b = rgba[2] + rgbaGAP[2]*(1-rate);
     CGFloat a = rgba[3] + rgbaGAP[3]*(1-rate);
     self.titlecolor = [UIColor colorWithRed:r green:g blue:b alpha:a];
+
     [self setTitleColor:self.titlecolor forState:UIControlStateNormal];
     
 }

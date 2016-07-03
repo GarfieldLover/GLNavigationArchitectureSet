@@ -11,6 +11,7 @@
 
 
 @protocol GLPageViewControllerDelegate <NSObject>
+
 @required
 
 - (UIViewController*)getViewControllerWithIndex:(NSUInteger)index;

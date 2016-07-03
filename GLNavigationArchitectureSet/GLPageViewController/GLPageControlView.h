@@ -8,15 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  Style
+ */
 typedef NS_ENUM(NSUInteger, GLPageControlStyle) {
-    GLPageControlFontChangeStyle,     // 字体缩放
-    GlPageControlMarkChangeStyle,     // 带下划线 (颜色会变化)
+    /**
+     *  字体缩放
+     */
+    GLPageControlFontChangeStyle,
+    /**
+     *  带下划线
+     */
+    GlPageControlMarkChangeStyle,
 };
 
 
 @protocol GLPageControlViewDelegate <NSObject>
 
-- (void)pageControlViewDidSelectWithIndex:(NSUInteger)index;
+- (void)pageControlViewDidSelectWithIndex:(NSInteger)index;
 
 @end
 
@@ -31,6 +40,10 @@ typedef NS_ENUM(NSUInteger, GLPageControlStyle) {
 
 - (void)SelectedBtnMoveToCenterWithIndex:(int)index WithRate:(CGFloat)rate;
 
-- (void)selectWithIndex:(int)index AndOtherIndex:(int)tag;
+- (void)selectWithIndex:(int)index;
+
+- (void)moveToCenterWithIndex:(NSInteger)index;
 
 @end
+
+

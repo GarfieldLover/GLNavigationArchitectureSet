@@ -16,6 +16,7 @@
 @property (nonatomic,strong)GLPageButton *selectedBtn;
 @property (nonatomic,strong)UIView  *line;
 @property (nonatomic,assign)CGFloat sumWidth;
+@property (nonatomic,assign)NSInteger btnCount;
 
 @end
 
@@ -26,12 +27,9 @@
     if (self = [super init]) {
         self.backgroundColor = [UIColor whiteColor];
         self.style=style;
+        self.btnCount=titles.count;
 
         [self loadWithScollviewAndBtnWithTitles:titles];
-        //接收通知
-        NSString *name = [NSString stringWithFormat:@"scrollViewDidFinished%zd",style];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(move:) name:name object:nil];
-        
     }
     return self;
 }
@@ -53,7 +51,6 @@
         
         
         [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
-        //        btn.titleLabel.textColor = kNomalColor;
         [self.pageControlScrollView addSubview:btn];
         
     }
@@ -65,7 +62,7 @@
     GLPageButton *btn1 = nil;
     self.sumWidth = 0;
     
-    for (int i = 0; i < self.pageControlScrollView.subviews.count; i++){
+    for (int i = 0; i < self.btnCount; i++){
         btn= self.pageControlScrollView.subviews[i];
         if (i>=1) {
             btn1 = self.pageControlScrollView.subviews[i-1];
@@ -97,8 +94,8 @@
         btn1 = nil;
     }
     if (self.pageControlScrollView.contentSize.width < self.width) {
-        CGFloat margin = (ScreenWidth - self.sumWidth)/(self.pageControlScrollView.subviews.count + 1);
-        for (int i = 0; i < self.pageControlScrollView.subviews.count; i++){
+        CGFloat margin = (ScreenWidth - self.sumWidth)/(self.btnCount + 1);
+        for (int i = 0; i < self.btnCount; i++){
             btn= self.pageControlScrollView.subviews[i];
             if (i>=1) {
                 btn1 = self.pageControlScrollView.subviews[i-1];
@@ -107,14 +104,9 @@
             
         }
     }
-}
-
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
     
     if (self.style == GLPageControlFontChangeStyle) {
-        GLPageButton *btn = [self.pageControlScrollView.subviews firstObject];
-        [btn ChangSelectedColorAndScalWithRate:0.1];
+        [self.selectedBtn ChangSelectedColorAndScalWithRate:0.1];
     }else{
         [self addProgressView];
     }
@@ -134,7 +126,7 @@
     }
     self.selectedBtn.selected = NO;
     btn.selected = YES;
-    [self MoveCodeWithIndex:(int)btn.tag];
+    [self moveToCenterWithIndex:(int)btn.tag];
     
     if (self.style == GLPageControlFontChangeStyle) {
         
@@ -154,7 +146,7 @@
     
     int page  = (int)(Pagerate +0.5);
     CGFloat rate = Pagerate - index;
-    int count = (int)self.pageControlScrollView.subviews.count;
+    int count = (int)self.btnCount;
     
     if (Pagerate < 0) return;
     if (index == count-1 || index >= count -1) return;
@@ -172,7 +164,7 @@
         CGFloat margin;
         if (Pagerate < count-2){
             if (self.pageControlScrollView.contentSize.width < self.width){
-                margin = (ScreenWidth - self.sumWidth)/(self.pageControlScrollView.subviews.count + 1);
+                margin = (ScreenWidth - self.sumWidth)/(self.btnCount + 1);
                 self.line.x =  currentbtn.x + (currentbtn.width + margin + BtnGap)* rate;
             }else{
                 margin = BtnGap;
@@ -189,21 +181,16 @@
     
 }
 
-- (void)move:(NSNotification *)info {
-    
-    NSNumber *index =  info.userInfo[@"index"];
-    int tag = [index intValue];
-    [self MoveCodeWithIndex:tag];
-}
 /**
  *  使选中的按钮位移到scollview的中间
  */
-- (void)MoveCodeWithIndex:(int )index {
+- (void)moveToCenterWithIndex:(NSInteger)index
+{
     GLPageButton *btn = self.pageControlScrollView.subviews[index];
     CGRect newframe = [btn convertRect:self.bounds toView:nil];
     CGFloat distance = newframe.origin.x  - self.centerX;
     CGFloat contenoffsetX = self.pageControlScrollView.contentOffset.x;
-    int count = (int)self.pageControlScrollView.subviews.count;
+    int count = (int)self.btnCount;
     if (index > count-1) return;
     
     if ( self.pageControlScrollView.contentOffset.x + btn.x   > self.centerX ) {
@@ -225,17 +212,32 @@
     }
 }
 
-- (void)selectWithIndex:(int)index AndOtherIndex:(int)tag {
+- (void)selectWithIndex:(int)index
+{
     self.selectedBtn = self.pageControlScrollView.subviews[index];
-    GLPageButton *otherbtn = self.pageControlScrollView.subviews[tag];
     
+    NSInteger count = self.btnCount;
+    
+    GLPageButton *leftbtn=nil;
+    GLPageButton *rightbtn=nil;
+
+    if (index == 0) {
+        rightbtn = self.pageControlScrollView.subviews[index+1];
+    }else if (index == count - 1){
+        leftbtn = self.pageControlScrollView.subviews[index-1];
+    }else{
+        leftbtn = self.pageControlScrollView.subviews[index-1];
+        rightbtn = self.pageControlScrollView.subviews[index+1];
+    }
+    leftbtn.selected = NO;
+    rightbtn.selected = NO;
+
     self.selectedBtn.selected = YES;
-    otherbtn.selected = NO;
     
     self.line.x = self.selectedBtn.x;
     self.line.width = self.selectedBtn.width;
     
-    [self MoveCodeWithIndex:(int)self.selectedBtn.tag];
+    [self moveToCenterWithIndex:(int)self.selectedBtn.tag];
 }
 
 - (UIView *)line {
@@ -250,8 +252,9 @@
     return _line;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+- (void)dealloc
+{
+
 }
 
 @end

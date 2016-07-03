@@ -30,7 +30,7 @@
 @implementation GLPageViewController
 @synthesize pageControlView=_pageControlView;
 
-#pragma mark 加载
+#pragma mark lifecycle
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -46,12 +46,12 @@
         self.titles  = titles;
         
         self.needPageControlView = needPageControlView;
-        [self loadSideViewWithTitles:self.titles];
+        [self loadPageControlViewWithTitles:self.titles];
     }
     return self;
 }
 
-- (void)loadSideViewWithTitles:(NSArray *)titles
+- (void)loadPageControlViewWithTitles:(NSArray *)titles
 {
     GLPageControlView *pageControlView = [[GLPageControlView alloc]initWithPageControlStyle:self.style AndTitles:titles];
     if(self.needPageControlView){
@@ -84,9 +84,10 @@
     self.containerScrollView.contentSize = CGSizeMake(self.titles.count * self.containerScrollView.width, 0);
     
     self.selectedIndex=0;
-    [self addxxff];
+    [self needAddViewController];
 }
 
+#pragma mark 加载
 
 - (void)addViewControllerViewAtIndex:(NSInteger)index
 {
@@ -108,23 +109,6 @@
         [viewController removeFromParentViewController];
         [self.controllerCache removeObjectForKey:@(index)];
     }
-    
-}
-
-- (BOOL)isInScreen:(CGRect)frame
-{
-    CGFloat x = frame.origin.x;
-    CGFloat ScreenWith = self.containerScrollView.frame.size.width;
-    
-    CGFloat contentOffsetX = self.containerScrollView.contentOffset.x;
-    
-    NSLog(@"%f,%f,%f----------",contentOffsetX , CGRectGetMaxX(frame), x - contentOffsetX);
-
-    if (CGRectGetMaxX(frame) >contentOffsetX && x - contentOffsetX < ScreenWith ){
-        return YES;
-    }else{
-        return NO;
-    }
 }
 
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index
@@ -135,33 +119,16 @@
     }
 }
 
-#pragma mark delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+-(void)needAddViewController
 {
-    int index = (int)(scrollView.contentOffset.x/self.view.width);
-    CGFloat rate = scrollView.contentOffset.x/self.view.width;
-    
-    self.selectedIndex=index;
-    
-    [self addxxff];
-    [self removexxx:self.selectedIndex];
-
-    [_pageControlView SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
+    [self needAddViewControllerAtIndex:self.selectedIndex-1];
+    [self needAddViewControllerAtIndex:self.selectedIndex];
+    [self needAddViewControllerAtIndex:self.selectedIndex+1];
 }
 
--(void)addxxff
+- (void)needAddViewControllerAtIndex:(NSInteger)index
 {
-    
-    [self addxxx:self.selectedIndex-1];
-    [self addxxx:self.selectedIndex];
-    [self addxxx:self.selectedIndex+1];
-    
-}
-
-- (void)addxxx:(NSInteger)index
-{
-    if(index>self.selectedIndex+1 || index< self.selectedIndex-1 || index<0){
+    if(index>self.selectedIndex+1 || index< self.selectedIndex-1 || index<0 || index>self.controllerFrames.count-1){
         return;
     }
     UIViewController *vc = [self.controllerCache objectForKey:@(index)];
@@ -175,7 +142,7 @@
     }
 }
 
--(void)removexxx:(NSInteger)index
+-(void)needRemoveViewControllerAtIndex:(NSInteger)index
 {
     for(NSString* key in self.controllerCache.allKeys){
         NSInteger page = key.integerValue;
@@ -185,6 +152,21 @@
     }
 }
 
+#pragma mark delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    int index = (int)(scrollView.contentOffset.x/self.view.width);
+    CGFloat rate = scrollView.contentOffset.x/self.view.width;
+    
+    self.selectedIndex=index;
+    
+    [self needAddViewController];
+    [self needRemoveViewControllerAtIndex:self.selectedIndex];
+
+    [_pageControlView SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width){
@@ -192,12 +174,8 @@
     }
     int page = (int)(scrollView.contentOffset.x/self.view.width);
     
-    //因为我用的UItabbar做的展示，所以切换tabar的时候，会出现控制器不清除的结果，使得通知中心紊乱，其他控制器也可以接收当前控制器发送的通知，所以，我把通知名称设置为唯一的；
-    NSString *name  = [NSString stringWithFormat:@"scrollViewDidFinished%zd",_pageControlView.style];
-    NSDictionary *info = @{
-                           @"index":@(page)};
-    [[NSNotificationCenter defaultCenter]postNotificationName:name  object:nil userInfo:info];
     
+    [self.pageControlView moveToCenterWithIndex:page];    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -209,33 +187,18 @@
     if(!decelerate){
         int page = (int)(scrollView.contentOffset.x/ScreenWidth);
         
-        if (page == 0) {
-            [_pageControlView selectWithIndex:page AndOtherIndex:page + 1 ];
-        }else if (page == self.controllerFrames.count - 1){
-            [_pageControlView selectWithIndex:page AndOtherIndex:page - 1];
-        }else{
-            [_pageControlView selectWithIndex:page AndOtherIndex:page + 1 ];
-            [_pageControlView selectWithIndex:page AndOtherIndex:page - 1];
-        }
+        [_pageControlView selectWithIndex:page];
     }
 }
 
 - (void)pageControlViewDidSelectWithIndex:(NSInteger)index
 {
-    [self removeViewControllerAtIndex:_selectedIndex];
+    [self needRemoveViewControllerAtIndex:self.selectedIndex];
     
     self.containerScrollView.contentOffset = CGPointMake(index * ScreenWidth, 0);
     self.selectedIndex = index;
     
-    UIViewController *vc = [self.controllerCache objectForKey:@(index)];
-    if (vc == nil) {
-        vc = [self.controllerCache objectForKey:@(index)];
-        if (vc) {
-            [self addCachedViewController:vc atIndex:index];
-        }else{
-            [self addViewControllerViewAtIndex:index];
-        }
-    }
+    [self needAddViewController];
 }
 
 #pragma mark Lazy load

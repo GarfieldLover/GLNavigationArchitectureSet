@@ -19,6 +19,7 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
 @interface GLTabBarController ()
 
+@property (nonnull, nonatomic, readwrite, copy) NSArray<NSDictionary *> *tabBarItemsAttributes;
 
 @end
 
@@ -72,9 +73,9 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 
 -(void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers
 {
-    if ([[self specialButton] plusChildViewController]) {
+    if ([[self specialButton] specialViewController]) {
         NSMutableArray *viewControllersWithPlusButton = [NSMutableArray arrayWithArray:viewControllers];
-        [viewControllersWithPlusButton insertObject:[[self specialButton] plusChildViewController] atIndex:[[self specialButton] indexOfPlusButtonInTabBar]];
+        [viewControllersWithPlusButton insertObject:[[self specialButton] specialViewController] atIndex:[[self specialButton] indexOfSpecialButton]];
         viewControllers = [viewControllersWithPlusButton copy];
     }
     
@@ -83,16 +84,15 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
         NSString *title = nil;
         NSString *normalImageName = nil;
         NSString *selectedImageName = nil;
-        NSDictionary *selectedImageNamexx = nil;
+        NSDictionary *titleText = nil;
+        NSDictionary *selectedTitleText = nil;
         
-        NSDictionary *selectedImageNameff = nil;
-        
-        if (viewController != [[self specialButton] plusChildViewController]) {
+        if (viewController != [[self specialButton] specialViewController]) {
             title = self.tabBarItemsAttributes[index][GLTabBarItemTitle];
             normalImageName = self.tabBarItemsAttributes[index][GLTabBarItemImage];
             selectedImageName = self.tabBarItemsAttributes[index][GLTabBarItemSelectedImage];
-            selectedImageNamexx=self.tabBarItemsAttributes[index][GLTabBarItemTitleTextAttributes];
-            selectedImageNameff=self.tabBarItemsAttributes[index][GLTabBarItemSelectedTitleTextAttributes];
+            titleText = self.tabBarItemsAttributes[index][GLTabBarItemTitleTextAttributes];
+            selectedTitleText = self.tabBarItemsAttributes[index][GLTabBarItemSelectedTitleTextAttributes];
         } else {
             index--;
         }
@@ -101,10 +101,9 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
                               WithTitle:title
                         normalImageName:normalImageName
                       selectedImageName:selectedImageName
-                      selectedImageName:selectedImageNamexx selectedImageName:selectedImageNameff];
-        
-        //        [viewController cyl_setTabBarController:self];
-                index++;
+                      titleText:titleText
+                      selectedTitleText:selectedTitleText];
+        index++;
     }
 }
 
@@ -112,8 +111,8 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
                         WithTitle:(NSString *)title
                   normalImageName:(NSString *)normalImageName
                 selectedImageName:(NSString *)selectedImageName
-                selectedImageName:(NSDictionary *)selectedImageNamexx
-                selectedImageName:(NSDictionary *)selectedImageNameff
+                titleText:(NSDictionary *)selectedImageNamexx
+                selectedTitleText:(NSDictionary *)selectedImageNameff
 
 {
     viewController.tabBarItem.title = title;
@@ -128,14 +127,8 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
         viewController.tabBarItem.selectedImage = selectedImage;
         [viewController.tabBarItem setTitleTextAttributes:selectedImageNamexx forState:UIControlStateNormal];
         [viewController.tabBarItem setTitleTextAttributes:selectedImageNameff forState:UIControlStateSelected];
-
     }
-//    if (self.shouldCustomizeImageInsets) {
-        viewController.tabBarItem.imageInsets = UIEdgeInsetsZero;
-//    }
-//    if (self.shouldCustomizeTitlePositionAdjustment) {
-//        viewController.tabBarItem.titlePositionAdjustment = self.titlePositionAdjustment;
-//    }
+
     [self addChildViewController:viewController];
 }
 
@@ -143,7 +136,7 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
 {
     [super setSelectedViewController:selectedViewController];
     
-    if(selectedViewController!=[[self specialButton] plusChildViewController]){
+    if(selectedViewController!=[[self specialButton] specialViewController]){
         [[self specialButton] setSelected:NO];
     }else{
         [[self specialButton] setSelected:YES];
@@ -175,27 +168,15 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
     });
 }
 
-/**
- *  设置高亮背景图片
- *
- *  @param backgroundImage 高亮背景图片
- */
 - (void)setShadeItemBackgroundImage:(UIImage * _Nonnull)backgroundImage
 {
     [(GLTabBar*)self.tabBar setShadeItemBackgroundImage:backgroundImage];
 }
 
-/**
- *  设置高亮背景颜色
- *
- *  @param coloer 高亮背景颜色
- */
 - (void)setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer
 {
     [(GLTabBar*)self.tabBar setShadeItemBackgroundColor:coloer];
-
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

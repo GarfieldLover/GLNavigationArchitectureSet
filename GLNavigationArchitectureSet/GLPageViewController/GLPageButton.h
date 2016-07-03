@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GLPageButton : UIButton
+
 @property (nonatomic, copy  ) NSString *fontName;
 @property (nonatomic, assign) CGFloat  fontSize;
 @property (nonatomic, assign) CGFloat  NomrmalSize;
@@ -25,4 +26,5 @@
 - (void)deselectedItemWithoutAnimation;
 - (void)ChangSelectedColorWithRate:(CGFloat)rate;
 - (void)ChangSelectedColorAndScalWithRate:(CGFloat)rate;
+
 @end

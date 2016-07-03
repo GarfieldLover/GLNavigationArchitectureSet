@@ -26,9 +26,10 @@
 		0A85A7A91D28226A001196A0 /* GLSpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85A7A81D28226A001196A0 /* GLSpecialViewController.m */; };
 		0A85A7AC1D28BC76001196A0 /* GLPopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85A7AB1D28BC76001196A0 /* GLPopButton.m */; };
 		0A85A7AF1D28BDAE001196A0 /* GLHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85A7AE1D28BDAE001196A0 /* GLHomeTableViewController.m */; };
+		0A85A7B81D2946C9001196A0 /* UINavigationBar+GLTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85A7B71D2946C9001196A0 /* UINavigationBar+GLTransform.m */; };
+		0A85A7BB1D294709001196A0 /* GLPageVCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85A7BA1D294709001196A0 /* GLPageVCModel.m */; };
 		581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5818642F1D1CD1AD001E1CE3 /* GLTabBar.m */; };
 		581864371D1CD744001E1CE3 /* GLSpecialButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 581864361D1CD744001E1CE3 /* GLSpecialButton.m */; };
-		5843AACB1D22568B004E987A /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */; };
 		5843AACE1D226383004E987A /* GLMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5843AACD1D226383004E987A /* GLMoreViewController.m */; };
 		5847093E1D1A97540084B2DC /* AppDelegate+GLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5847093D1D1A97540084B2DC /* AppDelegate+GLTabBarController.m */; };
 		5859B0F51D1A9053008ED422 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859B0E41D1A9053008ED422 /* AppDelegate.m */; };
@@ -82,6 +83,10 @@
 		0A85A7AB1D28BC76001196A0 /* GLPopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLPopButton.m; sourceTree = "<group>"; };
 		0A85A7AD1D28BDAE001196A0 /* GLHomeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHomeTableViewController.h; sourceTree = "<group>"; };
 		0A85A7AE1D28BDAE001196A0 /* GLHomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLHomeTableViewController.m; sourceTree = "<group>"; };
+		0A85A7B61D2946C9001196A0 /* UINavigationBar+GLTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+GLTransform.h"; sourceTree = "<group>"; };
+		0A85A7B71D2946C9001196A0 /* UINavigationBar+GLTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+GLTransform.m"; sourceTree = "<group>"; };
+		0A85A7B91D294709001196A0 /* GLPageVCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLPageVCModel.h; sourceTree = "<group>"; };
+		0A85A7BA1D294709001196A0 /* GLPageVCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLPageVCModel.m; sourceTree = "<group>"; };
 		39BA7DC878E309471D133381 /* Pods-GLNavigationArchitectureSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLNavigationArchitectureSet.release.xcconfig"; path = "Pods/Target Support Files/Pods-GLNavigationArchitectureSet/Pods-GLNavigationArchitectureSet.release.xcconfig"; sourceTree = "<group>"; };
 		460398635FB73A6F03235319 /* Pods-GLNavigationArchitectureSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLNavigationArchitectureSet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GLNavigationArchitectureSet/Pods-GLNavigationArchitectureSet.debug.xcconfig"; sourceTree = "<group>"; };
 		5818642E1D1CD1AD001E1CE3 /* GLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTabBar.h; sourceTree = "<group>"; };
@@ -89,8 +94,6 @@
 		581864351D1CD744001E1CE3 /* GLSpecialButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButton.h; sourceTree = "<group>"; };
 		581864361D1CD744001E1CE3 /* GLSpecialButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpecialButton.m; sourceTree = "<group>"; };
 		581864381D1CD9F7001E1CE3 /* GLSpecialButtonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpecialButtonProtocol.h; sourceTree = "<group>"; };
-		5843AAC91D22568B004E987A /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
-		5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		5843AACC1D226383004E987A /* GLMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMoreViewController.h; sourceTree = "<group>"; };
 		5843AACD1D226383004E987A /* GLMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMoreViewController.m; sourceTree = "<group>"; };
 		5847093C1D1A97540084B2DC /* AppDelegate+GLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+GLTabBarController.h"; sourceTree = "<group>"; };
@@ -294,10 +297,10 @@
 		5859B0FC1D1A90C5008ED422 /* GLNavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				5843AAC91D22568B004E987A /* UINavigationBar+Awesome.h */,
-				5843AACA1D22568B004E987A /* UINavigationBar+Awesome.m */,
 				0A2F4E301D26BF580020AE30 /* GLNavigationController.h */,
 				0A2F4E311D26BF580020AE30 /* GLNavigationController.m */,
+				0A85A7B61D2946C9001196A0 /* UINavigationBar+GLTransform.h */,
+				0A85A7B71D2946C9001196A0 /* UINavigationBar+GLTransform.m */,
 			);
 			path = GLNavigationController;
 			sourceTree = "<group>";
@@ -341,6 +344,8 @@
 		586DF59A1D24BE2B00F2CFFB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A85A7B91D294709001196A0 /* GLPageVCModel.h */,
+				0A85A7BA1D294709001196A0 /* GLPageVCModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -488,18 +493,19 @@
 				0A2F4E251D26B2680020AE30 /* GLPageViewController.m in Sources */,
 				0A5296761D2176CE001C1024 /* GLDiscoveryViewController.m in Sources */,
 				5843AACE1D226383004E987A /* GLMoreViewController.m in Sources */,
-				5843AACB1D22568B004E987A /* UINavigationBar+Awesome.m in Sources */,
 				0A5296681D217651001C1024 /* GLMessageViewController.m in Sources */,
 				0A5296791D2176FB001C1024 /* GLPersonViewController.m in Sources */,
 				0A85A7881D281DC9001196A0 /* UIViewController+GLSide.m in Sources */,
 				0A85A7A61D2821D8001196A0 /* GLRightViewController.m in Sources */,
 				5859B0FA1D1A9053008ED422 /* main.m in Sources */,
+				0A85A7BB1D294709001196A0 /* GLPageVCModel.m in Sources */,
 				0A2F4E321D26BF580020AE30 /* GLNavigationController.m in Sources */,
 				581864301D1CD1AD001E1CE3 /* GLTabBar.m in Sources */,
 				586DF59D1D24BEAD00F2CFFB /* NoLimitScorllview.m in Sources */,
 				0A2F4E281D26B2A10020AE30 /* GLPageControlView.m in Sources */,
 				0A85A79C1D2821C7001196A0 /* GLSpecialButtonSubclass.m in Sources */,
 				0A5296651D2175DA001C1024 /* GLHomeViewController.m in Sources */,
+				0A85A7B81D2946C9001196A0 /* UINavigationBar+GLTransform.m in Sources */,
 				5859B1001D1A90E4008ED422 /* GLTabBarController.m in Sources */,
 				0A5296911D2179AB001C1024 /* GLHomeManagerViewController.m in Sources */,
 				0A85A7AC1D28BC76001196A0 /* GLPopButton.m in Sources */,

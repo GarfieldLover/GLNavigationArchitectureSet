@@ -19,9 +19,9 @@
     return self;
 }
 
--(void)resetaddTarget
+-(void)resetTargetAction
 {
-    if([self respondsToSelector:@selector(plusChildViewController)]){
+    if([self respondsToSelector:@selector(specialViewController)]){
         
         NSArray<NSString *> *selectorNamesArray = [self actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
         [selectorNamesArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -29,24 +29,24 @@
             [self removeTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
         }];
         
-        [self addTarget:self action:@selector(plusChildViewControllerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self action:@selector(specialViewControllerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
     }
 }
 
--(void)plusChildViewControllerButtonClicked:(GLSpecialButton*)button
+-(void)specialViewControllerButtonClicked:(GLSpecialButton*)button
 {
-    
-    
     button.selected=YES;
-    UIViewController* vc= [self GetiewController];
+    
+    UIViewController* vc= [self getViewController];
+    
     if([vc isKindOfClass:[UITabBarController class]]){
         UITabBarController* tabvc=(UITabBarController*)vc;
-        tabvc.selectedIndex=[button indexOfPlusButtonInTabBar];
+        tabvc.selectedIndex=[button indexOfSpecialButton];
     }
 }
 
-- (UIViewController *)GetiewController {
+- (UIViewController *)getViewController {
     Class vcc = [UIViewController class];
     UIResponder *responder = self;
     while ((responder = [responder nextResponder]))
@@ -55,17 +55,11 @@
     return nil;
 }
 
-
-
 //over
-- (NSUInteger)indexOfPlusButtonInTabBar
+- (NSUInteger)indexOfSpecialButton
 {
     return 2;
 }
 
-- (UIViewController *)plusChildViewController
-{
-    return nil;
-}
 
 @end
