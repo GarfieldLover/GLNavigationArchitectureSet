@@ -47,13 +47,13 @@ extern NSString * _Nonnull const GLTabBarItemSelectedTitleTextAttributes;
  *
  *  @param backgroundImage 高亮背景图片
  */
-- (void)xzm_setShadeItemBackgroundImage:(UIImage * _Nonnull)backgroundImage;
+- (void)setShadeItemBackgroundImage:(UIImage * _Nonnull)backgroundImage;
 
 /**
  *  设置高亮背景颜色
  *
  *  @param coloer 高亮背景颜色
  */
-- (void)xzm_setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer;
+- (void)setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer;
 
 @end

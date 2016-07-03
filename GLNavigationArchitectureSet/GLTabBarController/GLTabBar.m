@@ -182,7 +182,7 @@
     return [super hitTest:point withEvent:event];
 }
 
-- (void)xzm_setShadeItemBackgroundImage:(UIImage *)backgroundImage
+- (void)setShadeItemBackgroundImage:(UIImage *)backgroundImage
 {
     if(!self.shadeItemImage){
         self.shadeItemImage=[[UIImageView alloc] init];
@@ -191,7 +191,7 @@
     [self.shadeItemImage setBackgroundColor:nil];
 }
 
-- (void)xzm_setShadeItemBackgroundColor:(UIColor *)coloer
+- (void)setShadeItemBackgroundColor:(UIColor *)coloer
 {
     if(!self.shadeItemImage){
         self.shadeItemImage=[[UIImageView alloc] init];

@@ -8,16 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, PopStyle){
+/**
+ *  pop模式
+ */
+typedef NS_ENUM(NSUInteger, PopStyle) {
+    /**
+     *  系统手势方法
+     */
     SystemPopStyle,
+    /**
+     *  截屏方法
+     */
     ScreenShotPopStyle
 };
 
 @interface GLNavigationController : UINavigationController
+
 /**
- *  设置手势是否有效
- *
- */
+*  设置手势是否有效
+*/
 @property (nonatomic,assign) BOOL canDragBack;
 
 @property (nonatomic,assign) PopStyle popStyle;

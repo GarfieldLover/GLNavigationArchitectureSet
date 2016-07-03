@@ -14,7 +14,7 @@
 #import "GLPersonViewController.h"
 #import "GLNavigationController.h"
 #import "GLPageViewController.h"
-#import "ZTTableViewController.h"
+#import "GLHomeTableViewController.h"
 #import "GLLeftViewController.h"
 #import "GLRightViewController.h"
 
@@ -44,7 +44,7 @@
     GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:specialButton ];
     
 //    [tabBarController setTabBarHeight:40];
-//    [tabBarController xzm_setShadeItemBackgroundColor:[UIColor grayColor]];
+//    [tabBarController setShadeItemBackgroundColor:[UIColor grayColor]];
 
     return tabBarController;
 }
@@ -52,7 +52,7 @@
 - (NSArray*)setupViewControllers
 {
     
-    Class vc1 = [ZTTableViewController class];
+    Class vc1 = [GLHomeTableViewController class];
     NSArray *vcclass = @[vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1];
     NSArray *titles = @[@"首页",@"电视剧",@"综艺",@"会员",@"电影",@"测试超长长长长长长长长",@"动漫",@"韩日剧",@"自媒体",@"体育",@"娱乐",@"直播"];
     

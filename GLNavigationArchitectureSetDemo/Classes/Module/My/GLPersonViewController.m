@@ -7,7 +7,7 @@
 //
 
 #import "GLPersonViewController.h"
-#import "UINavigationBar+Awesome.h"
+#import "UINavigationBar+GLTransform.h"
 #import "GLMoreViewController.h"
 
 
@@ -29,7 +29,6 @@
     [super viewDidLoad];
     
     
-
     self.view.backgroundColor=[UIColor whiteColor];
     
     self.navigationItem.title=@"我的";
@@ -62,9 +61,6 @@
     
     [self.view addSubview:_tableView];
     [self.view addSubview:_scaleImageView];
-    
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1]];
-
 }
 
 -(void)moreVC
@@ -96,7 +92,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     [self scrollViewDidScroll:self.tableView];
 
 }
@@ -104,8 +99,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar lt_reset];
-
+    
+    [self.navigationController.navigationBar reset];
 }
 
 
@@ -131,14 +126,13 @@
     if (offsetY > -64.0f*2) {
         CGFloat alpha = MIN(1, (64*2+ offsetY) / 64);
 
-        [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
+        [self.navigationController.navigationBar setBackgroundColor:[color colorWithAlphaComponent:alpha]];
     } else {
-        [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
+        [self.navigationController.navigationBar setBackgroundColor:[color colorWithAlphaComponent:0]];
     }
 
 #else
     if (offsetY > -scaleImageHeight) {
-
         if (offsetY > -scaleImageHeight+44) {
             [self setNavigationBarTransformProgress:1];
         } else {
@@ -146,16 +140,18 @@
         }
     } else {
         [self setNavigationBarTransformProgress:0];
-        self.navigationController.navigationBar.backIndicatorImage = [UIImage new];
     }
 #endif
 }
 
 - (void)setNavigationBarTransformProgress:(CGFloat)progress
 {
-    [self.navigationController.navigationBar lt_setTranslationY:(-44 * progress)];
-    [self.navigationController.navigationBar lt_setElementsAlpha:(1-progress)];
+    [self.navigationController.navigationBar setTranslationY:(-44 * progress)];
+    [self.navigationController.navigationBar setElementsAlpha:(1-progress)];
 }
+
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 33;

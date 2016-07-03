@@ -180,9 +180,9 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
  *
  *  @param backgroundImage 高亮背景图片
  */
-- (void)xzm_setShadeItemBackgroundImage:(UIImage * _Nonnull)backgroundImage
+- (void)setShadeItemBackgroundImage:(UIImage * _Nonnull)backgroundImage
 {
-    [(GLTabBar*)self.tabBar xzm_setShadeItemBackgroundImage:backgroundImage];
+    [(GLTabBar*)self.tabBar setShadeItemBackgroundImage:backgroundImage];
 }
 
 /**
@@ -190,9 +190,9 @@ NSString *const GLTabBarItemSelectedTitleTextAttributes = @"GLTabBarItemSelected
  *
  *  @param coloer 高亮背景颜色
  */
-- (void)xzm_setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer
+- (void)setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer
 {
-    [(GLTabBar*)self.tabBar xzm_setShadeItemBackgroundColor:coloer];
+    [(GLTabBar*)self.tabBar setShadeItemBackgroundColor:coloer];
 
 }
 

@@ -9,12 +9,13 @@
 #import "GLSpecialViewController.h"
 #import "POP.h"
 #import "UIView+GLPage.h"
+#import "GLPopButton.h"
 
-#define XZMScreenW [UIScreen mainScreen].bounds.size.width
-#define XZMScreenH [UIScreen mainScreen].bounds.size.height
+#define ScreenW [UIScreen mainScreen].bounds.size.width
+#define ScreenH [UIScreen mainScreen].bounds.size.height
 
-static NSInteger XZMSpringFactor = 6;
-static CGFloat XZMSpringDelay = 0.05;
+static NSInteger SpringFactor = 6;
+static CGFloat SpringDelay = 0.05;
 
 
 @interface GLSpecialViewController ()
@@ -41,29 +42,12 @@ static CGFloat XZMSpringDelay = 0.05;
     CGFloat btnW = 60;
     CGFloat btnH = btnW + 30;
     CGFloat beginMargin = 20;
-    CGFloat middleMargin = (XZMScreenW - 2 * beginMargin - cols *btnW)/ (cols - 1);
-    CGFloat btnStartY = (XZMScreenH - 2 * btnH) * 0.5;
+    CGFloat middleMargin = (ScreenW - 2 * beginMargin - cols *btnW)/ (cols - 1);
+    CGFloat btnStartY = (ScreenH - 2 * btnH) * 0.5;
     
     for (int i = 0; i < images.count; i++) {
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        
-        btn.imageEdgeInsets=UIEdgeInsetsMake(-30, 30, 0, 0);
-        btn.titleEdgeInsets=UIEdgeInsetsMake(30, -30, 0, 0);
-        
-//        btn.imageView.x = 0;
-//        btn.imageView.y = 0;
-//        btn.imageView.width = btn.width;
-//        btn.imageView.height = btn.imageView.width;
-//        
-//        btn.titleLabel.x = 0;
-//        btn.titleLabel.y = btn.imageView.height;
-//        btn.titleLabel.width = btn.width;
-//        btn.titleLabel.height = btn.height - btn.imageView.height;
-        
+        GLPopButton *btn = [GLPopButton buttonWithType:UIButtonTypeCustom];
         
         NSInteger col = i % cols;
         NSInteger row = i / cols;
@@ -85,7 +69,7 @@ static CGFloat XZMSpringDelay = 0.05;
         
         btn.tag = i;
         
-        CGFloat benginBtnY = btnStartY - XZMScreenH;
+        CGFloat benginBtnY = btnStartY - ScreenH;
         
         /** 添加动画 */
         POPSpringAnimation *anima = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
@@ -94,11 +78,11 @@ static CGFloat XZMSpringDelay = 0.05;
         
         anima.toValue = [NSValue valueWithCGRect:CGRectMake(btnX, btnY, btnW, btnH)];
         
-        anima.springSpeed = XZMSpringFactor;
+        anima.springSpeed = SpringFactor;
         
-        anima.springBounciness = XZMSpringDelay;
+        anima.springBounciness = SpringDelay;
         
-        anima.beginTime = CACurrentMediaTime() + i * XZMSpringDelay;
+        anima.beginTime = CACurrentMediaTime() + i * SpringDelay;
         
         [btn pop_addAnimation:anima forKey:nil];
         
@@ -114,24 +98,24 @@ static CGFloat XZMSpringDelay = 0.05;
     /** 添加sloganView指示条 */
     UIImageView *sloganView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"app_slogan"]];
     
-    sloganView.y = -XZMScreenW;
+    sloganView.y = -ScreenW;
     
     [self.view addSubview:sloganView];
     
-    CGFloat centerX = XZMScreenW * 0.5;
+    CGFloat centerX = ScreenW * 0.5;
     
-    CGFloat centerEndY = XZMScreenH * 0.15;
+    CGFloat centerEndY = ScreenH * 0.15;
     
-    CGFloat centerBenginY = centerEndY - XZMScreenH;
+    CGFloat centerBenginY = centerEndY - ScreenH;
     
     /** 添加动画 */
     POPSpringAnimation *anima = [POPSpringAnimation animationWithPropertyNamed:kPOPViewCenter];
     anima.fromValue = [NSValue valueWithCGPoint:CGPointMake(centerX, centerBenginY)];
     anima.toValue = [NSValue valueWithCGPoint:CGPointMake(centerX, centerEndY)];
-    anima.springBounciness = XZMSpringDelay;
-    anima.beginTime = CACurrentMediaTime() + XZMSpringDelay * images.count;
+    anima.springBounciness = SpringDelay;
+    anima.beginTime = CACurrentMediaTime() + SpringDelay * images.count;
     
-    anima.springSpeed = XZMSpringFactor;
+    anima.springSpeed = SpringFactor;
     
     [sloganView pop_addAnimation:anima forKey:nil];
     
@@ -173,13 +157,13 @@ static CGFloat XZMSpringDelay = 0.05;
         
         POPSpringAnimation *anima = [POPSpringAnimation animationWithPropertyNamed:kPOPViewCenter];
         
-        anima.springBounciness = XZMSpringDelay;
+        anima.springBounciness = SpringDelay;
         
-        anima.springSpeed = XZMSpringFactor;
+        anima.springSpeed = SpringFactor;
         
-        anima.beginTime = CACurrentMediaTime() + (i - index) * XZMSpringDelay;
+        anima.beginTime = CACurrentMediaTime() + (i - index) * SpringDelay;
         
-        CGFloat endCenterY = view.centerY + XZMScreenH;
+        CGFloat endCenterY = view.centerY + ScreenH;
         
         anima.toValue = [NSValue valueWithCGPoint:CGPointMake(view.centerX, endCenterY)];
         
@@ -234,10 +218,7 @@ static CGFloat XZMSpringDelay = 0.05;
         }];
         
     }];
-    
-    
-    
-    
+
 }
 
 
