@@ -9,79 +9,27 @@
 #import "GLPageViewController.h"
 #import "GLPageDefine.h"
 
-@interface GLPageViewController ()<UIScrollViewDelegate,GLPageControlViewDelegate,NSCacheDelegate>
+@interface GLPageViewController ()<UIScrollViewDelegate, GLPageControlViewDelegate>
 
-@property (nonatomic,strong)UIScrollView *detailScrollView;
-@property (nonatomic,strong)NSArray *subviewControllers;
-@property (nonatomic,strong)NSMutableArray *controllerFrames;
-@property (nonatomic,strong)UIViewController *selectedViewConTroller;
-@property (nonatomic,strong)NSArray *titles;
-//正在出现的控制器
-@property (nonatomic,strong)NSMutableDictionary *displayVC;
-@property (nonatomic,assign)int  selectedIndex;
-//内存管理机制，设置countlimit可以使内存机制中存储控制器的最大数量
-@property (nonatomic,strong)NSCache *controllerCache;
+@property (nonatomic, strong) UIScrollView *containerScrollView;
 
-@property (nonatomic,assign)BOOL  needadd;
+@property (nonatomic, strong) NSMutableArray *controllerFrames;
 
+@property (nonatomic, strong) NSArray *titles;
+
+@property (nonatomic, assign) NSInteger selectedIndex;
+
+//vc缓存
+@property (nonatomic, strong) NSMutableDictionary *controllerCache;
+
+@property (nonatomic, assign) BOOL  needPageControlView;
 
 @end
 
+
 @implementation GLPageViewController
-@synthesize Menview=_Menview;
+@synthesize pageControlView=_pageControlView;
 
-#pragma mark Lazy load
-- (NSArray *)titles {
-    if (!_titles) {
-        _titles = [NSMutableArray array];
-    }
-    return _titles;
-}
-
-- (NSMutableDictionary *)displayVC {
-    if (!_displayVC) {
-        _displayVC = [NSMutableDictionary dictionary];
-    }
-    return _displayVC;
-}
-
-- (NSArray *)subviewControllers {
-    if (!_subviewControllers) {
-        _subviewControllers = [NSMutableArray array];
-    }
-    return _subviewControllers;
-}
-
-- (UIScrollView *)detailScrollView {
-    if (!_detailScrollView) {
-        self.detailScrollView = [[UIScrollView alloc]init];
-        self.detailScrollView.backgroundColor = [UIColor whiteColor];
-        self.detailScrollView.pagingEnabled = YES;
-        self.detailScrollView.delegate = self;
-        [self.view addSubview:self.detailScrollView];
-    }
-    return _detailScrollView;
-}
-
-- (NSMutableArray *)controllerFrames {
-    if (!_controllerFrames) {
-        _controllerFrames = [NSMutableArray array];
-    }
-    return _controllerFrames;
-}
-
-- (NSCache *)controllerCache {
-    if (!_controllerCache) {
-        _controllerCache = [[NSCache alloc] init];
-        // 设置数量限制
-        if(self.countLimit) {
-            _controllerCache.countLimit = self.countLimit;
-        }else{
-            _controllerCache.countLimit = 4;
-        }
-    }
-    return _controllerCache;
-}
 #pragma mark 加载
 - (void)viewDidLoad {
     
@@ -90,177 +38,196 @@
     self.edgesForExtendedLayout=UIRectEdgeNone;
 }
 
-- (instancetype)initWithMneuViewStyle:(GLPageControlStyle)style {
-    
+- (instancetype)initWithTitles:(NSArray *)titles pageControlStyle:(GLPageControlStyle)style needPageControlView:(BOOL)needPageControlView
+{
     if (self = [super init]) {
+        
         self.style=style;
+        self.titles  = titles;
+        
+        self.needPageControlView = needPageControlView;
+        [self loadSideViewWithTitles:self.titles];
     }
     return self;
 }
 
-- (void)loadVC:(NSArray *)viewcontrollerClass AndTitle:(NSArray *)titles needaddSideView:(BOOL)need{
-    self.subviewControllers = viewcontrollerClass;
-    self.titles  = titles;
-    
-    self.needadd=need;
-    [self loadSideViewWithTitles:self.titles];
-}
-
-- (void)loadSideViewWithTitles:(NSArray *)titles {
-    GLPageControlView *Menview = [[GLPageControlView alloc]initWithMneuViewStyle:self.style AndTitles:titles];
-    if(self.needadd){
-        [self.view addSubview:Menview];
+- (void)loadSideViewWithTitles:(NSArray *)titles
+{
+    GLPageControlView *pageControlView = [[GLPageControlView alloc]initWithPageControlStyle:self.style AndTitles:titles];
+    if(self.needPageControlView){
+        [self.view addSubview:pageControlView];
     }else{
-        Menview.backgroundColor=[UIColor clearColor];
+        pageControlView.backgroundColor=[UIColor clearColor];
     }
-    Menview.delegate = self;
-    _Menview = Menview;
+    pageControlView.delegate = self;
+    _pageControlView = pageControlView;
 }
 
-
-
-- (void)viewWillLayoutSubviews {
+- (void)viewWillLayoutSubviews
+{
     [super viewWillLayoutSubviews];
     
-    for (int j = 0; j < self.subviewControllers.count; j++) {
-        CGFloat X = j * ScreenWidth;
-        CGFloat Y = 0;
-        CGFloat height = self.view.height;
-        CGRect frame = CGRectMake(X, Y, ScreenWidth, height);
-        [self.controllerFrames addObject:[NSValue valueWithCGRect:frame]];
+    if(self.controllerFrames.count==0){
+        for (int j = 0; j < self.titles.count; j++) {
+            CGFloat X = j * ScreenWidth;
+            CGFloat Y = 0;
+            CGFloat height = self.view.height;
+            CGRect frame = CGRectMake(X, Y, ScreenWidth, height);
+            [self.controllerFrames addObject:[NSValue valueWithCGRect:frame]];
+        }
     }
-    
-    //如果不是在tabbar中需要将SideView的y值设置为Y+20（导航控制器高度+状态栏高度）
-    //    GFloat y =  NavigationBarHeight
-    if(self.needadd){
-        _Menview.frame = CGRectMake(0, 0, ScreenWidth, MenuHeight);
+
+    if(self.needPageControlView){
+        _pageControlView.frame = CGRectMake(0, 0, ScreenWidth, MenuHeight);
     }
-    self.detailScrollView.frame = CGRectMake(0, self.needadd?_Menview.y+_Menview.height:0, ScreenWidth,ScreenHeight - self.detailScrollView.y);
-    self.detailScrollView.contentSize = CGSizeMake(self.subviewControllers.count * self.detailScrollView.width, 0);
+    self.containerScrollView.frame = CGRectMake(0, self.needPageControlView?_pageControlView.y+_pageControlView.height:0, ScreenWidth,ScreenHeight - self.containerScrollView.y);
+    self.containerScrollView.contentSize = CGSizeMake(self.titles.count * self.containerScrollView.width, 0);
     
-    [self addViewControllerViewAtIndex:0];
+    self.selectedIndex=0;
+    [self addxxff];
 }
 
 
-- (void)addViewControllerViewAtIndex:(int)index {
-    
-    Class vclass = self.subviewControllers[index];
-    UIViewController *vc = [[vclass alloc]init];
+- (void)addViewControllerViewAtIndex:(NSInteger)index
+{
+    //delegate取vc
+    UIViewController* vc = [self.delegate getViewControllerWithIndex:index];
+
     vc.view.frame = [self.controllerFrames[index] CGRectValue];
-    [self.displayVC setObject:vc forKey:@(index)];
+    [self.controllerCache setObject:vc forKey:@(index)];
     [self addChildViewController:vc];
-    [self.detailScrollView addSubview:vc.view];
-    self.selectedViewConTroller = vc;
+    [self.containerScrollView addSubview:vc.view];
 }
 
-- (void)removeViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
-    
-    [viewController.view removeFromSuperview];
-    [viewController willMoveToParentViewController:nil];
-    [viewController removeFromParentViewController];
-    [self.displayVC removeObjectForKey:@(index)];
-    
-    if ([self.controllerCache objectForKey:@(index)]) return;
-    [self.controllerCache setObject:viewController forKey:@(index)];
+- (void)removeViewControllerAtIndex:(NSInteger)index
+{
+    UIViewController* viewController=[self.controllerCache objectForKey:@(index)];
+    if(viewController){
+        [viewController.view removeFromSuperview];
+        [viewController willMoveToParentViewController:nil];
+        [viewController removeFromParentViewController];
+        [self.controllerCache removeObjectForKey:@(index)];
+    }
     
 }
 
-- (BOOL)isInScreen:(CGRect)frame {
+- (BOOL)isInScreen:(CGRect)frame
+{
     CGFloat x = frame.origin.x;
-    CGFloat ScreenWith = self.detailScrollView.frame.size.width;
+    CGFloat ScreenWith = self.containerScrollView.frame.size.width;
     
-    CGFloat contentOffsetX = self.detailScrollView.contentOffset.x;
+    CGFloat contentOffsetX = self.containerScrollView.contentOffset.x;
+    
+    NSLog(@"%f,%f,%f----------",contentOffsetX , CGRectGetMaxX(frame), x - contentOffsetX);
+
     if (CGRectGetMaxX(frame) >contentOffsetX && x - contentOffsetX < ScreenWith ){
         return YES;
     }else{
         return NO;
     }
-    
 }
 
-- (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
-    
-    [self addChildViewController:viewController];
-    [self.detailScrollView addSubview:viewController.view];
-    [self.displayVC setObject:viewController forKey:@(index)];
-    
-    self.selectedViewConTroller = viewController;
+- (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index
+{
+    if(viewController.parentViewController!=self && viewController.view.superview!=self.containerScrollView){
+        [self addChildViewController:viewController];
+        [self.containerScrollView addSubview:viewController.view];
+    }
 }
 
 #pragma mark delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    int Page = (int)(scrollView.contentOffset.x/self.view.width + 0.5);
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     int index = (int)(scrollView.contentOffset.x/self.view.width);
     CGFloat rate = scrollView.contentOffset.x/self.view.width;
-    for (int i = 0; i <self.subviewControllers.count; i++) {
-        //取出frame
-        
-        CGRect frame = [self.controllerFrames[i] CGRectValue];
-        //首先从显示中的控制器中取；
-        UIViewController *vc = [self.displayVC objectForKey:@(i)];
-        
-        if ([self isInScreen:frame]) {
-            if (vc == nil) {//从内存中取
-                vc = [self.controllerCache objectForKey:@(i)];
-                if (vc) {//把内存中的取出来创建，保证此控制器是之前消除的控制器
-                    [self addCachedViewController:vc atIndex:i];
-                }else{//再创建
-                    [self addViewControllerViewAtIndex:i];
-                }
-            }
-        }else{
-            if (vc) {//如果不在屏幕中显示，将其移除
-                [self removeViewController:vc atIndex:i];
-            }
+    
+    self.selectedIndex=index;
+    
+    [self addxxff];
+    [self removexxx:self.selectedIndex];
+
+    [_pageControlView SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
+}
+
+-(void)addxxff
+{
+    
+    [self addxxx:self.selectedIndex-1];
+    [self addxxx:self.selectedIndex];
+    [self addxxx:self.selectedIndex+1];
+    
+}
+
+- (void)addxxx:(NSInteger)index
+{
+    if(index>self.selectedIndex+1 || index< self.selectedIndex-1 || index<0){
+        return;
+    }
+    UIViewController *vc = [self.controllerCache objectForKey:@(index)];
+    
+    if (vc) {
+        //把内存中的取出来创建
+        [self addCachedViewController:vc atIndex:index];
+    }else{
+        //创建
+        [self addViewControllerViewAtIndex:index];
+    }
+}
+
+-(void)removexxx:(NSInteger)index
+{
+    for(NSString* key in self.controllerCache.allKeys){
+        NSInteger page = key.integerValue;
+        if(page != index-1 && page != index && page != index+1 ){
+            [self removeViewControllerAtIndex:page];
         }
     }
-    self.selectedViewConTroller = [self.displayVC objectForKey:@(Page)];
-    //滚动使SideView中的item移动
-    [_Menview SelectedBtnMoveToCenterWithIndex:index WithRate:rate];
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
-    if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width )return;
-    int Page = (int)(scrollView.contentOffset.x/self.view.width);
+    if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width){
+        return;
+    }
+    int page = (int)(scrollView.contentOffset.x/self.view.width);
     
     //因为我用的UItabbar做的展示，所以切换tabar的时候，会出现控制器不清除的结果，使得通知中心紊乱，其他控制器也可以接收当前控制器发送的通知，所以，我把通知名称设置为唯一的；
-    NSString *name  = [NSString stringWithFormat:@"scrollViewDidFinished%zd",_Menview.style];
+    NSString *name  = [NSString stringWithFormat:@"scrollViewDidFinished%zd",_pageControlView.style];
     NSDictionary *info = @{
-                           @"index":@(Page)};
+                           @"index":@(page)};
     [[NSNotificationCenter defaultCenter]postNotificationName:name  object:nil userInfo:info];
     
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
-    if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width )return;
+    if (scrollView.contentOffset.x < 0 || scrollView.contentOffset.x > scrollView.contentSize.width){
+        return;
+    }
     
     if(!decelerate){
-        int Page = (int)(scrollView.contentOffset.x/ScreenWidth);
+        int page = (int)(scrollView.contentOffset.x/ScreenWidth);
         
-        if (Page == 0) {
-            [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
-        }else if (Page == self.subviewControllers.count - 1){
-            [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
+        if (page == 0) {
+            [_pageControlView selectWithIndex:page AndOtherIndex:page + 1 ];
+        }else if (page == self.controllerFrames.count - 1){
+            [_pageControlView selectWithIndex:page AndOtherIndex:page - 1];
         }else{
-            [_Menview selectWithIndex:Page AndOtherIndex:Page + 1 ];
-            [_Menview selectWithIndex:Page AndOtherIndex:Page - 1];
+            [_pageControlView selectWithIndex:page AndOtherIndex:page + 1 ];
+            [_pageControlView selectWithIndex:page AndOtherIndex:page - 1];
         }
     }
 }
 
-- (void)SideViewDelegate:(GLPageControlView *)menuciew WithIndex:(int)index {
+- (void)pageControlViewDidSelectWithIndex:(NSInteger)index
+{
+    [self removeViewControllerAtIndex:_selectedIndex];
     
-    [self removeViewController:self.selectedViewConTroller atIndex:_selectedIndex];
-    
-    self.detailScrollView.contentOffset = CGPointMake(index * ScreenWidth, 0);
+    self.containerScrollView.contentOffset = CGPointMake(index * ScreenWidth, 0);
     self.selectedIndex = index;
     
-    UIViewController *vc = [self.displayVC objectForKey:@(index)];
+    UIViewController *vc = [self.controllerCache objectForKey:@(index)];
     if (vc == nil) {
         vc = [self.controllerCache objectForKey:@(index)];
         if (vc) {
@@ -270,13 +237,39 @@
         }
     }
 }
-/**
- *  NSCache的代理方法，打印当前清除对象 */
-//- (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-//    //[NSThread sleepForTimeInterval:0.5];
-// 
-//    NSLog(@"清除了-------> %@", obj);
-//}
+
+#pragma mark Lazy load
+- (NSArray *)titles {
+    if (!_titles) {
+        _titles = [NSMutableArray array];
+    }
+    return _titles;
+}
+
+- (UIScrollView *)containerScrollView {
+    if (!_containerScrollView) {
+        self.containerScrollView = [[UIScrollView alloc]init];
+        self.containerScrollView.backgroundColor = [UIColor whiteColor];
+        self.containerScrollView.pagingEnabled = YES;
+        self.containerScrollView.delegate = self;
+        [self.view addSubview:self.containerScrollView];
+    }
+    return _containerScrollView;
+}
+
+- (NSMutableArray *)controllerFrames {
+    if (!_controllerFrames) {
+        _controllerFrames = [NSMutableArray array];
+    }
+    return _controllerFrames;
+}
+
+- (NSMutableDictionary *)controllerCache {
+    if (!_controllerCache) {
+        _controllerCache = [NSMutableDictionary dictionaryWithCapacity:3];
+    }
+    return _controllerCache;
+}
 
 
 @end

@@ -13,7 +13,6 @@ typedef NS_ENUM(NSUInteger, GLPageControlStyle) {
     GlPageControlMarkChangeStyle,     // 带下划线 (颜色会变化)
 };
 
-@class GLPageControlView;
 
 @protocol GLPageControlViewDelegate <NSObject>
 
@@ -28,7 +27,7 @@ typedef NS_ENUM(NSUInteger, GLPageControlStyle) {
 
 @property (nonatomic, assign) GLPageControlStyle style;
 
-- (instancetype)initWithMneuViewStyle:(GLPageControlStyle)style AndTitles:(NSArray *)titles;
+- (instancetype)initWithPageControlStyle:(GLPageControlStyle)style AndTitles:(NSArray *)titles;
 
 - (void)SelectedBtnMoveToCenterWithIndex:(int)index WithRate:(CGFloat)rate;
 

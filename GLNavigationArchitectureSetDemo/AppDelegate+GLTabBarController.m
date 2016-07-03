@@ -17,6 +17,7 @@
 #import "GLHomeTableViewController.h"
 #import "GLLeftViewController.h"
 #import "GLRightViewController.h"
+#import "GLPageVCModel.h"
 
 @implementation AppDelegate (GLTabBarController)
 
@@ -52,19 +53,17 @@
 - (NSArray*)setupViewControllers
 {
     
-    Class vc1 = [GLHomeTableViewController class];
-    NSArray *vcclass = @[vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1,vc1];
     NSArray *titles = @[@"首页",@"电视剧",@"综艺",@"会员",@"电影",@"测试超长长长长长长长长",@"动漫",@"韩日剧",@"自媒体",@"体育",@"娱乐",@"直播"];
     
-    GLPageViewController* pageViewController = [[GLPageViewController alloc] initWithMneuViewStyle:GlPageControlMarkChangeStyle];
-    [pageViewController loadVC:vcclass AndTitle:titles needaddSideView:YES];
+    GLPageViewController* pageViewController = [[GLPageViewController alloc] initWithTitles:titles pageControlStyle:GLPageControlFontChangeStyle needPageControlView:YES];
     
+    self.pageVCModel= [[GLPageVCModel alloc] init];
+    pageViewController.delegate=self.pageVCModel;
     
-//    GLHomeViewController *firstViewController = [[GLHomeViewController alloc] init];
     UINavigationController *firstNavigationController = [[GLNavigationController alloc]
                                                    initWithRootViewController:pageViewController];
-//    [firstNavigationController.navigationBar addSubview:pageViewController.Menview];
-//    pageViewController.Menview.frame=firstNavigationController.navigationBar.frame;
+//    [firstNavigationController.navigationBar addSubview:pageViewController.pageControlView];
+//    pageViewController.pageControlView.frame=firstNavigationController.navigationBar.frame;
     
     GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
     UINavigationController *secondNavigationController = [[GLNavigationController alloc]

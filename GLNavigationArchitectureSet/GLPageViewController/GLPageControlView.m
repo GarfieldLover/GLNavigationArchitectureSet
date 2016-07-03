@@ -12,7 +12,7 @@
 
 @interface GLPageControlView ()<UIScrollViewDelegate>
 
-@property (nonatomic,strong)UIScrollView *MenuScrollView;
+@property (nonatomic,strong)UIScrollView *pageControlScrollView;
 @property (nonatomic,strong)GLPageButton *selectedBtn;
 @property (nonatomic,strong)UIView  *line;
 @property (nonatomic,assign)CGFloat sumWidth;
@@ -21,7 +21,7 @@
 
 @implementation GLPageControlView
 
-- (instancetype)initWithMneuViewStyle:(GLPageControlStyle)style AndTitles:(NSArray *)titles
+- (instancetype)initWithPageControlStyle:(GLPageControlStyle)style AndTitles:(NSArray *)titles
 {
     if (self = [super init]) {
         self.backgroundColor = [UIColor whiteColor];
@@ -38,13 +38,13 @@
 
 - (void)loadWithScollviewAndBtnWithTitles:(NSArray *)titles {
     
-    UIScrollView *MenuScrollView = [[UIScrollView alloc]init];
-    MenuScrollView.showsVerticalScrollIndicator = NO;
-    MenuScrollView.showsHorizontalScrollIndicator = NO;
-    //    MenuScrollView.backgroundColor = [UIColor whiteColor];
-    MenuScrollView.delegate = self;
-    self.MenuScrollView= MenuScrollView;
-    [self addSubview:self.MenuScrollView];
+    UIScrollView *pageControlScrollView = [[UIScrollView alloc]init];
+    pageControlScrollView.showsVerticalScrollIndicator = NO;
+    pageControlScrollView.showsHorizontalScrollIndicator = NO;
+    //    pageControlScrollView.backgroundColor = [UIColor whiteColor];
+    pageControlScrollView.delegate = self;
+    self.pageControlScrollView= pageControlScrollView;
+    [self addSubview:self.pageControlScrollView];
     //btn创建
     
     for (int i = 0; i < titles.count; i++) {
@@ -54,7 +54,7 @@
         
         [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         //        btn.titleLabel.textColor = kNomalColor;
-        [self.MenuScrollView addSubview:btn];
+        [self.pageControlScrollView addSubview:btn];
         
     }
 }
@@ -65,10 +65,10 @@
     GLPageButton *btn1 = nil;
     self.sumWidth = 0;
     
-    for (int i = 0; i < self.MenuScrollView.subviews.count; i++){
-        btn= self.MenuScrollView.subviews[i];
+    for (int i = 0; i < self.pageControlScrollView.subviews.count; i++){
+        btn= self.pageControlScrollView.subviews[i];
         if (i>=1) {
-            btn1 = self.MenuScrollView.subviews[i-1];
+            btn1 = self.pageControlScrollView.subviews[i-1];
         }
         UIFont *titleFont = btn.titleLabel.font;
         
@@ -81,13 +81,13 @@
         btn.y = 0;
         btn.height = self.height - 2;
         self.sumWidth += btn.width;
-        if (btn == [self.MenuScrollView.subviews lastObject]) {
+        if (btn == [self.pageControlScrollView.subviews lastObject]) {
             CGFloat width = self.bounds.size.width;
             CGFloat height = self.bounds.size.height;
-            self.MenuScrollView.size = CGSizeMake(width, height);
+            self.pageControlScrollView.size = CGSizeMake(width, height);
             
-            self.MenuScrollView.contentSize = CGSizeMake(btn.x + btn.width+ BtnGap, 0);
-            self.MenuScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            self.pageControlScrollView.contentSize = CGSizeMake(btn.x + btn.width+ BtnGap, 0);
+            self.pageControlScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         }
         if (i == 0) {
             btn.selected = YES;
@@ -96,12 +96,12 @@
         btn = nil;
         btn1 = nil;
     }
-    if (self.MenuScrollView.contentSize.width < self.width) {
-        CGFloat margin = (ScreenWidth - self.sumWidth)/(self.MenuScrollView.subviews.count + 1);
-        for (int i = 0; i < self.MenuScrollView.subviews.count; i++){
-            btn= self.MenuScrollView.subviews[i];
+    if (self.pageControlScrollView.contentSize.width < self.width) {
+        CGFloat margin = (ScreenWidth - self.sumWidth)/(self.pageControlScrollView.subviews.count + 1);
+        for (int i = 0; i < self.pageControlScrollView.subviews.count; i++){
+            btn= self.pageControlScrollView.subviews[i];
             if (i>=1) {
-                btn1 = self.MenuScrollView.subviews[i-1];
+                btn1 = self.pageControlScrollView.subviews[i-1];
             }
             btn.x = btn1.x + btn1.width + margin;
             
@@ -113,7 +113,7 @@
     [super drawRect:rect];
     
     if (self.style == GLPageControlFontChangeStyle) {
-        GLPageButton *btn = [self.MenuScrollView.subviews firstObject];
+        GLPageButton *btn = [self.pageControlScrollView.subviews firstObject];
         [btn ChangSelectedColorAndScalWithRate:0.1];
     }else{
         [self addProgressView];
@@ -154,15 +154,15 @@
     
     int page  = (int)(Pagerate +0.5);
     CGFloat rate = Pagerate - index;
-    int count = (int)self.MenuScrollView.subviews.count;
+    int count = (int)self.pageControlScrollView.subviews.count;
     
     if (Pagerate < 0) return;
     if (index == count-1 || index >= count -1) return;
     if ( rate == 0)    return;
     
     self.selectedBtn.selected = NO;
-    GLPageButton *currentbtn = self.MenuScrollView.subviews[index];
-    GLPageButton *nextBtn = self.MenuScrollView.subviews[index + 1];
+    GLPageButton *currentbtn = self.pageControlScrollView.subviews[index];
+    GLPageButton *nextBtn = self.pageControlScrollView.subviews[index + 1];
     
     if (self.style == GLPageControlFontChangeStyle) {
         
@@ -171,8 +171,8 @@
     }else {
         CGFloat margin;
         if (Pagerate < count-2){
-            if (self.MenuScrollView.contentSize.width < self.width){
-                margin = (ScreenWidth - self.sumWidth)/(self.MenuScrollView.subviews.count + 1);
+            if (self.pageControlScrollView.contentSize.width < self.width){
+                margin = (ScreenWidth - self.sumWidth)/(self.pageControlScrollView.subviews.count + 1);
                 self.line.x =  currentbtn.x + (currentbtn.width + margin + BtnGap)* rate;
             }else{
                 margin = BtnGap;
@@ -184,7 +184,7 @@
             [nextBtn ChangSelectedColorWithRate:1-rate];
         }
     }
-    self.selectedBtn = self.MenuScrollView.subviews[page];
+    self.selectedBtn = self.pageControlScrollView.subviews[page];
     self.selectedBtn.selected = YES;
     
 }
@@ -199,19 +199,19 @@
  *  使选中的按钮位移到scollview的中间
  */
 - (void)MoveCodeWithIndex:(int )index {
-    GLPageButton *btn = self.MenuScrollView.subviews[index];
+    GLPageButton *btn = self.pageControlScrollView.subviews[index];
     CGRect newframe = [btn convertRect:self.bounds toView:nil];
     CGFloat distance = newframe.origin.x  - self.centerX;
-    CGFloat contenoffsetX = self.MenuScrollView.contentOffset.x;
-    int count = (int)self.MenuScrollView.subviews.count;
+    CGFloat contenoffsetX = self.pageControlScrollView.contentOffset.x;
+    int count = (int)self.pageControlScrollView.subviews.count;
     if (index > count-1) return;
     
-    if ( self.MenuScrollView.contentOffset.x + btn.x   > self.centerX ) {
+    if ( self.pageControlScrollView.contentOffset.x + btn.x   > self.centerX ) {
         
-        [self.MenuScrollView setContentOffset:CGPointMake(contenoffsetX + distance + btn.width, 0) animated:YES];
+        [self.pageControlScrollView setContentOffset:CGPointMake(contenoffsetX + distance + btn.width, 0) animated:YES];
     }else{
         
-        [self.MenuScrollView setContentOffset:CGPointMake(0 , 0) animated:YES];
+        [self.pageControlScrollView setContentOffset:CGPointMake(0 , 0) animated:YES];
     }
 }
 
@@ -226,8 +226,8 @@
 }
 
 - (void)selectWithIndex:(int)index AndOtherIndex:(int)tag {
-    self.selectedBtn = self.MenuScrollView.subviews[index];
-    GLPageButton *otherbtn = self.MenuScrollView.subviews[tag];
+    self.selectedBtn = self.pageControlScrollView.subviews[index];
+    GLPageButton *otherbtn = self.pageControlScrollView.subviews[tag];
     
     self.selectedBtn.selected = YES;
     otherbtn.selected = NO;
@@ -241,11 +241,11 @@
 - (UIView *)line {
     if (!_line) {
         _line = [[UIView alloc]init];
-        GLPageButton *btn = [self.MenuScrollView.subviews firstObject];
+        GLPageButton *btn = [self.pageControlScrollView.subviews firstObject];
         _line.x = btn.x ;
         _line.width = btn.width;
         _line.backgroundColor = kSelectedColor;
-        [self.MenuScrollView addSubview:_line];
+        [self.pageControlScrollView addSubview:_line];
     }
     return _line;
 }
