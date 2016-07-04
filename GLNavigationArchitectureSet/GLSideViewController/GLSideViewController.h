@@ -28,12 +28,16 @@
 @property (nonatomic, assign)  BOOL scaleBackgroundImageView;
 @property (nonatomic, assign)  BOOL scaleSideView;
 
+//@property (nonatomic, assign)  BOOL interactivePopGestureRecognizerEnabled;
 
 - (id)initWithContentViewController:(UIViewController *)contentViewController
              leftSideViewController:(UIViewController *)leftSideViewController
             rightSideViewController:(UIViewController *)rightSideViewController;
+
 - (void)presentLeftSideViewController;
+
 - (void)presentRightSideViewController;
+
 - (void)hideSideViewController;
 
 @end

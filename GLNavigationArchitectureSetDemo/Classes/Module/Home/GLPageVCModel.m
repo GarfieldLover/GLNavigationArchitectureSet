@@ -16,4 +16,9 @@
     return [[GLHomeTableViewController alloc] init];
 }
 
+-(void)didSelectViewControllerWithIndex:(NSUInteger)index
+{
+    
+}
+
 @end

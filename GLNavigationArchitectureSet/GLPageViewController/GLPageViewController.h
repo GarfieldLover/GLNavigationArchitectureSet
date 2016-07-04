@@ -16,6 +16,10 @@
 
 - (UIViewController*)getViewControllerWithIndex:(NSUInteger)index;
 
+@optional
+
+- (void)didSelectViewControllerWithIndex:(NSUInteger)index;
+
 @end
 
 

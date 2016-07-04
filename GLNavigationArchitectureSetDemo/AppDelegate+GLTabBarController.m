@@ -29,7 +29,7 @@
     
     GLSideViewController *sideViewController = [[GLSideViewController alloc]
                                                 initWithContentViewController:[self tabBarController]
-                                                leftSideViewController:leftSideViewController
+                                                leftSideViewController:nil
                                                 rightSideViewController:rightSideViewController];
     sideViewController.backgroundImage = [UIImage imageNamed:@"sideBack"];
     //    sideViewController.delegate = self;
@@ -65,24 +65,25 @@
     self.pageVCModel= [[GLPageVCModel alloc] init];
     pageViewController.delegate=self.pageVCModel;
     
-    UINavigationController *firstNavigationController = [[GLNavigationController alloc]
+    UINavigationController *homeNavigationController = [[GLNavigationController alloc]
                                                    initWithRootViewController:pageViewController];
 //    [firstNavigationController.navigationBar addSubview:pageViewController.pageControlView];
 //    pageViewController.pageControlView.frame=firstNavigationController.navigationBar.frame;
     
-    GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
-    UINavigationController *secondNavigationController = [[GLNavigationController alloc]
-                                                    initWithRootViewController:secondViewController];
+    GLMessageViewController *messageViewController = [[GLMessageViewController alloc] init];
+    UINavigationController *messageNavigationController = [[GLNavigationController alloc]
+                                                    initWithRootViewController:messageViewController];
     
-    GLDiscoveryViewController *thirdViewController = [[GLDiscoveryViewController alloc] init];
-    UINavigationController *thirdNavigationController = [[GLNavigationController alloc]
-                                                   initWithRootViewController:thirdViewController];
+    GLDiscoveryViewController *discoveryViewController = [[GLDiscoveryViewController alloc] init];
+    UINavigationController *discoveryNavigationController = [[GLNavigationController alloc]
+                                                   initWithRootViewController:discoveryViewController];
     
-    GLPersonViewController *fourthViewController = [[GLPersonViewController alloc] init];
-    UINavigationController *fourthNavigationController = [[GLNavigationController alloc]
-                                                    initWithRootViewController:fourthViewController];
+    GLPersonViewController *personViewController = [[GLPersonViewController alloc] init];
+    GLNavigationController *personNavigationController = [[GLNavigationController alloc]
+                                                    initWithRootViewController:personViewController];
+    personNavigationController.popStyle = ScreenShotPopStyle;
     
-    NSArray* array=@[firstNavigationController,secondNavigationController,thirdNavigationController, fourthNavigationController];
+    NSArray* array=@[homeNavigationController,messageNavigationController,discoveryNavigationController, personNavigationController];
     return array;
     
 }

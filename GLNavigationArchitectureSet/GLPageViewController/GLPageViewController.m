@@ -175,7 +175,11 @@
     int page = (int)(scrollView.contentOffset.x/self.view.width);
     
     
-    [self.pageControlView moveToCenterWithIndex:page];    
+    [self.pageControlView moveToCenterWithIndex:page];
+    
+    if([self.delegate respondsToSelector:@selector(didSelectViewControllerWithIndex:)]){
+        [self.delegate didSelectViewControllerWithIndex:page];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -199,6 +203,10 @@
     self.selectedIndex = index;
     
     [self needAddViewController];
+    
+    if([self.delegate respondsToSelector:@selector(didSelectViewControllerWithIndex:)]){
+        [self.delegate didSelectViewControllerWithIndex:index];
+    }
 }
 
 #pragma mark Lazy load

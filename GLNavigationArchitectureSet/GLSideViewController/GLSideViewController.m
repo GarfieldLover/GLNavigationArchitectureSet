@@ -361,14 +361,11 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
+//    if (!self.interactivePopGestureRecognizerEnabled){
+//        return NO;
+//    }
     
-//    if (self.interactivePopGestureRecognizerEnabled && [self.contentViewController isKindOfClass:[UINavigationController class]]) {
-//        UINavigationController *navigationController = (UINavigationController *)self.contentViewController;
-//        if (navigationController.viewControllers.count > 1 && navigationController.interactivePopGestureRecognizer.enabled) {
-    
-            
-            
-            if([self.contentViewController isKindOfClass:[UITabBarController class]]){
+    if([self.contentViewController isKindOfClass:[UITabBarController class]]){
         UITabBarController* tabBarController= (UITabBarController*)self.contentViewController;
         if([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]){
             UINavigationController* nav = tabBarController.selectedViewController;

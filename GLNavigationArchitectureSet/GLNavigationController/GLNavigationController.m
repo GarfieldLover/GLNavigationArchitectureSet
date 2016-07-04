@@ -41,7 +41,7 @@ static CGFloat animateDuration = 0.25f;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.popStyle = ScreenShotPopStyle;
+        self.popStyle = SystemPopStyle;
         
         self.canDragBack = YES;
         
