@@ -23,6 +23,11 @@
 
 @property (strong, readwrite, nonatomic) UIImage *backgroundImage;
 
+@property (nonatomic, assign)  BOOL fadeSideView;
+@property (nonatomic, assign)  BOOL scaleContentView;
+@property (nonatomic, assign)  BOOL scaleBackgroundImageView;
+@property (nonatomic, assign)  BOOL scaleSideView;
+
 
 - (id)initWithContentViewController:(UIViewController *)contentViewController
              leftSideViewController:(UIViewController *)leftSideViewController

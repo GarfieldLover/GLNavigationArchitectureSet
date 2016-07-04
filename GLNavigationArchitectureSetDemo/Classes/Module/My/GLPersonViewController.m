@@ -121,7 +121,7 @@
         self.scaleImageView.frame=rect;
     }
     
-#if 1
+#if 0
     UIColor * color = [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1];
     if (offsetY > -64.0f*2) {
         CGFloat alpha = MIN(1, (64*2+ offsetY) / 64);

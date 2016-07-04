@@ -23,10 +23,7 @@
 
 @property (nonatomic, assign) NSUInteger panMinimumOpenThreshold;
 @property (nonatomic, assign)  BOOL interactivePopGestureRecognizerEnabled;
-@property (nonatomic, assign)  BOOL fadeSideView;
-@property (nonatomic, assign)  BOOL scaleContentView;
-@property (nonatomic, assign)  BOOL scaleBackgroundImageView;
-@property (nonatomic, assign)  BOOL scaleSideView;
+
 @property (nonatomic, assign)  BOOL contentViewShadowEnabled;
 @property (nonatomic, strong)  UIColor *contentViewShadowColor;
 @property (nonatomic, assign)  CGSize contentViewShadowOffset;
@@ -364,17 +361,24 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if([self.contentViewController isKindOfClass:[UITabBarController class]]){
+    
+//    if (self.interactivePopGestureRecognizerEnabled && [self.contentViewController isKindOfClass:[UINavigationController class]]) {
+//        UINavigationController *navigationController = (UINavigationController *)self.contentViewController;
+//        if (navigationController.viewControllers.count > 1 && navigationController.interactivePopGestureRecognizer.enabled) {
+    
+            
+            
+            if([self.contentViewController isKindOfClass:[UITabBarController class]]){
         UITabBarController* tabBarController= (UITabBarController*)self.contentViewController;
         if([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]){
             UINavigationController* nav = tabBarController.selectedViewController;
-            if(nav.viewControllers.count>1){
+            if(nav.viewControllers.count>1 && !nav.interactivePopGestureRecognizer.enabled){
                 return NO;
             }
         }
     }else if ([self.contentViewController isKindOfClass:[UINavigationController class]]){
         UINavigationController* nav = (UINavigationController*)self.contentViewController;
-        if(nav.viewControllers.count>1){
+        if(nav.viewControllers.count>1 && !nav.interactivePopGestureRecognizer.enabled){
             return NO;
         }
     }

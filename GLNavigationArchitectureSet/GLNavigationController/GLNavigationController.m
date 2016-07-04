@@ -7,8 +7,8 @@
 //
 
 #import "GLNavigationController.h"
+#import "GLSideViewController.h"
 
-#define TOP_VIEW  [UIApplication sharedApplication].delegate.window.rootViewController.view
 #define ViewWith  [UIApplication sharedApplication].delegate.window.bounds.size.width
 
 static CGFloat animateDuration = 0.25f;
@@ -17,6 +17,8 @@ static CGFloat animateDuration = 0.25f;
     CGPoint startTouch;
     UIView *blackMask;
 }
+
+@property (nonatomic,strong) UIView *topView;
 
 @property (nonatomic,strong) UIView *backgroundView;
 
@@ -39,7 +41,7 @@ static CGFloat animateDuration = 0.25f;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.popStyle = SystemPopStyle;
+        self.popStyle = ScreenShotPopStyle;
         
         self.canDragBack = YES;
         
@@ -152,8 +154,8 @@ static CGFloat animateDuration = 0.25f;
 // get the current view screen shot
 - (UIImage *)capture
 {
-    UIGraphicsBeginImageContextWithOptions(TOP_VIEW.bounds.size, TOP_VIEW.opaque, 0.0);
-    [TOP_VIEW.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIGraphicsBeginImageContextWithOptions(self.topView.bounds.size, self.topView.opaque, 0.0);
+    [self.topView.layer renderInContext:UIGraphicsGetCurrentContext()];
     
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -168,9 +170,9 @@ static CGFloat animateDuration = 0.25f;
     x = x>ViewWith ? ViewWith:x;
     x = x<0 ? 0:x;
     
-    CGRect frame = TOP_VIEW.frame;
+    CGRect frame = self.topView.frame;
     frame.origin.x = x;
-    TOP_VIEW.frame = frame;
+    self.topView.frame = frame;
     
     float alpha = 0.4 - (x/(ViewWith/0.4));
     
@@ -260,9 +262,9 @@ static CGFloat animateDuration = 0.25f;
             } completion:^(BOOL finished) {
                 
                 [self popViewControllerAnimated:NO];
-                CGRect frame = TOP_VIEW.frame;
+                CGRect frame = self.topView.frame;
                 frame.origin.x = 0;
-                TOP_VIEW.frame = frame;
+                self.topView.frame = frame;
                 
                 self.backgroundView.hidden = YES;
                 
@@ -290,13 +292,28 @@ static CGFloat animateDuration = 0.25f;
     
 }
 
+-(UIView *)topView
+{
+    if(!_topView){
+        UIViewController* rootViewController =[UIApplication sharedApplication].delegate.window.rootViewController;
+        if([rootViewController isKindOfClass:[UITabBarController class]]){
+            _topView = rootViewController.view;
+        }else if ([rootViewController isKindOfClass:[GLSideViewController class]]){
+            GLSideViewController* sideViewController = (GLSideViewController*)rootViewController;
+            _topView = sideViewController.contentViewController.view;
+        }
+    }
+    return _topView;
+}
+
+
 -(UIView *)backgroundView
 {
     if (!_backgroundView){
-        CGRect frame = TOP_VIEW.frame;
+        CGRect frame = self.topView.frame;
         
         _backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width , frame.size.height)];
-        [TOP_VIEW.superview insertSubview:_backgroundView belowSubview:TOP_VIEW];
+        [self.topView.superview insertSubview:_backgroundView belowSubview:self.topView];
         
         blackMask = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width , frame.size.height)];
         blackMask.backgroundColor = [UIColor blackColor];

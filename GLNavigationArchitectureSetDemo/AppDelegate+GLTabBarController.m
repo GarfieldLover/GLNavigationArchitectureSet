@@ -31,8 +31,13 @@
                                                 initWithContentViewController:[self tabBarController]
                                                 leftSideViewController:leftSideViewController
                                                 rightSideViewController:rightSideViewController];
-    sideViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
+    sideViewController.backgroundImage = [UIImage imageNamed:@"sideBack"];
     //    sideViewController.delegate = self;
+    
+    sideViewController.fadeSideView = NO;
+    sideViewController.scaleContentView = NO;
+    sideViewController.scaleBackgroundImageView = NO;
+    sideViewController.scaleSideView = NO;
     
     
     return sideViewController;
@@ -44,8 +49,8 @@
 
     GLTabBarController* tabBarController=[GLTabBarController tabBarControllerWithViewControllers:[self setupViewControllers] tabBarItemsAttributes:[self customizeTabBarForControll] SpecialButtonWith:specialButton];
     
-//    [tabBarController setTabBarHeight:40];
-//    [tabBarController setShadeItemBackgroundColor:[UIColor grayColor]];
+    [tabBarController setTabBarHeight:40];
+    [tabBarController setShadeItemBackgroundColor:[UIColor grayColor]];
 
     return tabBarController;
 }
@@ -55,15 +60,15 @@
     
     NSArray *titles = @[@"首页",@"电视剧",@"综艺",@"会员",@"电影",@"测试超长长长长长长长长",@"动漫",@"韩日剧",@"自媒体",@"体育",@"娱乐",@"直播"];
     
-    GLPageViewController* pageViewController = [[GLPageViewController alloc] initWithTitles:titles pageControlStyle:GlPageControlMarkChangeStyle needPageControlView:NO];
+    GLPageViewController* pageViewController = [[GLPageViewController alloc] initWithTitles:titles pageControlStyle:GLPageControlFontChangeStyle needPageControlView:YES];
     
     self.pageVCModel= [[GLPageVCModel alloc] init];
     pageViewController.delegate=self.pageVCModel;
     
     UINavigationController *firstNavigationController = [[GLNavigationController alloc]
                                                    initWithRootViewController:pageViewController];
-    [firstNavigationController.navigationBar addSubview:pageViewController.pageControlView];
-    pageViewController.pageControlView.frame=firstNavigationController.navigationBar.frame;
+//    [firstNavigationController.navigationBar addSubview:pageViewController.pageControlView];
+//    pageViewController.pageControlView.frame=firstNavigationController.navigationBar.frame;
     
     GLMessageViewController *secondViewController = [[GLMessageViewController alloc] init];
     UINavigationController *secondNavigationController = [[GLNavigationController alloc]
