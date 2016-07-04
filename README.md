@@ -225,4 +225,29 @@ UIViewController+GLSide类别也提供了调出方法，一般用于barbuttonite
 - (void)presentRightSideViewController;
 ```
 
- 
+## 如何安装（还没做😄）
+使用CocoaPods导入GLNavigationArchitectureSet。
+如果没有安装 CocoaPods, 运行以下命令进行安装:
+
+```
+gem install cocoapods
+```
+在 Podfile 中进行如下导入：
+
+```
+platform :ios, '7.0'
+
+target 'TargetName' do
+pod 'GLNavigationArchitectureSet', '~> 0.7'
+end
+```
+然后用如下方式更新：
+
+```
+pod update
+```
+
+## 问题反馈
+改类库现在完成度70%左右，还有很多地方需要优化，如在试用过程中有问题，请联系我 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&maxAge=2592000?style=plastic)](https://twitter.com/GarfieldLover5)，或者提交Issues。
+
+## 喜欢就Star下吧😄
