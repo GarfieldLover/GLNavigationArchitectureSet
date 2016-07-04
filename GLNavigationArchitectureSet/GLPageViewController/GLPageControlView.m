@@ -146,7 +146,7 @@
     
     int page  = (int)(Pagerate +0.5);
     CGFloat rate = Pagerate - index;
-    int count = (int)self.btnCount;
+    int count = (int)self.btnCount+1;
     
     if (Pagerate < 0) return;
     if (index == count-1 || index >= count -1) return;

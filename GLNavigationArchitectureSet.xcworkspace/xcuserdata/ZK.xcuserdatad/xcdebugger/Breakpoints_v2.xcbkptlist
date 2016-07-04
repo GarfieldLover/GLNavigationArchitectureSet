@@ -129,38 +129,22 @@
             endingLineNumber = "151"
             landmarkName = "-click:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MenuView click:]"
-                  moduleName = "GLNavigationArchitectureSet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ZK/SOHU/DEV/GLNavigationArchitectureSet/GLNavigationArchitectureSet/GLPage/Page/MenuView.m"
-                  timestampString = "489058359.118743"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174"
-                  offsetFromSymbolStart = "604">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__18-[MenuView click:]_block_invoke"
-                  moduleName = "GLNavigationArchitectureSet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ZK/SOHU/DEV/GLNavigationArchitectureSet/GLNavigationArchitectureSet/GLPage/Page/MenuView.m"
-                  timestampString = "489058359.118906"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLNavigationArchitectureSet/GLPageViewController/GLPageControlView.m"
+            timestampString = "489295894.562524"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "-selectWithIndex:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

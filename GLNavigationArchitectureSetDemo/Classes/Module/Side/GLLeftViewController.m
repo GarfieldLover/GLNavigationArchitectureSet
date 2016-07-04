@@ -106,7 +106,7 @@
     }
     
     NSArray *titles = @[@"首页", @"日历", @"个人", @"设置", @"退出"];
-    NSArray *images = @[@"IconHome", @"IconCalendar", @"IconProfile", @"IconSettings", @"IconSettings"];
+    NSArray *images = @[@"tabbar_discover_selected", @"tabbar_home_selected", @"tabbar_message_center_selected", @"tabbar_profile_selected", @"tabbar_profile_selected"];
     cell.textLabel.text = titles[indexPath.row];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     

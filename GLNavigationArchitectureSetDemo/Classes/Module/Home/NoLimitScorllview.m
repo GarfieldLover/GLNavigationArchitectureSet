@@ -45,7 +45,7 @@
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
        
         self.width = width;
-        self.height = 200;
+        self.height = 220;
         self.images = images;
         self.titals = titals;
         self.numberOfImages = (int)images.count;
