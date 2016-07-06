@@ -132,19 +132,13 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GLNavigationArchitectureSet/GLPageViewController/GLPageControlView.m"
-            timestampString = "489295894.562524"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "-selectWithIndex:"
-            landmarkType = "5">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -153,13 +147,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GLNavigationArchitectureSet/GLNavigationController/GLNavigationController.m"
-            timestampString = "489303422.632541"
+            filePath = "GLNavigationArchitectureSet/GLSideViewController/GLSideViewController.m"
+            timestampString = "489488472.840711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "-gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
+            landmarkName = "-panGestureRecognized:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

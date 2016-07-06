@@ -36,7 +36,7 @@ extern NSString * _Nonnull const GLTabBarItemSelectedTitleTextAttributes;
 
 - (void)setShadeItemBackgroundColor:(UIColor * _Nonnull)coloer;
 
-
+//加action跳转接口
 
 
 @end

@@ -53,7 +53,7 @@
 -(UIViewController *)specialViewController
 {
 
-    return nil;
+    return self.vc;
     
 }
 

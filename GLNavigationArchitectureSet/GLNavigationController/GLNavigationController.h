@@ -20,6 +20,12 @@ typedef NS_ENUM(NSUInteger, PopStyle) {
      *  截屏方法
      */
     ScreenShotPopStyle
+    
+//    /**
+//     *  左滑呼出next vc
+//     */
+//    ScreenShotPopStyle
+
 };
 
 @interface GLNavigationController : UINavigationController

@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIView *contentViewContainer;
 @property (nonatomic, assign) BOOL didNotifyDelegate;
 
-@property (nonatomic, assign) NSUInteger panMinimumOpenThreshold;
+@property (nonatomic, assign) CGFloat panMinimumOpen;
 @property (nonatomic, assign)  BOOL interactivePopGestureRecognizerEnabled;
 
 @property (nonatomic, assign)  BOOL contentViewShadowEnabled;
@@ -64,7 +64,7 @@
     _scaleSideView = YES;
     _fadeSideView = YES;
     
-    _panMinimumOpenThreshold = 60.0;
+    _panMinimumOpen = 60.0;
     
     _contentViewShadowEnabled = YES;
     _contentViewShadowColor = [UIColor blackColor];
@@ -250,7 +250,6 @@
             self.contentViewContainer.transform = CGAffineTransformIdentity;
         }
         self.contentViewContainer.center = CGPointMake(-self.contentViewInPortraitOffsetCenterX, self.contentViewContainer.center.y);
-        NSLog(@"-----%f",self.contentViewContainer.center.x);
         
         self.SideViewContainer.alpha = !self.fadeSideView ?: 1.0f;
         self.SideViewContainer.transform = CGAffineTransformIdentity;
@@ -392,9 +391,11 @@
         
         self.originalPoint = CGPointMake(self.contentViewContainer.center.x - CGRectGetWidth(self.contentViewContainer.bounds) / 2.0,
                                          self.contentViewContainer.center.y - CGRectGetHeight(self.contentViewContainer.bounds) / 2.0);
-        
-        self.SideViewContainer.transform = CGAffineTransformIdentity;
-        self.SideViewContainer.frame = self.view.bounds;
+        //重置transform
+        if (self.scaleSideView) {
+            self.SideViewContainer.transform = CGAffineTransformIdentity;
+            self.SideViewContainer.frame = self.view.bounds;
+        }
 
         if (self.scaleBackgroundImageView) {
             self.backgroundImageView.transform = CGAffineTransformIdentity;
@@ -408,25 +409,22 @@
         
     }else if (recognizer.state == UIGestureRecognizerStateChanged) {
         
-        CGFloat delta = 0;
+        //算当前滑动位移比例
+        CGFloat rate = 0;
         if (self.visible) {
-            delta = self.originalPoint.x != 0 ? (point.x + self.originalPoint.x) / self.originalPoint.x : 0;
+            rate = self.originalPoint.x != 0 ? (point.x + self.originalPoint.x) / self.originalPoint.x : 0;
         } else {
-            delta = point.x / self.view.frame.size.width;
+            rate = point.x / self.view.frame.size.width;
         }
-        delta = MIN(fabs(delta), 1.6);
+        rate = fabs(rate);
         
         
-        CGFloat contentViewScale = self.scaleContentView ? 1 - ((1 - self.contentViewScaleValue) * delta) : 1;
-        CGFloat backgroundViewScale = 1.7f - (0.7f * delta);
-        CGFloat SideViewScale = 1.5f - (0.5f * delta);
+        //各个比例
+        CGFloat contentViewScale = self.scaleContentView ? 1 - 0.3f * rate : 1;
+        CGFloat backgroundViewScale = self.scaleBackgroundImageView ? 1.7 -  0.7f * rate : 1;
+        CGFloat SideViewScale = self.scaleSideView ? 1.5 -  0.5f * rate : 1;
         
-        contentViewScale = MAX(contentViewScale, self.contentViewScaleValue);
-        backgroundViewScale = MAX(backgroundViewScale, 1.0);
-        SideViewScale = MAX(SideViewScale, 1.0);
-        
-        self.SideViewContainer.alpha = !self.fadeSideView ?: delta;
-        
+        //backgroundImageView变换
         if (self.scaleBackgroundImageView) {
             if (backgroundViewScale < 1) {
                 self.backgroundImageView.transform = CGAffineTransformIdentity;
@@ -435,36 +433,33 @@
             }
         }
         
+        //SideView变换
         if (self.scaleSideView) {
-            self.SideViewContainer.transform = CGAffineTransformMakeScale(SideViewScale, SideViewScale);
+            if (SideViewScale < 1) {
+                self.SideViewContainer.transform = CGAffineTransformIdentity;
+            }else{
+                self.SideViewContainer.transform = CGAffineTransformMakeScale(SideViewScale, SideViewScale);
+            }
         }
+        self.SideViewContainer.alpha = !self.fadeSideView ?: rate;
         
-        if (contentViewScale > 1) {
-            CGFloat oppositeScale = (1 - (contentViewScale - 1));
-            self.contentViewContainer.transform = CGAffineTransformMakeScale(oppositeScale, oppositeScale);
-            self.contentViewContainer.transform = CGAffineTransformTranslate(self.contentViewContainer.transform, point.x, 0);
-        } else if(contentViewScale > self.contentViewScaleValue){
+        //contentView变换
+        if (self.scaleContentView) {
             self.contentViewContainer.transform = CGAffineTransformMakeScale(contentViewScale, contentViewScale);
             self.contentViewContainer.transform = CGAffineTransformTranslate(self.contentViewContainer.transform, point.x, 0);
         }
-        
+
+        //完成后visible
         if (self.visible) {
-            if (self.contentViewContainer.frame.origin.x > self.contentViewContainer.frame.size.width / 2.0)
+            if (self.contentViewContainer.frame.origin.x > self.contentViewContainer.frame.size.width / 2.0){
                 point.x = MIN(0.0, point.x);
-            
-            if (self.contentViewContainer.frame.origin.x < -(self.contentViewContainer.frame.size.width / 2.0))
+            }else if (self.contentViewContainer.frame.origin.x < -(self.contentViewContainer.frame.size.width / 2.0)){
                 point.x = MAX(0.0, point.x);
+
+            }
         }
         
-        // Limit size
-        //
-        if (point.x < 0) {
-            point.x = MAX(point.x, -[UIScreen mainScreen].bounds.size.height);
-        } else {
-            point.x = MIN(point.x, [UIScreen mainScreen].bounds.size.height);
-        }
-        [recognizer setTranslation:point inView:self.view];
-        
+        //will通知
         if (!self.didNotifyDelegate) {
             if (point.x > 0) {
                 if (!self.visible && [self.delegate respondsToSelector:@selector(sideMenu:willShowSideViewController:)]) {
@@ -479,6 +474,7 @@
             self.didNotifyDelegate = YES;
         }
         
+        //左右侧hidden
         self.leftSideViewController.view.hidden = self.contentViewContainer.frame.origin.x < 0;
         self.rightSideViewController.view.hidden = self.contentViewContainer.frame.origin.x > 0;
         
@@ -497,15 +493,15 @@
     }else if (recognizer.state == UIGestureRecognizerStateEnded) {
         
         self.didNotifyDelegate = NO;
-        if (self.panMinimumOpenThreshold > 0 && ((self.contentViewContainer.frame.origin.x < 0 && self.contentViewContainer.frame.origin.x > -((NSInteger)self.panMinimumOpenThreshold)) ||
-            (self.contentViewContainer.frame.origin.x > 0 && self.contentViewContainer.frame.origin.x < self.panMinimumOpenThreshold))
+        
+        //滑动量小于阀值
+        if ((self.contentViewContainer.frame.origin.x < 0 && self.contentViewContainer.frame.origin.x > -self.panMinimumOpen) ||
+            (self.contentViewContainer.frame.origin.x > 0 && self.contentViewContainer.frame.origin.x < self.panMinimumOpen)
             ){
             [self hideSideViewController];
             
-        } else if (self.contentViewContainer.frame.origin.x == 0) {
-            [self hideSideViewControllerAnimated:NO];
-            
         }else {
+            //👉滑
             if ([recognizer velocityInView:self.view].x > 0) {
                 if (self.contentViewContainer.frame.origin.x < 0) {
                     [self hideSideViewController];
@@ -515,7 +511,8 @@
                     }
                 }
             } else {
-                if (self.contentViewContainer.frame.origin.x < 80) {
+                //👈滑
+                if (self.contentViewContainer.frame.origin.x < -self.panMinimumOpen) {
                     if (self.rightSideViewController) {
                         [self showRightSideViewController];
                     }
