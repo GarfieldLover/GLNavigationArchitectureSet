@@ -81,7 +81,6 @@
     GLPersonViewController *personViewController = [[GLPersonViewController alloc] init];
     GLNavigationController *personNavigationController = [[GLNavigationController alloc]
                                                     initWithRootViewController:personViewController];
-    personNavigationController.popStyle = ScreenShotPopStyle;
     
     NSArray* array=@[homeNavigationController,messageNavigationController,discoveryNavigationController, personNavigationController];
     return array;

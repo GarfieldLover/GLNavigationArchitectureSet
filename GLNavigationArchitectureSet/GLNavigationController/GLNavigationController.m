@@ -41,9 +41,9 @@ static CGFloat animateDuration = 0.25f;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.popStyle = SystemPopStyle;
+        self.popStyle = ScreenShotPopStyle;
         
-        self.canDragBack = YES;
+        self.dragType=Right;
         
         self.screenShotsDic=[NSMutableDictionary dictionary];
     }
@@ -58,10 +58,11 @@ static CGFloat animateDuration = 0.25f;
 
     if(self.popStyle==ScreenShotPopStyle){
 
-        self.view.layer.shadowColor = [[UIColor blackColor]CGColor];
-        self.view.layer.shadowOffset = CGSizeMake(5, 5);
-        self.view.layer.shadowRadius = 5;
-        self.view.layer.shadowOpacity = 1;
+        //设置一个阴影图片
+//        self.view.layer.shadowColor = [[UIColor blackColor]CGColor];
+//        self.view.layer.shadowOffset = CGSizeMake(5, 5);
+//        self.view.layer.shadowRadius = 5;
+//        self.view.layer.shadowOpacity = 1;
         
         
         UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
@@ -117,14 +118,8 @@ static CGFloat animateDuration = 0.25f;
         }
         
     }else{
-        UIImage *capturedImage = [self.screenShotsDic objectForKey:self.topViewController.description];
-        if(!capturedImage){
-            capturedImage = [self capture];
-            
-            if (capturedImage && self.topViewController.description) {
-                [self.screenShotsDic setObject:capturedImage forKey:self.topViewController.description];
-            }
-        }
+        [self capture];
+
     }
     
     if (![self.viewControllers containsObject:viewController]) {
@@ -135,12 +130,7 @@ static CGFloat animateDuration = 0.25f;
 // override the pop method
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
-    if(self.popStyle == ScreenShotPopStyle){
-        UIViewController* screenShotViewController=[self.viewControllers objectAtIndex:self.viewControllers.count-2];
-        if(screenShotViewController && [self.screenShotsDic objectForKey:screenShotViewController.description]){
-            [self.screenShotsDic removeObjectForKey:screenShotViewController.description];
-        }
-    }
+    [self removeCapture];
     
     return [super popViewControllerAnimated:animated];
 }
@@ -151,49 +141,88 @@ static CGFloat animateDuration = 0.25f;
 
 #pragma mark - Utility Methods
 
-// get the current view screen shot
-- (UIImage *)capture
+- (void)capture
 {
-    UIGraphicsBeginImageContextWithOptions(self.topView.bounds.size, self.topView.opaque, 0.0);
-    [self.topView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *capturedImage = [self.screenShotsDic objectForKey:self.topViewController.description];
+    if(!capturedImage){
+        
+        UIGraphicsBeginImageContextWithOptions(self.topView.bounds.size, self.topView.opaque, 0.0);
+        [self.topView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        
+        capturedImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+        
+        if (capturedImage && self.topViewController.description) {
+            [self.screenShotsDic setObject:capturedImage forKey:self.topViewController.description];
+        }
+    }
+}
+
+-(void)removeCapture
+{
+    UIViewController* screenShotViewController=[self.viewControllers objectAtIndex:self.viewControllers.count-2];
+    if(screenShotViewController && [self.screenShotsDic objectForKey:screenShotViewController.description]){
+        [self.screenShotsDic removeObjectForKey:screenShotViewController.description];
+    }
     
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return img;
 }
 
 // set lastScreenShotView 's position and alpha when paning
 - (void)moveViewWithX:(float)x
 {
-    x = x>ViewWith ? ViewWith:x;
-    x = x<0 ? 0:x;
-    
-    CGRect frame = self.topView.frame;
-    frame.origin.x = x;
-    self.topView.frame = frame;
-    
-    float alpha = 0.4 - (x/(ViewWith/0.4));
-    
-    blackMask.alpha = alpha;
-    
-    CGRect rect=self.lastScreenShotView.frame;
-    rect.origin.x= (-self.backgroundView.frame.size.width/3) *((ViewWith-x)/ViewWith);
-    self.lastScreenShotView.frame=rect;
+    if(self.dragType==Right){
+        x = x>ViewWith ? ViewWith:x;
+        x = x<0 ? 0:x;
+        
+        CGRect frame = self.topView.frame;
+        frame.origin.x = x;
+        self.topView.frame = frame;
+        
+        float alpha = (1- fabs(x)/ViewWith)*0.4;
+        
+        blackMask.alpha = alpha;
+        
+        CGRect rect=self.lastScreenShotView.frame;
+        rect.origin.x= - (ViewWith/3.0) * ((ViewWith-x)/ViewWith);
+        self.lastScreenShotView.frame=rect;
+        
+    }else if (self.dragType==Left){
+        
+        x = x>0 ? 0:x;
+        x = x<-ViewWith ? -ViewWith:x;
+        
+        CGRect frame = self.topView.frame;
+        frame.origin.x = ViewWith+x;
+        self.topView.frame = frame;
+        
+        float alpha = (fabs(x)/ViewWith) * 0.4;
+        
+        blackMask.alpha = alpha;
+        
+        CGRect rect=self.lastScreenShotView.frame;
+        rect.origin.x= - (ViewWith/3.0) * (fabs(x) / ViewWith);
+        self.lastScreenShotView.frame=rect;
+        
+    }
+}
+
+-(void)cancelGestureRecognizerMove
+{
+    self.screenShotPopStyleGestureRecognizer.enabled = NO;
+    self.screenShotPopStyleGestureRecognizer.enabled = YES;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if (self.viewControllers.count <= 1)
-        return NO;
-    
-    if (!self.canDragBack) {
+    if(self.dragType == forbid){
         return NO;
     }
-    
-    if ([[self valueForKey:@"_isTransitioning"] boolValue]) {
+    if (self.viewControllers.count <= 1 && self.dragType == Right){
+        return NO;
+    }
+    if(self.dragType == Left && ![self.pushViewControllerdelegate respondsToSelector:@selector(pushNextViewController)]){
         return NO;
     }
     
@@ -233,63 +262,140 @@ static CGFloat animateDuration = 0.25f;
 
 - (void)paningGestureReceive:(UIPanGestureRecognizer *)recoginzer
 {
-    // If the viewControllers has only one vc or disable the interaction, then return.
-    if (self.viewControllers.count <= 1 || !self.canDragBack) return;
-    
     // we get the touch position by the window's coordinate
     CGPoint touchPoint = [recoginzer locationInView:[UIApplication sharedApplication].delegate.window];
     
-    // begin paning, show the backgroundView(last screenshot),if not exist, create it.
-    if (recoginzer.state == UIGestureRecognizerStateBegan) {
+    if(self.dragType==Right){
         
-        startTouch = touchPoint;
-
-        self.backgroundView.hidden = NO;
-        
-        if (self.lastScreenShotView){
-            [self.lastScreenShotView removeFromSuperview];
-            self.lastScreenShotView=nil;
-        }
-        
-        [self.backgroundView insertSubview:self.lastScreenShotView belowSubview:blackMask];
-        
-        //End paning, always check that if it should move right or move left automatically
-    }else if (recoginzer.state == UIGestureRecognizerStateEnded){
-        
-        if (touchPoint.x - startTouch.x > ViewWith*0.2){
-            [UIView animateWithDuration:animateDuration animations:^{
-                [self moveViewWithX:ViewWith];
-            } completion:^(BOOL finished) {
-                
-                [self popViewControllerAnimated:NO];
-                CGRect frame = self.topView.frame;
-                frame.origin.x = 0;
-                self.topView.frame = frame;
-                
-                self.backgroundView.hidden = YES;
-                
-            }];
-        }else{
-            [UIView animateWithDuration:animateDuration animations:^{
-                [self moveViewWithX:0];
-            } completion:^(BOOL finished) {
-                self.backgroundView.hidden = YES;
-            }];
-        }
-        
-        // cancal panning, alway move to left side automatically
-    }else if (recoginzer.state == UIGestureRecognizerStateCancelled){
-        
-        [UIView animateWithDuration:animateDuration animations:^{
-            [self moveViewWithX:0];
-        } completion:^(BOOL finished) {
+        // begin paning, show the backgroundView(last screenshot),if not exist, create it.
+        if (recoginzer.state == UIGestureRecognizerStateBegan) {
+            
+            startTouch = touchPoint;
+            
+            self.backgroundView.hidden = NO;
+            
+            if (self.lastScreenShotView){
+                [self.lastScreenShotView removeFromSuperview];
+                self.lastScreenShotView=nil;
+            }
+            
+            [self.backgroundView insertSubview:self.lastScreenShotView belowSubview:blackMask];
+            
+            //End paning, always check that if it should move right or move left automatically
+        }else if (recoginzer.state == UIGestureRecognizerStateEnded){
+            
+            if (touchPoint.x - startTouch.x > ViewWith*0.2){
+                [UIView animateWithDuration:animateDuration animations:^{
+                    [self moveViewWithX:ViewWith];
+                } completion:^(BOOL finished) {
+                    
+                    [self popViewControllerAnimated:NO];
+                    CGRect frame = self.topView.frame;
+                    frame.origin.x = 0;
+                    self.topView.frame = frame;
+                    
+                    self.backgroundView.hidden = YES;
+                    
+                }];
+            }else{
+                [UIView animateWithDuration:animateDuration animations:^{
+                    [self moveViewWithX:0];
+                } completion:^(BOOL finished) {
+                    self.backgroundView.hidden = YES;
+                }];
+            }
+            
+            // cancal panning, alway move to left side automatically
+        }else if (recoginzer.state == UIGestureRecognizerStateCancelled){
+            
+            CGRect frame = self.topView.frame;
+            frame.origin.x = 0;
+            self.topView.frame = frame;
+            
             self.backgroundView.hidden = YES;
-        }];
+            
+        }else if (recoginzer.state == UIGestureRecognizerStateChanged){
+            [self moveViewWithX:touchPoint.x - startTouch.x];
+        }
+
+    }else{
         
-    }else if (recoginzer.state == UIGestureRecognizerStateChanged){
-        [self moveViewWithX:touchPoint.x - startTouch.x];
+        if (recoginzer.state == UIGestureRecognizerStateBegan) {
+            
+            [self capture];
+
+            startTouch = touchPoint;
+            
+            if (self.lastScreenShotView){
+                [self.lastScreenShotView removeFromSuperview];
+                self.lastScreenShotView=nil;
+            }
+            
+            self.backgroundView.hidden = NO;
+            [self.backgroundView insertSubview:self.lastScreenShotView belowSubview:blackMask];
+            
+            CGRect frame = self.topView.frame;
+            frame.origin.x = ViewWith;
+            self.topView.frame = frame;
+            
+            self.viewInRightMax=YES;
+            
+            [self.pushViewControllerdelegate pushNextViewController];
+
+            //End paning, always check that if it should move right or move left automatically
+        }else if (recoginzer.state == UIGestureRecognizerStateEnded){
+
+            if (touchPoint.x - startTouch.x < -ViewWith*0.2){
+                [UIView animateWithDuration:animateDuration animations:^{
+                    [self moveViewWithX:-ViewWith];
+                } completion:^(BOOL finished) {
+                    
+                    self.backgroundView.hidden = YES;
+                    
+                    CGRect frame = self.topView.frame;
+                    frame.origin.x = 0;
+                    self.topView.frame = frame;
+                    
+                    self.viewInRightMax=NO;
+                    
+                    self.dragType=Right;
+                    self.pushViewControllerdelegate=nil;
+                    
+                }];
+            }else{
+                [UIView animateWithDuration:animateDuration animations:^{
+                    [self moveViewWithX:ViewWith];
+                } completion:^(BOOL finished) {
+                    [self popViewControllerAnimated:NO];
+                    
+                    CGRect frame = self.topView.frame;
+                    frame.origin.x = 0;
+                    self.topView.frame = frame;
+                    
+                    self.viewInRightMax=NO;
+                    
+                    self.backgroundView.hidden = YES;
+                }];
+            }
+            
+            // cancal panning, alway move to left side automatically
+        }else if (recoginzer.state == UIGestureRecognizerStateCancelled){
+            
+            [self popViewControllerAnimated:NO];
+            
+            CGRect frame = self.topView.frame;
+            frame.origin.x = 0;
+            self.topView.frame = frame;
+            
+            self.viewInRightMax=NO;
+            
+            self.backgroundView.hidden = YES;
+            
+        }else if (recoginzer.state == UIGestureRecognizerStateChanged){
+            [self moveViewWithX:touchPoint.x - startTouch.x];
+        }
+
     }
-    
 }
 
 -(UIView *)topView
@@ -326,14 +432,20 @@ static CGFloat animateDuration = 0.25f;
 {
     if (!_lastScreenShotView){
         UIImage *lastScreenShot = nil;
-        UIViewController* screenShotViewController=[self.viewControllers objectAtIndex:self.viewControllers.count-2];
+        NSUInteger index=0;
+        if(self.viewControllers.count>2){
+            index=self.viewControllers.count-2;
+        }
+        UIViewController* screenShotViewController=[self.viewControllers objectAtIndex:index];
         if(screenShotViewController){
             lastScreenShot =  [self.screenShotsDic objectForKey:screenShotViewController.description];
         }
         
         _lastScreenShotView = [[UIImageView alloc]initWithImage:lastScreenShot];
         CGRect rect=_lastScreenShotView.frame;
-        rect.origin.x=-self.backgroundView.frame.size.width/3;
+        if(self.dragType==Right){
+            rect.origin.x=-self.backgroundView.frame.size.width/3;
+        }
         _lastScreenShotView.frame=rect;
     }
     return _lastScreenShotView;

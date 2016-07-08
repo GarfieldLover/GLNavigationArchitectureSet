@@ -9,9 +9,9 @@
 #import "GLPersonViewController.h"
 #import "UINavigationBar+GLTransform.h"
 #import "GLMoreViewController.h"
+#import "GLNavigationController.h"
 
-
-@interface GLPersonViewController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface GLPersonViewController ()<UITableViewDelegate,UITableViewDataSource,GLNavigationControllerDelegate>{
     CGFloat scaleImageHeight;
 }
 
@@ -93,6 +93,10 @@
 {
     [super viewDidAppear:animated];
     [self scrollViewDidScroll:self.tableView];
+    
+        GLNavigationController* nav = (GLNavigationController*)self.navigationController;
+            nav.dragType=Left;
+            nav.pushViewControllerdelegate=self;
 
 }
 
@@ -169,6 +173,11 @@
 }
 
 
+-(void)pushNextViewController
+{
+    GLMoreViewController* more=[[GLMoreViewController alloc] init];
+    [self.navigationController pushViewController:more animated:NO];
+}
 
 
 
